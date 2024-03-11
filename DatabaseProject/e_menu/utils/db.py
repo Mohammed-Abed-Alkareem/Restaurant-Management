@@ -1,1 +1,0 @@
-#this file must contains the function for the database
