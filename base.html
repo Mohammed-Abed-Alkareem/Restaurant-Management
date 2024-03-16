@@ -1,0 +1,150 @@
+<!-- Base Layout: base.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="my_style.css" />
+    <!-- <link rel="stylesheet" href="style.css" /> -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}My Website{% endblock %}</title>
+    <style>
+      .logo {
+        margin-right: 3rem;
+      }
+      .nav__wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+      }
+      .container {
+        width: 1140px;
+        margin: auto;
+        padding: 0px 50px;
+      }
+      .footer {
+        padding-top: 60px;
+        padding-bottom: 30px;
+        background: var(--card-bg);
+      }
+      .footer__wrapper {
+        display: flex;
+        column-gap: 2rem;
+      }
+
+      .footer__logo {
+        width: 40%;
+      }
+
+      .footer__box {
+        width: 15%;
+      }
+
+      .footer__logo p {
+        margin-top: 15px;
+        margin-bottom: 20px;
+      }
+
+      .footer__menu {
+        display: flex;
+        flex-direction: column;
+        row-gap: 1rem;
+      }
+
+      .footer__link {
+        color: var(--small-text-color);
+        font-size: 0.9rem;
+      }
+
+      .footer__copyright {
+        text-align: center;
+        margin-top: 50px;
+      }
+
+      .footer__logo input {
+        padding: 8px;
+        font-size: 0.8rem;
+      }
+      .footer__link-title {
+        font-size: 1.1rem;
+      }
+
+      .footer__copyright {
+        font-size: 0.8rem;
+      }
+      .footer__link-title {
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="container">
+          <div class="nav__wrapper">
+            <div class="logo">
+              <img
+                src="images/our_logo.jpeg"
+                alt="Restaurant Logo"
+                height="100"
+                width="100"
+              />
+            </div>
+            <h1>Restuarant <span class="highlight">Name</span></h1>
+          </div>
+        </div>
+      </nav>
+    </header>
+    {% block content %}
+    <!-- This block will be overridden by child templates -->
+    {% endblock %}
+
+    <!-- =========== footer start ============ -->
+    <footer class="section footer">
+      <div class="container">
+        <div class="footer__wrapper">
+          <div class="footer__logo">
+            <div class="logo">
+              <h1>Pizza<span class="highlight">Day</span></h1>
+            </div>
+          </div>
+
+          <div class="footer__box">
+            <h3 class="footer__link-title">Information</h3>
+            <ul class="footer__menu">
+              <li>
+                <a href="#about" class="footer__link">About Us</a>
+              </li>
+              <li>
+                <a href="#" class="footer__link">Events</a>
+              </li>
+              <li>
+                <a href="#" class="footer__link">Career</a>
+              </li>
+              <li>
+                <a href="#" class="footer__link">Our Chefs</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer__box">
+            <h3 class="footer__link-title">Social</h3>
+            <ul class="footer__menu">
+              <li class="footer__menu-item">
+                <a href="#" class="footer__link">Facebook</a>
+              </li>
+              <li class="footer__menu-item">
+                <a href="#" class="footer__link">Instagram</a>
+              </li>
+              <li class="footer__menu-item">
+                <a href="#" class="footer__link">Linkedin</a>
+              </li>
+              <li class="footer__menu-item">
+                <a href="#" class="footer__link">Twitter</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

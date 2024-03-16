@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700&display=swap");
+:root {
+  --primary-color: #a1ff6b;
+  --secondary-color: #13252f;
+  --heading-color: #fff;
+  --body-bg: #13252f;
+  --small-text-color: #acb2b2;
+  --font-name: "Montserrat", sans-serif;
+  --card-bg: #152833;
+}
+
+/* base style */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--body-bg);
+  font-family: var(--font-name);
+}
+
+a {
+  text-decoration: none;
+  color: unset;
+}
+
+ul {
+  list-style: none;
+}
+
+p {
+  color: var(--small-text-color);
+  font-size: 0.9rem;
+  line-height: 28px;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--heading-color);
+  font-weight: 500;
+}
+
+/* reuseable css */
+
+.highlight {
+  color: var(--primary-color);
+}
+
+section {
+  padding: 60px 0px;
+}
+
+/* ======= header style ========= */
+
+.nav {
+  width: 100%;
+  height: 80px;
+  line-height: 80px;
+  z-index: 9999;
+}
+
+/* footer style */
