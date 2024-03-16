@@ -1,0 +1,44 @@
+<!-- !-- {% extends "base.html" %} {% block title %}Sign In or Sign Up{% endblock %} -->
+<!-- {% block content %} -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <link rel="stylesheet" href="sign/sign_up.css" />
+    <link rel="stylesheet" href="my_style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="auth-options">
+      <h2>Welcome back!</h2>
+      <p>Please enter your name and phone number</p>
+      <form action="/sign-in-process" method="POST">
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Your first and last name"
+          pattern="^[A-Za-z]+\s[A-Za-z]+$"
+          required
+        />
+        <p></p>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          placeholder="Your Phone Number"
+          pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+          required
+        />
+      </form>
+      <div class="buttons">
+        <a href="/sign-in" class="btn sign-in">Sign In</a>
+      </div>
+    </div>
+    <!-- {% endblock %} {% block scripts %} -->
+    <!-- Optional: Include JavaScript here if needed -->
+    <!-- {% endblock %} -->
+  </body>
+</html>

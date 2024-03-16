@@ -1,0 +1,88 @@
+.ratings {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.ratings span i {
+  color: var(--primary-color);
+}
+
+.dish__price {
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.dish__content {
+  width: 75%;
+}
+
+.add__to-cart {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary-color);
+  color: var(--secondary-color);
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.add__to-cart i {
+  font-weight: 600;
+}
+
+.dish__item:hover {
+  transform: translateY(-1rem);
+}
+/* menu style */
+.menu__section-top {
+  margin-bottom: 50px;
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center items horizontally if you want */
+  row-gap: 2rem; /* Space between items vertically */
+}
+
+.menu__section-top h2 {
+  font-size: 2rem;
+}
+/* 
+.menu__wrapper {
+  display: flex;
+  align-items: center;
+  column-gap: 2rem;
+  row-gap: 2rem;
+} */
+.menu__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 2rem;
+}
+
+.menu__item {
+  width: 33%;
+  padding: 20px;
+  background: var(--card-bg);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.menu__img img {
+  width: 100%;
+}
+
+.menu__card-bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.menu__card-bottom .ratings {
+  margin-bottom: 10px;
+}
