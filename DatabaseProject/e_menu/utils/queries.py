@@ -1,1 +1,0 @@
-#this file must have variables for the queres
