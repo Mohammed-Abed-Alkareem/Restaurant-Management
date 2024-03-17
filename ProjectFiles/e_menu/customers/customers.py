@@ -1,6 +1,6 @@
 from . import customers  # Import the blueprint from the package
 from flask import render_template, request, url_for, redirect
-from e_menu.utils.db import get_table_by_id
+# from e_menu.utils.db import get_table_by_id
 
 
 @customers.route('/')
@@ -13,7 +13,7 @@ def get_table_code():
     if request.method == 'POST':
         tbl_code = request.form['tbl_code']
         print(tbl_code)
-        table = get_table_by_id(table_id=tbl_code)
+        table = None#get_table_by_id(table_id=tbl_code)
         if table is None:
             return "not found"
         else:
@@ -46,3 +46,8 @@ def categories(user_name):
 def category_items(user_name, category):
     dishes = ["burger", "chicken", "meat"]
     return render_template("customers/dishes.html", dishes=dishes , user_name=user_name, category=category)
+
+@customers.route('<user_name>/categories/<category>/<dish>')
+def dish_details(user_name, category, dish):
+    dishes = ["burger", "chicken", "meat"]
+    return render_template("customers/Details.html", dishes=dishes , user_name=user_name, category=category, dish = dish)
