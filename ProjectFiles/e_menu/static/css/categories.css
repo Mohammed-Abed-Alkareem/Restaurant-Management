@@ -1,0 +1,68 @@
+/* CSS for Home Page */
+.centered_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.hero__content {
+  text-align: center;
+}
+
+.hero__title {
+  font-size: 2em;
+  margin-bottom: 0.5em;
+}
+
+.highlight {
+  color: #ff6600; /* Change to your desired highlight color */
+}
+
+.menu-container {
+  display: flex;
+  flex-direction: column; /* Change to column */
+  align-items: center; /* Align items to the center */
+}
+
+.menu-item {
+  text-decoration: none;
+  color: #fff; /* Change text color to white */
+  padding: 20px 30px; /* Adjust padding */
+  margin: 10px;
+  border-radius: 8px; /* Adjust border radius */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Add transition effect for background-color and transform */
+  width: 250px; /* Optional: Set a fixed width for consistency */
+  text-align: center; /* Center text */
+  font-size: 1.2em; /* Adjust font size */
+  height: 100px; /* Adjust height */
+  display: flex; /* Added */
+  justify-content: center; /* Added */
+  align-items: center; /* Added */
+  position: relative; /* Added */
+}
+
+.menu-item:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); /* Adjust the alpha value for darkness */
+  border-radius: 8px; /* Same border radius as menu-item */
+}
+
+.menu-item:hover {
+  background-color: rgba(0, 0, 0, 0.3); /* Change to your desired hover background color */
+  transform: scale(1.1); /* Increase size on hover */
+}
+
+.menu-text {
+  font-weight: bold;
+  font-size: 1.5em; /* Adjust font size */
+  color: #fff; /* Change text color to white */
+  position: relative; /* Ensure positioning is relative */
+  z-index: 1; /* Ensure text appears above the dark overlay */
+}

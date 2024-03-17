@@ -1,0 +1,38 @@
+{% extends "./base.html" %}
+
+{% block title %}
+    Home Page
+{% endblock %}
+
+{% block custom_css %}
+    {# Include custom CSS files for the child template #}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/homePage.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/buttons.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="full-screen">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo">
+            <!-- Form for submitting a table code -->
+            <div class="form-overlay">
+                <h2><span class="highlight">Welcome</span></h2>
+                <p>Please enter your phone number</p>
+                  <form action="/log_in" method="POST">
+                      <label for="phone"></label><input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      placeholder="Your Phone Number"
+                      pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                      required
+                    />
+                       <div class="button-container">
+                        <button type="submit">Submit</button>
+                       </div>
+                  </form>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

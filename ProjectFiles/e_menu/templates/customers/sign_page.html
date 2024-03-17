@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Home Page
+{% endblock %}
+
+{% block custom_css %}
+    {# Include custom CSS files for the child template #}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/homePage.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/buttons.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="full-screen">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo">
+
+            <div class="form-overlay">
+                <h2>Welcome to Our <span class="highlight">Restaurant</span> </h2>
+                 <p >Please choose an option below to continue.</p>
+                <div class="button-container">
+                    <a href="{{ url_for('customers.log_in') }}"><button>Log In</button></a>
+                    <a href="{{ url_for('customers.sign_up') }}"><button>Sign Up</button></a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
