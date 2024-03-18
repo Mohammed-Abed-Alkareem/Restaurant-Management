@@ -1,0 +1,90 @@
+/* Default styles */
+body, html {
+    height: 93%;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif; /* Use Arial as the default font */
+}
+
+/* Center body content */
+.full-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-color: #F5F5DC; /* Beige background color */
+}
+
+
+.logo {
+    text-align: center; /* Center the logo horizontally */
+    max-width: 500px; /* Limit the maximum width */
+    height: 100%; /* Ensure the container takes full height */
+    display: flex; /* Use flexbox to center vertically */
+    justify-content: center; /* Center horizontally */
+    align-items: flex-start; /* Align items to the top */
+}
+
+.logo img {
+    max-width: 100%;
+    max-height: 100%;
+    filter: blur(5px); /* Apply blur effect */
+      margin-top: 130px; /* Adjust the top margin as needed */
+}
+
+
+/* Center the form overlay */
+.form-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.6); /* Semi-transparent white background */
+     padding-top: 10px; /* Adjust the top padding as needed */
+    padding-right: 30px; /* Adjust the right padding as needed */
+    padding-bottom: 10px; /* Adjust the bottom padding as needed */
+    padding-left: 30px; /* Adjust the left padding as needed */
+    border-radius: 10px;
+    text-align: center;
+    width: 90%; /* Adjust the width */
+    max-width: 300px; /* Limit the maximum width */
+ margin-top: 50px; /* Adjust the top margin as needed */
+}
+
+/* Styles for form elements */
+.form-overlay form {
+    margin: 0;
+}
+
+.form-overlay label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.form-overlay input {
+    padding: 10px;
+    margin-bottom: 10px;
+    width: calc(100% - 20px); /* Adjust the width */
+    box-sizing: border-box;
+}
+
+/* Center the buttons container */
+.button-container {
+    display: flex;
+    justify-content: center;
+}
+
+/* Styles for h2 within .form-overlay */
+.form-overlay h2 {
+    margin-bottom: 10px; /* Adjust margin as needed */
+    font-size: 2em; /* Adjust font size as needed */
+    color: #333; /* Text color */
+
+}
+
+/* Styles for p within .form-overlay */
+.form-overlay p {
+    margin-bottom: 10px; /* Adjust margin as needed */
+    font-size: 1.5em; /* Adjust font size as needed */
+    color: #555; /* Text color */
+}

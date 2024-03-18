@@ -1,0 +1,33 @@
+{% extends "./base.html" %}
+
+{% block title %}
+    Home Page
+{% endblock %}
+
+{% block custom_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/menuItems.css') }}">
+{% endblock %}
+
+{% block content %}
+    <section class="section" id="menu">
+      <div class="container">
+        <div class="menu__section-top">
+          <h2>{{ category }}</h2>
+        </div>
+        {% for menuItem in menuItems %}
+        <div class="menu__wrapper">
+          <div class="menu__item">
+
+            <div class="menu__img">
+              <img src="{{ url_for('static', filename='img/menuItems/' + menuItem.itemId + '.png') }}" alt="Logo">
+
+            </div>
+
+            <h3>{{ menuItem.item_name }}</h3>
+            <span class="menuItem__price">{{ menuItem.item_price }}$</span>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Home Page
+{% endblock %}
+
+{% block custom_css %}
+    {# Include custom CSS files for the child template #}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/homePage.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/buttons.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="full-screen">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo">
+            <!-- Buttons instead of form -->
+            <div class="form-overlay">
+                <div class="button-container">
+                    <a href="/customer"><button>Customer</button></a>
+                    <a href="/manager"><button>Manager</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
