@@ -31,3 +31,11 @@
             └── read_initial_data.py
 
 ```
+## Description
+
+- `e_menu_app.py`: Main application file, responsible for starting the application.
+- `customers/`: Contains modules and models related to customer functionalities.
+- `managers/`: Contains modules related to manager functionalities.
+- `static/`: Holds static files such as CSS, images, and JavaScript.
+- `templates/`: Stores HTML templates for different views of the application.
+- `utils/`: Contains utility files including database operations and data reading functionalities.
