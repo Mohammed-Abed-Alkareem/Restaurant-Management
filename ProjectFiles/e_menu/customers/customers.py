@@ -1,28 +1,32 @@
 from . import customers  # Import the blueprint from the package
 
-from flask import render_template, request, url_for, redirect
+import json
 from ProjectFiles.e_menu.utils.db import *
 
-=======
 from flask import render_template, request, url_for, redirect, session
-from e_menu.utils.db import *
+
+from .models.tables_model import *
 
 from .models import *
+
 
 
 @customers.route('/', methods=['POST', 'GET'])
 def home_page():
     if request.method == 'POST':
-        tbl_code = request.form['tbl_code']
+        table_code = request.form['tbl_code']
 
-        print(tbl_code)
-        table = get_table_by_id(table_id=tbl_code)
-        print(table)
+        print(table_code)
+        table = Table.get(table_code=table_code)
+
+        print(type(json.dumps(table.__dict__)))
+        print(json.dumps(table.__dict__))
+
         if 'table' in session:
             session.pop('table', None)
 
         if table is not None:
-            session["table"] = table[0] # here it must be the object, [0] is only for now
+            session["table"] = table #json.dumps(table.__dict__) # here it must be the object, [0] is only for now
             session.modified = True
             return redirect(url_for('customers.sign_page'))
 

@@ -82,6 +82,6 @@ class Customer:
             return 0
         finally:
             conn.close()
-=======
-#this is a tet comment to test commit
+
+
 

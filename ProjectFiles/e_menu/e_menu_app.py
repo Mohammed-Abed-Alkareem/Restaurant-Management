@@ -11,6 +11,7 @@ app = Flask(__name__)
 app.register_blueprint(customers)
 app.register_blueprint(managers)
 
+app.secret_key= 'mysecret!!@@'
 
 @app.route("/")
 def home_page():
