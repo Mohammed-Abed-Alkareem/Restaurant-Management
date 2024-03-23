@@ -45,3 +45,7 @@ GET_CATEGORIES_IN_MENU_ITEMS = text("""
                                     GROUP BY item_category;
                                 """)
 
+SELECT_ITEM_BY_ID = text("""
+                                SELECT * FROM menuItems
+                                WHERE itemId = :itemId;
+                            """)

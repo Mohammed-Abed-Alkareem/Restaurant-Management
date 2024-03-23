@@ -1,6 +1,7 @@
 from . import customers  # Import the blueprint from the package
 from flask import render_template, request, url_for, redirect
-from e_menu.utils.db import *
+from ProjectFiles.e_menu.utils.db import *
+
 from .models import *
 
 @customers.route('/')

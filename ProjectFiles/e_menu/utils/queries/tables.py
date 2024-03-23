@@ -27,3 +27,8 @@ SELECT_TABLE_BY_ID = text("""
                                 SELECT * FROM tables 
                                 WHERE tableId = :tableId;
                             """)
+
+DELETE_FROM_TABLES = text("""
+                                DELETE FROM tables 
+                                WHERE tableId = :tableId;
+                        """)
