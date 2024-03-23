@@ -33,7 +33,6 @@ def generate_key(row, char: str) -> str:
     print(string_next_number)
     return string_next_number
 
-
 def get_customers_data():
 
     random.seed(time.time())  # Seed the random number generator with current date and time
@@ -55,3 +54,11 @@ def get_customers_data():
 
     return customers_data
 
+def get_tables_data():
+    df = pd.read_csv('utils\\csvFiles\\tables.csv')
+    tables_data = []
+    for index, row in df.iterrows():
+        data = ({row['tableId']},{row['location']},{row['class']},{row['numOfSeats']})
+        tables_data.append(data)
+
+    return tables_data

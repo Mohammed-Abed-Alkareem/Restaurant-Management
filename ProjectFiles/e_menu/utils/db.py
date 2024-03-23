@@ -8,7 +8,7 @@ from .queries.customers import *
 from .read_initial_data import *
 
 # Encode the password
-encoded_password = urllib.parse.quote_plus('Mohammed@123')
+encoded_password = urllib.parse.quote_plus('mosatukba1')
 # Construct the connection string
 DATABASE = f'mysql+pymysql://root:{encoded_password}@127.0.0.1/e_menu'
 
@@ -32,6 +32,7 @@ def init_db():
     #inset any initial data
     # _________________________
     # insert_menuItems_data()
+    insert_tables()
     insert_customers()
     # _________________________
     conn.commit()
@@ -73,6 +74,22 @@ def get_table_by_id(table_id):
 #     menuItems_data = get_menuItems_data()
 #     for menuItem in menuItems_data:
 #         print(menuItem)
+
+def insert_table(data: list):
+    engine = create_engine(DATABASE, echo=True)
+    conn = engine.connect()
+
+    conn.execute(INSERT_INTO_TABLES, {'tableId': data[0], 'location': data[1], 'class': data[2], 'numOfSeats': data[3]})
+    conn.commit()
+    conn.close()
+
+
+def insert_tables():
+    tables_data = get_tables_data()
+    print(tables_data)
+    for table in tables_data:
+        print(table)
+        insert_table(table)
 
 
 def insert_customers():

@@ -20,9 +20,12 @@ INSERT_CUSTOMERS_TABLE = text("""
                                 VALUES (:customerId, :customer_name, :customer_phoneNumber);
                             """)
 
-##this for key
 GET_CUSTOMERS_TABLE = text("""
                             Select * from customers order by 1 DESC;
 """)
 
 
+SELECT_CUSTOMER_BY_ID = text("""
+                                SELECT * FROM customers
+                                WHERE customerId = :customerId;
+                            """)
