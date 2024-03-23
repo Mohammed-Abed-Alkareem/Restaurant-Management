@@ -3,7 +3,7 @@ import urllib.parse
 from ProjectFiles.e_menu.utils.queries.customers import *
 
 # Encode the password
-encoded_password = urllib.parse.quote_plus('mosatukba1')
+encoded_password = urllib.parse.quote_plus('Mohammed@123')
 # Construct the connection string
 DATABASE = f'mysql+pymysql://root:{encoded_password}@127.0.0.1/e_menu'
 
@@ -69,6 +69,7 @@ class Customer:
         engine = create_engine(DATABASE, echo=True)
         conn = engine.connect()
 
+
         try:
             customers_objects = []
             customers = conn.execute(GET_CUSTOMERS_TABLE).fetchall()
@@ -81,3 +82,6 @@ class Customer:
             return 0
         finally:
             conn.close()
+=======
+#this is a tet comment to test commit
+
