@@ -8,9 +8,21 @@
     {# Include custom CSS files for the child template #}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/homePage.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/buttons.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/flashed_messages.css') }}">
+
+
 {% endblock %}
 
 {% block content %}
+
+ <script src="{{ url_for('static', filename='js/alert.js') }}"></script>
+
+        {% for message in get_flashed_messages() %}
+                 <div id="myAlert" class="alert alert-danger" role="alert">
+  {{ message }}
+</div>
+        {% endfor %}
+
     <div class="full-screen">
         <div class="logo">
             <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo">
@@ -19,6 +31,8 @@
                 <form action="{{ url_for('customers.home_page') }}" method="post">
                     <label for="tbl_code">Table Code:</label><br>
                     <input type="text" id="tbl_code" name="tbl_code" required>
+
+
 
                     <div class="button-container">
                         <button type="submit">Submit</button>

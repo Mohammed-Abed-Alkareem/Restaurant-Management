@@ -1,16 +1,10 @@
 from . import customers  # Import the blueprint from the package
 
-import json
-from ProjectFiles.e_menu.utils.db import *
-
-from flask import render_template, request, url_for, redirect, session
+from flask import render_template, request, url_for, redirect, session, flash
 
 from .models.tables_model import *
 from .models.customers_model import *
 from .models.menuItems_model import *
-
-from .models import *
-
 
 
 @customers.route('/', methods=['POST', 'GET'])
@@ -18,16 +12,18 @@ def home_page():
     if request.method == 'POST':
         table_code = request.form['tbl_code']
 
-
         table = Table.get(table_code=table_code)
 
         if 'table' in session:
             session.pop('table', None)
 
         if table is not None:
-            session["table"] = table.to_dict() #json.dumps(table.__dict__) # here it must be the object, [0] is only for now
+            session["table"] = table.to_dict()
             session.modified = True
             return redirect(url_for('customers.sign_page'))
+
+        else:
+            flash("Table Code is Incorrect!")
 
     return render_template("customers/home_page.html")
 
