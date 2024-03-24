@@ -10,6 +10,7 @@ from .queries.customers import *
 from .read_initial_data import *
 
 from ProjectFiles.e_menu.customers.models.menuItems_model import *
+from ProjectFiles.e_menu.customers.models.customers_model import *
 
 # Encode the password
 encoded_password = urllib.parse.quote_plus('Mohammed@123')
@@ -96,17 +97,8 @@ def insert_tables():
 def insert_customers():
     customers_data = get_customers_data()
     for customer in customers_data:
-        insert_customer(customer)
+        Customer.insert(Customer(customer[0], customer[1]))
 
-def insert_customer(data:list):
-    engine = create_engine(DATABASE, echo=True)
-    conn = engine.connect()
-    row = conn.execute(GET_CUSTOMERS_TABLE).fetchone()
-
-    customer_id = generate_key(row, 'C')
-    conn.execute(INSERT_CUSTOMERS_TABLE, {'customerId': customer_id, 'customer_name': data[0], 'customer_phoneNumber': data[1]})
-    conn.commit()
-    conn.close()
 
 
 def insert_menuItems_data():

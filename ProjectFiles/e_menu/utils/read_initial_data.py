@@ -21,24 +21,7 @@ def get_menuItems_data():
     return menuItems_data
 
 
-def generate_key(row, char: str) -> str:
-    print(row)
-    if row is None:
-        if char == 'C':
-            return 'C0001'
-        elif char == 'M':
-            return 'M001'
 
-    prev_key = row[0]
-    key_length = len(prev_key)
-    number = int(prev_key[1:])
-
-    next_number = number + 1
-    next_number_length = len(str(next_number))
-    n_zeros = (key_length - next_number_length - 1) * '0'
-    string_next_number = char + n_zeros + str(next_number)
-    print(string_next_number)
-    return string_next_number
 
 def get_customers_data():
 
@@ -60,6 +43,7 @@ def get_customers_data():
         customers_data.append([fake_name, fake_phone_number])
 
     return customers_data
+
 
 def get_tables_data():
 

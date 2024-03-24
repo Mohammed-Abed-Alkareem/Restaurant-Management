@@ -9,10 +9,17 @@ DATABASE = f'mysql+pymysql://root:{encoded_password}@127.0.0.1/e_menu'
 
 
 class Customer:
-    def __init__(self, customerId, customer_name, customer_phoneNumber):
-        self.customerId = customerId
-        self.customer_name = customer_name
-        self.customer_phoneNumber = customer_phoneNumber
+    def __init__(self, *args):
+
+        if len(args) == 2:
+            self.customerId = self.generate_key()
+            self.customer_name = args[0]
+            self.customer_phoneNumber = args[1]
+
+        else:
+            self.customerId = args[0]
+            self.customer_name = args[1]
+            self.customer_phoneNumber = args[2]
 
     def insert(self):
         engine = create_engine(DATABASE, echo=True)
@@ -57,7 +64,7 @@ class Customer:
         try:
             customer = conn.execute(SELECT_CUSTOMER_BY_ID, {'customerId': customer_id}).fetchone()
 
-            return cls(customerId=customer[0], customer_name=customer[1], customer_phoneNumber=customer[2])
+            return cls(customer[0], customer[1], customer[2])
         except Exception as e:
             print(f"Error: {e}")
             return None
@@ -74,8 +81,8 @@ class Customer:
             customers_objects = []
             customers = conn.execute(GET_CUSTOMERS_TABLE).fetchall()
             for customer in customers:
-                customers_objects.append(cls(customerId=customer[0], customer_name=customer[1],
-                                             customer_phoneNumber=customer[2]))
+                customers_objects.append(cls(customer[0], customer[1],
+                                             customer[2]))
             return customers_objects
         except Exception as e:
             print(f"Error: {e}")
@@ -93,7 +100,7 @@ class Customer:
         try:
             customer = conn.execute(SELECT_CUSTOMER_BY_PHONE, {'customer_phoneNumber': customer_phoneNumber}).fetchone()
 
-            return cls(customerId=customer[0], customer_name=customer[1], customer_phoneNumber=customer[2])
+            return cls(customer[0], customer[1], customer[2])
         except Exception as e:
             print(f"Error: {e}")
             return None
@@ -113,7 +120,37 @@ class Customer:
     def from_dict(cls, data_dict):
         """Create a Customer object from a dictionary."""
         return cls(
-            customerId=data_dict['customerId'],
-            customer_name=data_dict['customer_name'],
-            customer_phoneNumber=data_dict['customer_phoneNumber']
+            data_dict['customerId'],
+            data_dict['customer_name'],
+            data_dict['customer_phoneNumber']
         )
+
+
+    @staticmethod
+    def generate_key() -> str:
+
+        engine = create_engine(DATABASE, echo=True)
+        conn = engine.connect()
+        row = conn.execute(GET_CUSTOMERS_TABLE).fetchone()
+
+        conn.commit()
+        conn.close()
+
+        print(row)
+        char = 'C'
+        if row is None:
+            if char == 'C':
+                return 'C0001'
+            elif char == 'M':
+                return 'M001'
+
+        prev_key = row[0]
+        key_length = len(prev_key)
+        number = int(prev_key[1:])
+
+        next_number = number + 1
+        next_number_length = len(str(next_number))
+        n_zeros = (key_length - next_number_length - 1) * '0'
+        string_next_number = char + n_zeros + str(next_number)
+        print(string_next_number)
+        return string_next_number

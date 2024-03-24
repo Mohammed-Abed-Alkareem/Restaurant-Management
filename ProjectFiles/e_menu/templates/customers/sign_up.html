@@ -18,13 +18,12 @@
             <div class="form-overlay">
                 <h2><span class="highlight">Welcome</span></h2>
                 <p>Please enter your name and phone number</p>
-                  <form action="/sign-up-process" method="POST">
+                  <form action="{{ url_for('customers.sign_up') }}" method="POST">
                       <label for="name"></label><input
                       type="text"
                       id="name"
                       name="name"
                       placeholder="Your first and last name"
-                      pattern="^[A-Za-z]+\s[A-Za-z]+$"
                       required
                     />
                       <label for="phone"></label><input
@@ -32,7 +31,7 @@
                       id="phone"
                       name="phone"
                       placeholder="Your Phone Number"
-                      pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                      pattern="[0-9]{10}"
                       required
                     />
                        <div class="button-container">

@@ -50,10 +50,15 @@ def sign_up():
 
             print(customer_name, customer_phone)
 
+            check = Customer.insert(Customer(customer_name , customer_phone))
+
             # check insert_customer(customer_name, customer_phone)
-            #if return sucessfully
+            if check :
+                return redirect(url_for('customers.log_in'))
             #   redirect to log in
-            #else
+            else: ## must maje a message flash
+                return redirect(url_for('customers.sign_up'))
+
             #   the phone is already registered
             #   display a message that the phone number is already registered
         return render_template("customers/sign_up.html")
@@ -97,6 +102,7 @@ def categories():
 
     else:
         return redirect(url_for('customers.home_page'))
+
 
 @customers.route('/categories/<category>')
 def category_items(category):
