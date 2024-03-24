@@ -85,3 +85,35 @@ class Customer:
 
 
 
+    @classmethod
+    def get_by_phone(cls, customer_phoneNumber):
+        engine = create_engine(DATABASE, echo=True)
+        conn = engine.connect()
+
+        try:
+            customer = conn.execute(SELECT_CUSTOMER_BY_PHONE, {'customer_phoneNumber': customer_phoneNumber}).fetchone()
+
+            return cls(customerId=customer[0], customer_name=customer[1], customer_phoneNumber=customer[2])
+        except Exception as e:
+            print(f"Error: {e}")
+            return None
+        finally:
+            conn.close()
+
+
+    def to_dict(self):
+        """Convert Customer object to a dictionary."""
+        return {
+            'customerId': self.customerId,
+            'customer_name': self.customer_name,
+            'customer_phoneNumber': self.customer_phoneNumber
+        }
+
+    @classmethod
+    def from_dict(cls, data_dict):
+        """Create a Customer object from a dictionary."""
+        return cls(
+            customerId=data_dict['customerId'],
+            customer_name=data_dict['customer_name'],
+            customer_phoneNumber=data_dict['customer_phoneNumber']
+        )

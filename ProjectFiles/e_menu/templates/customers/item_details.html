@@ -6,7 +6,9 @@ custom_css %}
 />
 <script src="{{ url_for('static', filename='js/quantity.js') }}"></script>
 
-{% endblock %} {% block content %}
+{% endblock %}
+
+{% block content %}
 <div class="dish-container">
   <h1 class="dish-name">{{menu_item}}</h1>
   <img

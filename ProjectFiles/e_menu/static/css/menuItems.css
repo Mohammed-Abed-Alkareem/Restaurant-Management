@@ -82,6 +82,7 @@ section {
   padding: 20px;
   margin-bottom: 20px;
   border-radius: 10px;
+   transition: transform 0.6s ease; /* Smooth transition for scaling */
 }
 
 .menu__item .menu__img img {
@@ -104,7 +105,12 @@ section {
   color: #777;
 }
 
-
+/* Hover effect */
+.menu__item:hover {
+    /* Add your desired styles here */
+    background-color: #bbbb84; /* Change background color on hover */
+   transform: scale(1.05); /* Scale the menu item to 110% on hover */
+}
 
 /* Responsive Design */
 @media screen and (max-width: 768px) {

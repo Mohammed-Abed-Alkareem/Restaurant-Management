@@ -29,3 +29,8 @@ SELECT_CUSTOMER_BY_ID = text("""
                                 SELECT * FROM customers
                                 WHERE customerId = :customerId;
                             """)
+
+SELECT_CUSTOMER_BY_PHONE = text("""
+                                SELECT * FROM customers
+                                WHERE customer_phoneNumber = :customer_phoneNumber;
+                            """)

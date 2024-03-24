@@ -16,6 +16,7 @@
         </div>
         {% for menuItem in menuItems %}
         <div class="menu__wrapper">
+            <a href="{{ url_for('customers.dish_details', category=category) }}">
           <div class="menu__item">
 
             <div class="menu__img">
@@ -26,6 +27,7 @@
             <h3>{{ menuItem.item_name }}</h3>
             <span class="menuItem__price">{{ menuItem.item_price }}$</span>
           </div>
+                </a>
         </div>
         {% endfor %}
       </div>

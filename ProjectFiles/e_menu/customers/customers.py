@@ -6,6 +6,7 @@ from ProjectFiles.e_menu.utils.db import *
 from flask import render_template, request, url_for, redirect, session
 
 from .models.tables_model import *
+from .models.customers_model import *
 
 from .models import *
 
@@ -16,17 +17,14 @@ def home_page():
     if request.method == 'POST':
         table_code = request.form['tbl_code']
 
-        print(table_code)
-        table = Table.get(table_code=table_code)
 
-        print(type(json.dumps(table.__dict__)))
-        print(json.dumps(table.__dict__))
+        table = Table.get(table_code=table_code)
 
         if 'table' in session:
             session.pop('table', None)
 
         if table is not None:
-            session["table"] = table #json.dumps(table.__dict__) # here it must be the object, [0] is only for now
+            session["table"] = table.to_dict() #json.dumps(table.__dict__) # here it must be the object, [0] is only for now
             session.modified = True
             return redirect(url_for('customers.sign_page'))
 
@@ -67,14 +65,21 @@ def sign_up():
 def log_in():
     if 'table' in session and session['table'] is not None:
         if request.method == 'POST':
+
+            if 'customer' in session:
+                session.pop('customer', None)
+
             user_phone = request.form['phone']
 
             print(user_phone)
-            customer = 0 #get_customer_by_phone(user_phone=user_phone) #not implemented yet
+            customer = Customer.get_by_phone(customer_phoneNumber=user_phone) #get_customer_by_phone(user_phone=user_phone) #not implemented yet
+            if customer is not None:
+                print('not non')
+                session["customer"] = customer.to_dict()
 
-            session["customer"] = customer
-            session.modified = True
-            return redirect(url_for('customers.categories'))  #after making log in
+                session.modified = True
+
+                return redirect(url_for('customers.categories'))  #after making log in
 
         return render_template("customers/log_in.html")
 

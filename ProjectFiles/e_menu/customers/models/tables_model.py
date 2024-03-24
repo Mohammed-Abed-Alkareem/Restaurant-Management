@@ -82,6 +82,24 @@ class Table:
         finally:
             conn.close()
 
+    def to_dict(self):
+        """Convert Table object to a dictionary."""
+        return {
+            'code': self.code,
+            'seats': self.seats,
+            'location': self.location,
+            'type': self.type
+        }
+
+    @classmethod
+    def from_dict(cls, data_dict):
+        """Create a Table object from a dictionary."""
+        return cls(
+            code=data_dict['code'],
+            seats=data_dict['seats'],
+            location=data_dict['location'],
+            type=data_dict['type']
+        )
 
 if __name__ == '__main__':
     Table.get_all()
