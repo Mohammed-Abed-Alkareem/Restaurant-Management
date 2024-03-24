@@ -49,3 +49,7 @@ SELECT_ITEM_BY_ID = text("""
                                 SELECT * FROM menuItems
                                 WHERE itemId = :itemId;
                             """)
+
+GET_menuItems_TABLE = text("""
+                            Select * from menuItems order by 1 DESC;
+""")

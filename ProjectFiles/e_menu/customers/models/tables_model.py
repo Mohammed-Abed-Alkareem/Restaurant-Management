@@ -1,10 +1,7 @@
 from sqlalchemy import create_engine
 import urllib.parse
-# from ...utils.queries.menuItems import *
-#from ...utils.queries.tables import *
 from ProjectFiles.e_menu.utils.queries.tables import *
-# from ...utils.queries.customers import *
-# from ...utils.read_initial_data import *
+
 
 # Encode the password
 encoded_password = urllib.parse.quote_plus('Mohammed@123')
@@ -13,7 +10,7 @@ DATABASE = f'mysql+pymysql://root:{encoded_password}@127.0.0.1/e_menu'
 
 
 class Table:
-    def __init__(self, code: int, seats: int, location: str, type: str):
+    def __init__(self, code: int, location: str, type: str, seats: int):
         self.code = code
         self.seats = seats
         self.location = location
@@ -101,5 +98,4 @@ class Table:
             type=data_dict['type']
         )
 
-if __name__ == '__main__':
-    Table.get_all()
+

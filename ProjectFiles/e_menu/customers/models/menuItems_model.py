@@ -1,22 +1,25 @@
-from sqlalchemy import create_engine
-import urllib.parse
-from ProjectFiles.e_menu.utils.queries.menuItems import *
-
-encoded_password = urllib.parse.quote_plus('Mohammed@123')
-
-DATABASE = f'mysql+pymysql://root:{encoded_password}@127.0.0.1/e_menu'
+from . import *
 
 
 class MenuItems:
-    def __init__(self, itemId, item_name, item_description, item_category, item_price):
-        self.itemId = itemId.strip()
-        self.item_name = item_name.strip()
-        self.item_description = item_description.strip()
-        self.item_category = item_category.strip()
-        self.item_price = item_price
+    def __init__(self, *args):
+
+        if len(args) == 5:
+            self.itemId = args[0].strip()
+            self.item_name = args[1].strip()
+            self.item_description = args[2].strip()
+            self.item_category = args[3].strip()
+            self.item_price = args[4]
+
+        else:
+            self.itemId = generate_key()
+            self.item_name = args[0].strip()
+            self.item_description = args[1].strip()
+            self.item_category = args[2].strip()
+            self.item_price = args[3]
 
     def insert(self):
-        engine = create_engine(DATABASE, echo=True)
+
         conn = engine.connect()
 
         try:
@@ -34,7 +37,7 @@ class MenuItems:
 
     @classmethod
     def delete(cls, itemId):
-        engine = create_engine(DATABASE, echo=True)
+
         conn = engine.connect()
         try:
             conn.execute(DELETE_FROM_MENU_ITEMS, {'itemId': itemId})
@@ -51,12 +54,14 @@ class MenuItems:
 
     @classmethod
     def get(cls, itemId):
-        engine = create_engine(DATABASE, echo=True)
+
         conn = engine.connect()
         try:
+
             item = conn.execute(SELECT_ITEM_BY_ID, {'itemId': itemId}).fetchone()
-            return cls(itemId=item[0], item_name=item[1], item_description=item[2],
-                       item_category=item[3], item_price=item[4])
+            return cls(item[0], item[1], item[2],
+                       item[3], item[4])
+
         except Exception as e:
             print(f"Error: {e}")
             return None
@@ -65,14 +70,14 @@ class MenuItems:
 
     @classmethod
     def get_all(cls):
-        engine = create_engine(DATABASE, echo=True)
+
         conn = engine.connect()
         try:
             items_objects = []
             items = conn.execute(SELECT_MENU_ITEMS).fetchall()
             for item in items:
-                items_objects.append(cls(itemId=item[0], item_name=item[1], item_description=item[2],
-                                         item_category=item[3], item_price=item[4]))
+                items_objects.append(cls(item[0], item[1], item[2],
+                                         item[3], item[4]))
             return items_objects
         except Exception as e:
             print(f"Error: {e}")
@@ -82,14 +87,13 @@ class MenuItems:
 
     @classmethod
     def get_by_category(cls, category_id):
-        engine = create_engine(DATABASE, echo=True)
         conn = engine.connect()
         try:
             items_objects = []
             items = conn.execute(SELECT_MENU_ITEMS_BY_CATEGORY, {'item_category': category_id}).fetchall()
             for item in items:
-                items_objects.append(cls(itemId=item[0], item_name=item[1], item_description=item[2],
-                                         item_category=item[3], item_price=item[4]))
+                items_objects.append(cls(item[0], item[1], item[2],
+                                         item[3], item[4]))
             return items_objects
         except Exception as e:
             print(f"Error: {e}")
@@ -99,7 +103,6 @@ class MenuItems:
 
     @staticmethod
     def get_categories():
-        engine = create_engine(DATABASE, echo=True)
         conn = engine.connect()
         rows = conn.execute(GET_CATEGORIES_IN_MENU_ITEMS)
 
