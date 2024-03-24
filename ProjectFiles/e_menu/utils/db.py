@@ -2,10 +2,14 @@
 
 from sqlalchemy import create_engine
 import urllib.parse
+
+from .queries import menuItems
 from .queries.menuItems import *
 from .queries.tables import *
 from .queries.customers import *
 from .read_initial_data import *
+
+from ProjectFiles.e_menu.customers.models.menuItems_model import *
 
 # Encode the password
 encoded_password = urllib.parse.quote_plus('Mohammed@123')
@@ -31,7 +35,7 @@ def init_db():
 
     #inset any initial data
     # _________________________
-    # insert_menuItems_data()
+    insert_menuItems_data()
     insert_tables()
     insert_customers()
     # _________________________
@@ -105,19 +109,19 @@ def insert_customer(data:list):
     conn.close()
 
 
-def get_menuItems_data(item_category):
-    engine = create_engine(DATABASE, echo=True)
-    conn = engine.connect()
-    rows = conn.execute(SELECT_MENU_ITEMS_BY_CATEGORY, {'item_category': item_category})
-    return rows.fetchall()
+def insert_menuItems_data():
+    menuItems_data = get_menuItems_data()
+    for menuItem in menuItems_data:
+        item = MenuItems(menuItem["itemId"], menuItem["Name"], menuItem["Description"], menuItem["category"], menuItem["Price"])
+        item.insert()  # Assuming you have a method called insert() in your MenuItems class
 
 
-def get_menuItems_categories():
-    engine = create_engine(DATABASE, echo=True)
-    conn = engine.connect()
-    rows = conn.execute(GET_CATEGORIES_IN_MENU_ITEMS)
 
-    category_list = [category[0] for category in rows.fetchall()]
-    print(category_list)
+# def get_menuItems_data(item_category):
+#     engine = create_engine(DATABASE, echo=True)
+#     conn = engine.connect()
+#     rows = conn.execute(SELECT_MENU_ITEMS_BY_CATEGORY, {'item_category': item_category})
+#     return rows.fetchall()
 
-    return category_list
+
+

@@ -18,7 +18,7 @@
     </div>
     <div class="menu-container">
             {% for category in items_categories %}
-                <a href="{{ url_for('customers.category_items', user_name=user_name, category=category) }}"
+                <a href="{{ url_for('customers.category_items', category=category) }}"
                    class="menu-item"
                    style="background-image: url('{{ url_for('static', filename='img/categories/' + category + '.png') }}');
                     background-size: cover; background-position: center;">

@@ -2,17 +2,17 @@ from sqlalchemy import create_engine
 import urllib.parse
 from ProjectFiles.e_menu.utils.queries.menuItems import *
 
-encoded_password = urllib.parse.quote_plus('mosatukba1')
+encoded_password = urllib.parse.quote_plus('Mohammed@123')
 
 DATABASE = f'mysql+pymysql://root:{encoded_password}@127.0.0.1/e_menu'
 
 
 class MenuItems:
     def __init__(self, itemId, item_name, item_description, item_category, item_price):
-        self.itemId = itemId
-        self.item_name = item_name
-        self.item_description = item_description
-        self.item_category = item_category
+        self.itemId = itemId.strip()
+        self.item_name = item_name.strip()
+        self.item_description = item_description.strip()
+        self.item_category = item_category.strip()
         self.item_price = item_price
 
     def insert(self):
@@ -96,3 +96,14 @@ class MenuItems:
             return None
         finally:
             conn.close()
+
+    @staticmethod
+    def get_categories():
+        engine = create_engine(DATABASE, echo=True)
+        conn = engine.connect()
+        rows = conn.execute(GET_CATEGORIES_IN_MENU_ITEMS)
+
+        category_list = [category[0] for category in rows.fetchall()]
+        print(category_list)
+        conn.close()
+        return category_list

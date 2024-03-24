@@ -7,6 +7,7 @@ from flask import render_template, request, url_for, redirect, session
 
 from .models.tables_model import *
 from .models.customers_model import *
+from .models.menuItems_model import *
 
 from .models import *
 
@@ -89,9 +90,10 @@ def log_in():
 
 @customers.route('/categories')
 def categories():
-   # if 'customer' in session and session['customer'] is not None:
-        items_categories = get_menuItems_categories()
-        return render_template("customers/categories.html", items_categories=items_categories, user_name='mohammed')#session['customer'].name)
+    if 'customer' in session and session['customer'] is not None:
+        items_categories = MenuItems.get_categories()
+        customer = Customer.from_dict(session['customer'])
+        return render_template("customers/categories.html", items_categories=items_categories, user_name=customer.customer_name)
 
     # else:
     #     return redirect(url_for('customers.home_page'))
@@ -99,12 +101,12 @@ def categories():
 @customers.route('/categories/<category>')
 def category_items(category):
     #if 'table' in session and session['table'] is not None:
-        menuItems = get_menuItems_data(category)
+        # menuItems = get_menuItems_data(category)
 
-        return render_template("customers/menuItems.html", menuItems=menuItems)
+        # return render_template("customers/menuItems.html", menuItems=menuItems)
 
     # else:
-    #     return redirect(url_for('customers.home_page'))
+        return redirect(url_for('customers.home_page'))
 
 @customers.route('categories/<category>/<menu_item>')
 def dish_details(category, menu_item):

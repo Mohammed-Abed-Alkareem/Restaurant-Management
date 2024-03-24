@@ -6,9 +6,16 @@ import time
 
 def get_menuItems_data():
     df = pd.read_csv('utils\\csvFiles\\menuItems.csv')
+    df.fillna('', inplace=True)
     menuItems_data = []
     for index, row in df.iterrows():
-        data = (f"({row['itemId']},{row['name']},{row['description']},{row['category']},{row['price']})")
+        data = {
+            'itemId': row['itemId'],
+            'Name': row['Name'],
+            'Description': row['Description'],
+            'category': row['category'],
+            'Price': row['Price']
+        }
         menuItems_data.append(data)
 
     return menuItems_data
@@ -55,7 +62,9 @@ def get_customers_data():
     return customers_data
 
 def get_tables_data():
+
     df = pd.read_csv('utils\\csvFiles\\tables.csv')
+    df.fillna('', inplace=True)
     tables_data = []
     for index, row in df.iterrows():
         data = ({row['tableId']},{row['location']},{row['class']},{row['numOfSeats']})
