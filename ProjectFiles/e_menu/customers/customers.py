@@ -95,24 +95,25 @@ def categories():
         customer = Customer.from_dict(session['customer'])
         return render_template("customers/categories.html", items_categories=items_categories, user_name=customer.customer_name)
 
-    # else:
-    #     return redirect(url_for('customers.home_page'))
+    else:
+        return redirect(url_for('customers.home_page'))
 
 @customers.route('/categories/<category>')
 def category_items(category):
-    #if 'table' in session and session['table'] is not None:
-        # menuItems = get_menuItems_data(category)
+    if 'customer' in session and session['customer'] is not None:
+        menuItems = MenuItems.get_by_category(category)
 
-        # return render_template("customers/menuItems.html", menuItems=menuItems)
+        return render_template("customers/menuItems.html", category=category, menuItems=menuItems)
 
-    # else:
+    else:
         return redirect(url_for('customers.home_page'))
+
 
 @customers.route('categories/<category>/<menu_item>')
 def dish_details(category, menu_item):
+    if 'customer' in session and session['customer'] is not None:
+        item = MenuItems.get(menu_item)
+        return render_template("customers/item_details.html", category=category, menuItem = item)
 
-        dishes = ["burger", "chicken", "meat"]
-        return render_template("customers/Details.html", category=category, menu_item = menu_item)
-
-    # else:
-    #     return redirect(url_for('customers.home_page'))
+    else:
+         return redirect(url_for('customers.home_page'))
