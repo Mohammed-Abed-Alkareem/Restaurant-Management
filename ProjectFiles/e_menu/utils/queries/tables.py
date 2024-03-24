@@ -2,10 +2,10 @@ from sqlalchemy import text
 
 CREATE_TABLES_TABLE = text("""
                             CREATE TABLE IF NOT EXISTS tables(
-                            tableId INTEGER PRIMARY KEY,
-                            location varchar(200) NOT NULL,
-                            class varchar(50),
-                            numOfSeats INTEGER NOT NULL
+                            code INTEGER PRIMARY KEY,
+                            location VARCHAR(200) NOT NULL,
+                            type VARCHAR(50),
+                            seats INTEGER NOT NULL
                             );
                         """)
 
@@ -19,16 +19,16 @@ SELECT_TABLES = text("""
 
 INSERT_INTO_TABLES = text("""
                         INSERT INTO tables 
-                        (tableId, location, class, numOfSeats)
-                        VALUES (:tableId, :location, :class, :numOfSeats);
+                        (code, location, type, seats)
+                        VALUES (:code, :location, :type, :seats);
                     """)
 
 SELECT_TABLE_BY_ID = text("""
                                 SELECT * FROM tables 
-                                WHERE tableId = :tableId;
+                                WHERE code = :code;
                             """)
 
 DELETE_FROM_TABLES = text("""
                                 DELETE FROM tables 
-                                WHERE tableId = :tableId;
+                                WHERE code = :code;
                         """)

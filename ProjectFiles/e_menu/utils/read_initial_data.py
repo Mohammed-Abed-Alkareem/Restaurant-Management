@@ -12,11 +12,11 @@ def get_menuItems_data():
 
     for index, row in df.iterrows():
         data = {
-            'itemId': row['itemId'],
-            'Name': row['Name'],
-            'Description': row['Description'],
+            'id': row['id'],
+            'name': row['name'],
+            'description': row['description'],
             'category': row['category'],
-            'Price': row['Price']
+            'price': row['price']
         }
 
         menuItems_data.append(data)

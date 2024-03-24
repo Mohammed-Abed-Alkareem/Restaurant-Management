@@ -2,11 +2,12 @@ from sqlalchemy import text
 
 CREATE_MENU_TABLE = text("""
                             CREATE TABLE IF NOT EXISTS menuItems(
-                            itemId char(4) PRIMARY KEY,
-                            item_name varchar(50) NOT NULL,
-                            item_description varchar(200),
-                            item_category varchar(50) NOT NULL,
-                            item_price DOUBLE NOT NULL
+                            id CHAR(4) PRIMARY KEY,
+                            name VARCHAR(50) NOT NULL,
+                            description VARCHAR(200),
+                            category VARCHAR(50) NOT NULL,
+                            price DOUBLE NOT NULL,
+                            is_available BOOLEAN DEFAULT TRUE 
                             );
                         """)
 
@@ -20,36 +21,44 @@ SELECT_MENU_ITEMS = text("""
 
 INSERT_INTO_MENU_ITEMS = text("""
                             INSERT INTO menuItems 
-                            ( itemId, item_name, item_description, item_category, item_price) 
-                            VALUES ( :itemId, :item_name, :item_description, :item_category, :item_price);
+                            (id, name, description, category, price, is_available) 
+                            VALUES (:id, :name, :description, :category, :price, :is_available);
                         """)
 
 UPDATE_PRICE_IN_MENU_ITEMS = text("""
                             UPDATE menuItems  
-                            SET item_price = :item_price 
-                            WHERE itemId = :itemId;
+                            SET price = :price 
+                            WHERE id = :id;
                         """)
 
 DELETE_FROM_MENU_ITEMS = text("""
                                 DELETE FROM menuItems 
-                                WHERE itemId = :itemId; 
+                                WHERE id = :id; 
                         """)
 
 SELECT_MENU_ITEMS_BY_CATEGORY = text("""
                                         SELECT * FROM menuItems 
-                                        WHERE item_category = :item_category
+                                        WHERE category = :category;
                                     """)
 
 GET_CATEGORIES_IN_MENU_ITEMS = text("""
-                                    SELECT item_category FROM menuItems
-                                    GROUP BY item_category;
+                                    SELECT category FROM menuItems
+                                    GROUP BY category;
                                 """)
 
-SELECT_ITEM_BY_ID = text("""
+SELECT_MENU_ITEM_BY_ID = text("""
                                 SELECT * FROM menuItems
-                                WHERE itemId = :itemId;
+                                WHERE id = :id;
                             """)
 
-GET_menuItems_TABLE = text("""
-                            Select * from menuItems order by 1 DESC;
+GET_MENU_ITEMS_TABLE = text("""
+                            SELECT * FROM menuItems ORDER BY 1 DESC;
 """)
+
+UPDATE_MENU_ITEM = text("""
+                            UPDATE menuItems
+                            SET name = :name, price = :price, 
+                                description = :description, category = :category, 
+                                is_available = :is_available
+                            WHERE id = :id;
+                        """)

@@ -1,4 +1,4 @@
-itemId,Name,Description,category,Price
+id,name,description,category,price
 M001,Turkish Red Lentil Soup,"A blend of red lentil beans, Turkish seasoning, and fresh herbs.",SOUPS,20
 M002,Freekeh Soup,Flavorful traditional freekeh seeds soup.,SOUPS,20
 M003,Hummus,"Mashed chickpeas with tahini, lemon juice and olive oil.",MAZE & APPETIZERS TO SHARE,16

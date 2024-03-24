@@ -7,7 +7,7 @@ from ProjectFiles.e_menu.customers.models.customers_model import *
 from ProjectFiles.e_menu.customers.models.tables_model import *
 
 # Encode the password
-encoded_password = urllib.parse.quote_plus('Mohammed@123')
+encoded_password = urllib.parse.quote_plus('mosatukba1')
 # Construct the connection string
 DATABASE = f'mysql+pymysql://root:{encoded_password}@127.0.0.1/e_menu'
 
@@ -78,14 +78,15 @@ def insert_customers():
 
 def insert_menuItems_data():
     menuItems_data = get_menuItems_data()
-
+    print(menuItems_data)
     for menuItem in menuItems_data:
         (MenuItems
             (
-                menuItem["itemId"], menuItem["Name"],
-                menuItem["Description"], menuItem["category"],
-                menuItem["Price"]
+                menuItem["id"], menuItem["name"],
+                menuItem["description"], menuItem["category"],
+                menuItem["price"]
             )
             .insert())
+
 
 
