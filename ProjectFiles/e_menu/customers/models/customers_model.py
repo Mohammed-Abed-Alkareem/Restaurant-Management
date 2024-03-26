@@ -3,24 +3,22 @@ from . import *
 
 class Customer:
     def __init__(self, *args):
-
         if len(args) == 2:
-            self.customerId = generate_key()
-            self.customer_name = args[0]
-            self.customer_phoneNumber = args[1]
-
+            self.id = generate_key('C')
+            self.name = args[0]
+            self.phone_number = args[1]
         else:
-            self.customerId = args[0]
-            self.customer_name = args[1]
-            self.customer_phoneNumber = args[2]
+            self.id = args[0]
+            self.name = args[1]
+            self.phone_number = args[2]
 
     def insert(self):
         conn = engine.connect()
 
         try:
             conn.execute(INSERT_CUSTOMERS_TABLE,
-                         {'customerId': self.customerId, 'customer_name': self.customer_name,
-                          'customer_phoneNumber': self.customer_phoneNumber})
+                         {'id': self.id, 'name': self.name,
+                          'phone_number': self.phone_number})
             conn.commit()
             return 1
         except Exception as e:
@@ -30,12 +28,11 @@ class Customer:
             conn.close()
 
     @classmethod
-    def delete(cls, customer_id):
+    def delete(cls, id):
         conn = engine.connect()
 
         try:
-            conn.execute(INSERT_CUSTOMERS_TABLE,
-                         {'customerId': customer_id})
+            conn.execute(DELETE_FROM_CUSTOMERS, {'id': id})
             conn.commit()
             return 1
         except Exception as e:
@@ -44,16 +41,15 @@ class Customer:
         finally:
             conn.close()
 
-    def update(self, customer_id, name, phone_number):
+    def update(self, id, name, phone_number):
         pass
 
     @classmethod
-    def get(cls, customer_id):
+    def get(cls, id):
         conn = engine.connect()
 
         try:
-            customer = conn.execute(SELECT_CUSTOMER_BY_ID, {'customerId': customer_id}).fetchone()
-
+            customer = conn.execute(SELECT_CUSTOMER_BY_ID, {'id': id}).fetchone()
             return cls(customer[0], customer[1], customer[2])
         except Exception as e:
             print(f"Error: {e}")
@@ -69,8 +65,7 @@ class Customer:
             customers_objects = []
             customers = conn.execute(GET_CUSTOMERS_TABLE).fetchall()
             for customer in customers:
-                customers_objects.append(cls(customer[0], customer[1],
-                                             customer[2]))
+                customers_objects.append(cls(customer[0], customer[1], customer[2]))
             return customers_objects
         except Exception as e:
             print(f"Error: {e}")
@@ -79,12 +74,11 @@ class Customer:
             conn.close()
 
     @classmethod
-    def get_by_phone(cls, customer_phoneNumber):
+    def get_by_phone(cls, phone_number):
         conn = engine.connect()
 
         try:
-            customer = conn.execute(SELECT_CUSTOMER_BY_PHONE, {'customer_phoneNumber': customer_phoneNumber}).fetchone()
-
+            customer = conn.execute(SELECT_CUSTOMER_BY_PHONE, {'phone_number': phone_number}).fetchone()
             return cls(customer[0], customer[1], customer[2])
         except Exception as e:
             print(f"Error: {e}")
@@ -93,19 +87,16 @@ class Customer:
             conn.close()
 
     def to_dict(self):
-        """Convert Customer object to a dictionary."""
         return {
-            'customerId': self.customerId,
-            'customer_name': self.customer_name,
-            'customer_phoneNumber': self.customer_phoneNumber
+            'id': self.id,
+            'name': self.name,
+            'phone_number': self.phone_number
         }
 
     @classmethod
     def from_dict(cls, data_dict):
-        """Create a Customer object from a dictionary."""
         return cls(
-            data_dict['customerId'],
-            data_dict['customer_name'],
-            data_dict['customer_phoneNumber']
+            data_dict['id'],
+            data_dict['name'],
+            data_dict['phone_number']
         )
-

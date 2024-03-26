@@ -3,25 +3,24 @@ import urllib.parse
 
 from ProjectFiles.e_menu.utils.queries.customers import *
 from ProjectFiles.e_menu.utils.queries.menuItems import *
+from ProjectFiles.e_menu.utils.queries.tables import *
 
 
 # Encode the password
-encoded_password = urllib.parse.quote_plus('Mohammed@123')
+encoded_password = urllib.parse.quote_plus('mosatukba1')
 # Construct the connection string
 DATABASE = f'mysql+pymysql://root:{encoded_password}@127.0.0.1/e_menu'
 
 engine = create_engine(DATABASE, echo=True)
 
 
-def generate_key() -> str:
+def generate_key(char) -> str:
     conn = engine.connect()
     row = conn.execute(GET_CUSTOMERS_TABLE).fetchone()
 
     conn.commit()
     conn.close()
 
-    print(row)
-    char = 'C'
     if row is None:
         if char == 'C':
             return 'C0001'

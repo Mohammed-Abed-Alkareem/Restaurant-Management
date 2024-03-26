@@ -12,7 +12,7 @@ def home_page():
     if request.method == 'POST':
         table_code = request.form['tbl_code']
 
-        table = Table.get(table_code=table_code)
+        table = Table.get(code=table_code)
 
         if 'table' in session:
             session.pop('table', None)
@@ -74,7 +74,7 @@ def log_in():
             user_phone = request.form['phone']
 
             print(user_phone)
-            customer = Customer.get_by_phone(customer_phoneNumber=user_phone) #get_customer_by_phone(user_phone=user_phone) #not implemented yet
+            customer = Customer.get_by_phone(phone_number=user_phone) #get_customer_by_phone(user_phone=user_phone) #not implemented yet
             if customer is not None:
                 print('not non')
                 session["customer"] = customer.to_dict()
@@ -94,7 +94,7 @@ def categories():
     if 'customer' in session and session['customer'] is not None:
         items_categories = MenuItems.get_categories()
         customer = Customer.from_dict(session['customer'])
-        return render_template("customers/categories.html", items_categories=items_categories, user_name=customer.customer_name)
+        return render_template("customers/categories.html", items_categories=items_categories, user_name=customer.name)
 
     else:
         return redirect(url_for('customers.home_page'))
@@ -115,7 +115,7 @@ def category_items(category):
 def dish_details(category, menu_item):
     if 'customer' in session and session['customer'] is not None:
         item = MenuItems.get(menu_item)
-        return render_template("customers/item_details.html", category=category, menuItem = item)
+        return render_template("customers/item_details.html", category=category, menuItem=item)
 
     else:
          return redirect(url_for('customers.home_page'))
