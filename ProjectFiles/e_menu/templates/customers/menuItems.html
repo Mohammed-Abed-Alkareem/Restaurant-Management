@@ -16,7 +16,7 @@
         </div>
         {% for menuItem in menuItems %}
         <div class="menu__wrapper">
-            <a href="{{ url_for('customers.dish_details', category=category , menu_item=menuItem.id) }}">
+            <a href="{{ url_for('customers.item_details', category=category , menu_item=menuItem.id) }}">
           <div class="menu__item">
 
             <div class="menu__img">

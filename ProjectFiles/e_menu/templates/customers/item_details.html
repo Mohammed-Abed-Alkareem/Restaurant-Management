@@ -8,23 +8,22 @@ custom_css %}
 
 {% endblock %}
 
+
 {% block content %}
-<div class="dish-container">
-  <h1 class="dish-name">{{menuItem.name}}</h1>
-  <img
-     src="{{ url_for('static', filename='img/menuItems/' + menuItem.id + '.png') }}"
-    alt="Dish Name"
-    height="300"
-    width="300"
-  />
+
+    <div class="dish-container">
+  <h1 class="dish-name">{{ menuItem.name }}</h1>
+  <img src="{{ url_for('static', filename='img/menuItems/' + menuItem.id + '.png') }}" alt="Dish Name" height="300" width="300" />
   <h3><span class="highlight">{{ menuItem.description }}</span></h3>
-  <button class="add-to-cart">Add to Cart</button>
-  <!-- Quantity Selector -->
-  <div class="quantity-selector">
-    <button class="decrement">-</button>
-    <input type="number" class="quantity-input" value="1" min="1" />
-    <button class="increment">+</button>
-  </div>
+  <form action="/customer/categories/{{ category }}/{{ menuItem.id }}/add" method="post" id="add-to-cart-form">
+    <div class="quantity-selector">
+      <button type="button" class="decrement">-</button>
+      <input type="number" class="quantity-input" name="quantity" value="1" min="1" />
+      <button type="button" class="increment">+</button>
+    </div>
+    <button type="submit" class="add-to-cart">Add to Cart</button>
+  </form>
 </div>
+
 
 {% endblock %}
