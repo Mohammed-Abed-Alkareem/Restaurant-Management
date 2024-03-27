@@ -42,14 +42,13 @@ def sign_up():
     if 'table' not in session or session['table'] is None:
         return redirect(url_for('customers.home_page'))
 
-
     if request.method == 'POST':
         customer_name = request.form['name']
         customer_phone = request.form['phone']
 
         print(customer_name, customer_phone)
 
-        check = Customer.insert(Customer(customer_name , customer_phone))
+        check = Customer.insert(Customer(customer_name, customer_phone))
 
         # check insert_customer(customer_name, customer_phone)
         if check:
@@ -159,6 +158,7 @@ def item_add(category, menu_item):
     print(quantity)
 
     return redirect(url_for("customers.category_items", category=category))
+
 
 
 
