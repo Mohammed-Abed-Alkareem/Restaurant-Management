@@ -17,10 +17,7 @@
 
  <script src="{{ url_for('static', filename='js/alert.js') }}"></script>
 
-        {% for message in get_flashed_messages() %}
-                 <div id="myAlert" class="alert alert-danger" role="alert">
-  {{ message }}
-</div>
+
         {% endfor %}
 
     <div class="full-screen">
@@ -32,7 +29,10 @@
                     <label for="tbl_code">Table Code:</label><br>
                     <input type="text" id="tbl_code" name="tbl_code" required>
 
-
+        {% for message in get_flashed_messages() %}
+                 <div id="myAlert" class="alert alert-danger" role="alert">
+  {{ message }}
+</div>
 
                     <div class="button-container">
                         <button type="submit">Submit</button>
