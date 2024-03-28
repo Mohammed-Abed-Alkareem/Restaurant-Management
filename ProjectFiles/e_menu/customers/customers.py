@@ -76,7 +76,8 @@ def log_in():
         user_phone = request.form['phone']
 
         print(user_phone)
-        customer = Customer.get_by_phone(phone_number=user_phone) #get_customer_by_phone(user_phone=user_phone) #not implemented yet
+        customer = Customer.get_by_phone(phone_number=user_phone)
+
         if customer is not None:
             print('not non')
             session["customer"] = customer.to_dict()
@@ -84,6 +85,9 @@ def log_in():
             session.modified = True
 
             return redirect(url_for('customers.categories'))  #after making log in
+
+        else:
+            flash("Sorry, phone number does not exists")
 
     return render_template("customers/log_in.html")
 
