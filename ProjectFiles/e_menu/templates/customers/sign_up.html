@@ -11,6 +11,17 @@
 {% endblock %}
 
 {% block content %}
+
+     {% for type, message in get_flashed_messages(with_categories=true) %}
+        <div id="myAlert" class="alert alert-{{ type }}" role="alert">
+            {{ message }}
+            {% if type == 'danger' %}
+                <a href="{{ url_for('customers.log_in') }}">try to Log in</a>
+            {% endif %}
+        </div>
+    {% endfor %}
+
+
     <div class="full-screen">
         <div class="logo">
             <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo">

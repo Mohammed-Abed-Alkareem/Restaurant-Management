@@ -15,11 +15,15 @@
 
        <script src="{{ url_for('static', filename='js/alert.js') }}"></script>
 
-        {% for message in get_flashed_messages() %}
-                 <div id="myAlert" class="alert alert-danger" role="alert">
-                         {{ message }} <a href="{{ url_for('customers.sign_up') }}">try to Sign up</a>
-                 </div>
-        {% endfor %}
+    {% for type, message in get_flashed_messages(with_categories=true) %}
+        <div id="myAlert" class="alert alert-{{ type }}" role="alert">
+            {{ message }}
+            {% if type == 'danger' %}
+                <a href="{{ url_for('customers.sign_up') }}">try to Sign up</a>
+            {% endif %}
+        </div>
+    {% endfor %}
+
 
 
     <div class="full-screen">

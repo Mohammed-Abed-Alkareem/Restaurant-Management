@@ -23,7 +23,7 @@ def home_page():
             return redirect(url_for('customers.sign_page'))
 
         else:
-            flash("Table Code is Incorrect!")
+            flash("Table Code is Incorrect!", "danger")
 
     return render_template("customers/home_page.html")
 
@@ -52,10 +52,11 @@ def sign_up():
 
         # check insert_customer(customer_name, customer_phone)
         if check:
+            flash("Added Successfully", "success")
             return redirect(url_for('customers.log_in'))
-        #   redirect to log in
-        else: ## must maje a message flash
-            return redirect(url_for('customers.sign_up'))
+
+        else:
+            flash("Cannot be Added! already registered!", "danger")
 
         #   the phone is already registered
         #   display a message that the phone number is already registered
@@ -87,7 +88,7 @@ def log_in():
             return redirect(url_for('customers.categories'))  #after making log in
 
         else:
-            flash("Sorry, phone number does not exists")
+            flash("Sorry, phone number does not exists", "danger")
 
     return render_template("customers/log_in.html")
 

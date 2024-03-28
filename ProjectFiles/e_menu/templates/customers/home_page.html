@@ -17,8 +17,8 @@
 
  <script src="{{ url_for('static', filename='js/alert.js') }}"></script>
 
-        {% for message in get_flashed_messages() %}
-                 <div id="myAlert" class="alert alert-danger" role="alert">
+        {% for type, message in get_flashed_messages(with_categories=true) %}
+                 <div id="myAlert" class="alert alert-{{ type }}" role="alert">
                         {{ message }}
                  </div>
         {% endfor %}
