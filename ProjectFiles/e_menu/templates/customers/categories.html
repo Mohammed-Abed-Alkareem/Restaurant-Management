@@ -6,9 +6,19 @@
 
 {% block custom_css %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/categories.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/flashed_messages.css') }}">
 {% endblock %}
 
 {% block content %}
+
+    <script src="{{ url_for('static', filename='js/alert.js') }}"></script>
+
+        {% for type, message in get_flashed_messages(with_categories=true) %}
+                 <div id="myAlert" class="alert alert-{{ type }}" role="alert">
+                        {{ message }}
+                 </div>
+        {% endfor %}
+
   <div class="centered_container">
     <div class="hero__content">
       <h2 class="hero__title">

@@ -9,13 +9,19 @@ from .models.menuItems_model import *
 
 @customers.route('/', methods=['POST', 'GET'])
 def home_page():
+    if 'table' in session:
+        session.pop('table', None)
+
+    if 'customer' in session:
+        session.pop('customer', None)
+
+    if 'cart' in session:
+        session.pop('cart', None)
+
     if request.method == 'POST':
         table_code = request.form['tbl_code']
 
         table = Table.get(code=table_code)
-
-        if 'table' in session:
-            session.pop('table', None)
 
         if table is not None:
             session["table"] = table.to_dict()
@@ -34,12 +40,14 @@ def sign_page():
         return render_template("customers/sign_page.html")
 
     else:
+        flash("Please Enter table code first", "danger")
         return redirect(url_for('customers.home_page'))
 
 
 @customers.route('/sign/sign_up', methods=['POST', 'GET'])
 def sign_up():
     if 'table' not in session or session['table'] is None:
+        flash("Please Enter table code first", "danger")
         return redirect(url_for('customers.home_page'))
 
     if request.method == 'POST':
@@ -58,15 +66,13 @@ def sign_up():
         else:
             flash("Cannot be Added! already registered!", "danger")
 
-        #   the phone is already registered
-        #   display a message that the phone number is already registered
-
     return render_template("customers/sign_up.html")
 
 
 @customers.route('/sign/log_in', methods=['POST', 'GET'])
 def log_in():
     if 'table' not in session or session['table'] is None:
+        flash("Please Enter table code first", "danger")
         return redirect(url_for('customers.home_page'))
 
     if request.method == 'POST':
@@ -85,7 +91,7 @@ def log_in():
 
             session.modified = True
 
-            return redirect(url_for('customers.categories'))  #after making log in
+            return redirect(url_for('customers.categories'))
 
         else:
             flash("Sorry, phone number does not exists", "danger")
@@ -96,24 +102,27 @@ def log_in():
 @customers.route('/categories')
 def categories():
     if 'table' not in session or session['table'] is None:
+        flash("Please Enter table code first", "danger")
         return redirect(url_for('customers.home_page'))
 
     if 'customer' not in session or session['customer'] is None:
-        return redirect(url_for('customers.sign'))
+        flash("Please Login first", "danger")
+        return redirect(url_for('customers.sign_page'))
 
     items_categories = MenuItems.get_categories()
     customer = Customer.from_dict(session['customer'])
     return render_template("customers/categories.html", items_categories=items_categories, user_name=customer.name)
 
 
-
 @customers.route('/categories/<category>')
 def category_items(category):
     if 'table' not in session or session['table'] is None:
+        flash("Please Enter table code first", "danger")
         return redirect(url_for('customers.home_page'))
 
     if 'customer' not in session or session['customer'] is None:
-        return redirect(url_for('customers.sign'))
+        flash("Please Login first", "danger")
+        return redirect(url_for('customers.sign_page'))
 
     menuItems = MenuItems.get_by_category(category)
 
@@ -123,27 +132,35 @@ def category_items(category):
 @customers.route('/categories/<category>/<menu_item>')
 def item_details(category, menu_item):
     if 'table' not in session or session['table'] is None:
+        flash("Please Enter table code first", "danger")
         return redirect(url_for('customers.home_page'))
 
     if 'customer' not in session or session['customer'] is None:
-        return redirect(url_for('customers.sign'))
+        flash("Please Login first", "danger")
+        return redirect(url_for('customers.sign_page'))
 
     item = MenuItems.get(menu_item)
 
     return render_template("customers/item_details.html", category=category, menuItem=item)
 
 
-@customers.route('categories/<category>/<menu_item>/add', methods=['GET', 'POST'])
-def item_add(category, menu_item):
+@customers.route('categories/<menu_item>/add', methods=['GET', 'POST'])
+def item_add(menu_item):
 
     if 'table' not in session or session['table'] is None:
+        flash("Please Enter table code first", "danger")
         return redirect(url_for('customers.home_page'))
 
     if 'customer' not in session or session['customer'] is None:
-        return redirect(url_for('customers.sign'))
+        flash("Please Login first", "danger")
+        return redirect(url_for('customers.sign_page'))
 
     if 'cart' not in session:
         session['cart'] = {}
+
+    if request.method == 'GET':
+        flash("Please select the quantity", "danger")
+        return redirect(url_for('customers.categories'))
 
     # Get the quantity of the item from the form data
     quantity = int(request.form['quantity'])
@@ -162,8 +179,29 @@ def item_add(category, menu_item):
 
     print(quantity)
 
-    return redirect(url_for("customers.category_items", category=category))
+    flash("Item added to cart", "success")
+    return redirect(url_for("customers.categories"))
 
 
+@customers.route('/cart')
+def cart():
+    if 'table' not in session or session['table'] is None:
+        flash("Please Enter table code first", "danger")
+        return redirect(url_for('customers.home_page'))
 
+    if 'customer' not in session or session['customer'] is None:
+        flash("Please Login first", "danger")
+        return redirect(url_for('customers.sign_page'))
 
+    if 'cart' not in session:
+        session['cart'] = {}
+
+    cart_items = []
+
+    for item_id, quantity in session['cart'].items():
+        item = MenuItems.get(item_id)
+        cart_items.append((item, quantity))
+
+    print(cart_items)
+    return redirect(url_for('customers.home_page'))
+    # return render_template("customers/cart.html", cart_items=cart_items)
