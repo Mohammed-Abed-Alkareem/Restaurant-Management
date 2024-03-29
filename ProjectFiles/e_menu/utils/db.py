@@ -59,9 +59,14 @@ def insert_menuItems_data():
     print(menuItems_data)
     for menuItem in menuItems_data:
         (MenuItems
-             (
-             menuItem["id"], menuItem["name"],
-             menuItem["description"], menuItem["category"],
-             menuItem["price"]
-         )
-         .insert())
+
+            (
+                menuItem["id"], menuItem["name"],
+                menuItem["description"], menuItem["category"],
+                menuItem["price"], True
+            )
+            .insert())
+
+
+
+

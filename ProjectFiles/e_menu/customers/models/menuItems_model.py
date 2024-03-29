@@ -2,24 +2,21 @@ from . import *
 
 
 class MenuItems:
-    def __init__(self, *args, **kwargs):
-        if len(args) == 5:
+    def __init__(self, *args):
+        if len(args) == 6:
             self.id = args[0].strip()
             self.name = args[1].strip()
             self.description = args[2].strip()
             self.category = args[3].strip()
             self.price = args[4]
+            self.is_available = args[5]
         else:
             self.id = generate_key('M')
             self.name = args[0].strip()
             self.description = args[1].strip()
             self.category = args[2].strip()
             self.price = args[3]
-
-        if kwargs:
-            self.is_available = kwargs['is_available']
-        else:
-            self.is_available = True
+            self.is_available = args[4]
 
     @staticmethod
     def create_table():
@@ -93,7 +90,7 @@ class MenuItems:
         conn = engine.connect()
         try:
             item = conn.execute(SELECT_MENU_ITEM_BY_ID, {'id': id}).fetchone()
-            return cls(item[0], item[1], item[2], item[3], item[4], is_available=item[5])
+            return cls(item[0], item[1], item[2], item[3], item[4], item[5])
         except Exception as e:
             print(f"Error: {e}")
             return None
@@ -107,7 +104,7 @@ class MenuItems:
             items_objects = []
             items = conn.execute(SELECT_MENU_ITEMS).fetchall()
             for item in items:
-                items_objects.append(cls(item[0], item[1], item[2], item[3], item[4], is_available=item[5]))
+                items_objects.append(cls(item[0], item[1], item[2], item[3], item[4], item[5]))
             return items_objects
         except Exception as e:
             print(f"Error: {e}")
@@ -122,7 +119,8 @@ class MenuItems:
             items_objects = []
             items = conn.execute(SELECT_MENU_ITEMS_BY_CATEGORY, {'category': category}).fetchall()
             for item in items:
-                items_objects.append(cls(item[0], item[1], item[2], item[3], item[4], is_available=item[5]))
+                if item[5] == True: # is_available is True
+                    items_objects.append(cls(item[0], item[1], item[2], item[3], item[4], item[5]))
             return items_objects
         except Exception as e:
             print(f"Error: {e}")

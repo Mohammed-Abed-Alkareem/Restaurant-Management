@@ -7,7 +7,7 @@ CREATE_MENU_TABLE = text("""
                             description VARCHAR(200),
                             category VARCHAR(50) NOT NULL,
                             price DOUBLE NOT NULL,
-                            is_available BOOLEAN DEFAULT TRUE 
+                            is_available BOOLEAN
                             );
                         """)
 
