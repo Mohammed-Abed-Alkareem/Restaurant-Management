@@ -10,26 +10,27 @@
 
 {% block content %}
     <section class="section" id="menu">
-      <div class="container">
-        <div class="menu__section-top">
-          <h2>{{ category }}</h2>
-        </div>
-        {% for menuItem in menuItems %}
-        <div class="menu__wrapper">
-            <a href="{{ url_for('customers.dish_details', category=category , menu_item=menuItem.id) }}">
-          <div class="menu__item">
-
-            <div class="menu__img">
-              <img src="{{ url_for('static', filename='img/menuItems/' + menuItem.id + '.png') }}" alt="Logo">
-
+        <div class="container">
+            <div class="menu__section-top">
+                <h2>{{ category }}</h2>
             </div>
+            {% for menuItem in menuItems %}
+                <div class="menu__wrapper">
+                    <a href="{{ url_for('customers.item_details', category=category , menu_item=menuItem.id) }}">
+                        <div class="menu__item">
 
-            <h3>{{ menuItem.name }}</h3>
-            <span class="menuItem__price">{{ menuItem.price }}$</span>
-          </div>
-                </a>
+                            <div class="menu__img">
+                                <img src="{{ url_for('static', filename='img/menuItems/' + menuItem.id + '.png') }}"
+                                     alt="Logo">
+
+                            </div>
+
+                            <h3>{{ menuItem.name }}</h3>
+                            <span class="menuItem__price">{{ menuItem.price }}$</span>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-      </div>
     </section>
 {% endblock %}

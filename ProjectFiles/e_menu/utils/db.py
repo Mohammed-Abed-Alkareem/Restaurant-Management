@@ -1,58 +1,36 @@
-#this file contains the function for the database
 
-from .read_initial_data import *
-
-from ProjectFiles.e_menu.customers.models.menuItems_model import *
 from ProjectFiles.e_menu.customers.models.customers_model import *
+from ProjectFiles.e_menu.customers.models.menuItems_model import *
 from ProjectFiles.e_menu.customers.models.tables_model import *
-
-# Encode the password
-encoded_password = urllib.parse.quote_plus('mosatukba1')
-# Construct the connection string
-DATABASE = f'mysql+pymysql://root:{encoded_password}@127.0.0.1/e_menu'
+from .read_initial_data import *
 
 
 def init_db():
-    # Create an engine
-    engine = create_engine(DATABASE, echo=True)
 
-    # Connect to the engine
-    conn = engine.connect()
-
-    #create all tables
-    #______________________________
-    conn.execute(CREATE_MENU_TABLE)
-    conn.execute(CREATE_TABLES_TABLE)
-    conn.execute(CREATE_CUSTOMERS_TABLE)
-
+    # create all tables
+    # ______________________________
+    MenuItems.create_table()
+    Table.create_table()
+    Customer.create_table()
     # _________________________
-    conn.commit()
 
-    #inset any initial data
+    # inset any initial data
     # _________________________
     insert_menuItems_data()
     insert_tables()
     insert_customers()
     # _________________________
-    conn.commit()
-
-    conn.close()
 
 
 def reset_db():
-    engine = create_engine(DATABASE, echo=True)
 
-    conn = engine.connect()
-
-    #drop all tables
+    # drop all tables
     # _________________________
-    conn.execute(DROP_MENU_TABLE)
-    conn.execute(DROP_TABLES_TABLE)
-    conn.execute(DROP_CUSTOMERS_TABLE)
+    MenuItems.drop_table()
+    Table.drop_table()
+    Customer.drop_table()
     # _________________________
 
-    conn.commit()
-    conn.close()
     init_db()
 
 
@@ -61,7 +39,7 @@ def insert_tables():
 
     for table in tables_data:
         (Table
-         (
+             (
              table["tableId"],
              table["location"],
              table["class"],
@@ -81,12 +59,14 @@ def insert_menuItems_data():
     print(menuItems_data)
     for menuItem in menuItems_data:
         (MenuItems
+
             (
                 menuItem["id"], menuItem["name"],
                 menuItem["description"], menuItem["category"],
                 menuItem["price"], True
             )
             .insert())
+
 
 
 

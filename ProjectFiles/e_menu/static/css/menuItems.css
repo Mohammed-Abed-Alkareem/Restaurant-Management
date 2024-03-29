@@ -3,118 +3,118 @@
 
 /* Define variables */
 :root {
-  --primary-color: #bb512c;
-  --secondary-color: #13252f;
-  --heading-color: #0c1b21;
-  --small-text-color: #acb2b2;
-  --font-name: "Montserrat", sans-serif;
+    --primary-color: #bb512c;
+    --secondary-color: #13252f;
+    --heading-color: #0c1b21;
+    --small-text-color: #acb2b2;
+    --font-name: "Montserrat", sans-serif;
 }
 
 /* Global resets */
 body, h1, h2, h3, h4, p, ul {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-  font-family: var(--font-name);
+    font-family: var(--font-name);
 }
 
 a {
-  text-decoration: none;
-  color: inherit;
+    text-decoration: none;
+    color: inherit;
 }
 
 ul {
-  list-style: none;
+    list-style: none;
 }
 
 /* Typography */
 p {
-  color: var(--small-text-color);
-  font-size: 0.9rem;
-  line-height: 1.6;
+    color: var(--small-text-color);
+    font-size: 0.9rem;
+    line-height: 1.6;
 }
 
 h1, h2, h3, h4 {
-  color: var(--heading-color);
-  font-weight: 500;
+    color: var(--heading-color);
+    font-weight: 500;
 }
 
 /* Reusable classes */
 .highlight {
-  color: var(--primary-color);
+    color: var(--primary-color);
 }
 
 /* Layout */
 .container {
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 0 50px;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0 50px;
 }
 
 /* Header */
 .nav {
-  width: 100%;
-  height: 80px;
-  line-height: 80px;
-  z-index: 9999;
+    width: 100%;
+    height: 80px;
+    line-height: 80px;
+    z-index: 9999;
 }
 
 /* Sections */
 section {
-  padding: 60px 0;
+    padding: 60px 0;
 }
 
 .menu__section-top {
-  margin-bottom: 50px;
-  text-align: center;
+    margin-bottom: 50px;
+    text-align: center;
 }
 
 .menu__section-top h2 {
-  font-size: 2rem;
+    font-size: 2rem;
 }
 
 /* Menu items */
 /* Menu items */
 .menu__item {
-  background-color: #cbcb9d; /* Specify your desired background color */
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 10px;
-   transition: transform 0.6s ease; /* Smooth transition for scaling */
+    background-color: #cbcb9d; /* Specify your desired background color */
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    transition: transform 0.6s ease; /* Smooth transition for scaling */
 }
 
 .menu__item .menu__img img {
-  width: 100%; /* Set image width to 100% of its parent container */
-  height: auto; /* Maintain aspect ratio */
-  margin-bottom: 10px;
+    width: 100%; /* Set image width to 100% of its parent container */
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 10px;
 }
 
 /* Style for menuItem name */
 .menu__item .menu__details .menuItem__name {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 5px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
 }
 
 /* Style for menuItem price */
 .menu__item .menu__details .menuItem__price {
-  font-size: 1rem;
-  color: #777;
+    font-size: 1rem;
+    color: #777;
 }
 
 /* Hover effect */
 .menu__item:hover {
     /* Add your desired styles here */
     background-color: #bbbb84; /* Change background color on hover */
-   transform: scale(1.05); /* Scale the menu item to 110% on hover */
+    transform: scale(1.05); /* Scale the menu item to 110% on hover */
 }
 
 /* Responsive Design */
 @media screen and (max-width: 768px) {
-  .container {
-    padding: 0 20px;
-  }
+    .container {
+        padding: 0 20px;
+    }
 }

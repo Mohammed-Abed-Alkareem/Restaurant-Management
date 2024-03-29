@@ -1,7 +1,7 @@
-import pandas as pd
-from faker import Faker
 import random
 import time
+import pandas as pd
+from faker import Faker
 
 
 def get_menuItems_data():
@@ -44,7 +44,6 @@ def get_tables_data():
 
 
 def get_customers_data():
-
     random.seed(time.time())  # Seed the random number generator with current date and time
 
     fake = Faker()  # Create a Faker instance
@@ -63,6 +62,3 @@ def get_customers_data():
         customers_data.append([fake_name, fake_phone_number])
 
     return customers_data
-
-
-

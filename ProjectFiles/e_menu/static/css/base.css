@@ -8,7 +8,6 @@ body {
 }
 
 
-
 header {
 
     height: 100px; /* Adjust the height */
@@ -54,7 +53,6 @@ footer {
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
 }
-
 
 
 .footer__wrapper {

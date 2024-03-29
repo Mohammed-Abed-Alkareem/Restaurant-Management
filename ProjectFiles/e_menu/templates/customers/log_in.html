@@ -8,9 +8,31 @@
     {# Include custom CSS files for the child template #}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/homePage.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/buttons.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/flashed_messages.css') }}">
 {% endblock %}
 
 {% block content %}
+
+    <script src="{{ url_for('static', filename='js/alert.js') }}"></script>
+
+    {% for type, message in get_flashed_messages(with_categories=true) %}
+        <div id="myAlert" class="alert alert-{{ type }}" role="alert">
+
+            {% if type == 'danger' %}
+                &#x274C;
+            {% elif type == 'success' %}
+                &#x2714;
+            {% endif %}
+
+            {{ message }}
+            {% if type == 'danger' %}
+                <a href="{{ url_for('customers.sign_up') }}">try to Sign up</a>
+            {% endif %}
+        </div>
+    {% endfor %}
+
+
+
     <div class="full-screen">
         <div class="logo">
             <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo">
@@ -18,19 +40,19 @@
             <div class="form-overlay">
                 <h2><span class="highlight">Welcome</span></h2>
                 <p>Please enter your phone number</p>
-                  <form action="{{ url_for('customers.log_in') }}" method="POST">
-                      <label for="phone"></label><input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      placeholder="Your Phone Number"
-                      pattern="[0-9]{10}"
-                      required
-                    />
-                       <div class="button-container">
+                <form action="{{ url_for('customers.log_in') }}" method="POST">
+                    <label for="phone"></label><input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        placeholder="Your Phone Number"
+                        pattern="[0-9]{10}"
+                        required
+                />
+                    <div class="button-container">
                         <button type="submit">Submit</button>
-                       </div>
-                  </form>
+                    </div>
+                </form>
             </div>
         </div>
 
