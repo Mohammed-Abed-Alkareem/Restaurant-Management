@@ -1,9 +1,9 @@
 from flask import render_template, request, url_for, redirect, session, flash
 
 from . import customers  # Import the blueprint from the package
-from .models.customers_model import *
-from .models.menuItems_model import *
-from .models.tables_model import *
+from ProjectFiles.e_menu.models.customers_model import *
+from ProjectFiles.e_menu.models.menuItems_model import *
+from ProjectFiles.e_menu.models.tables_model import *
 
 
 @customers.route('/', methods=['POST', 'GET'])

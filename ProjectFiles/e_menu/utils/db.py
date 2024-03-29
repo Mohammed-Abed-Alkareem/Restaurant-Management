@@ -1,7 +1,7 @@
 
-from ProjectFiles.e_menu.customers.models.customers_model import *
-from ProjectFiles.e_menu.customers.models.menuItems_model import *
-from ProjectFiles.e_menu.customers.models.tables_model import *
+from ProjectFiles.e_menu.models.customers_model import *
+from ProjectFiles.e_menu.models.menuItems_model import *
+from ProjectFiles.e_menu.models.tables_model import *
 from .read_initial_data import *
 
 
