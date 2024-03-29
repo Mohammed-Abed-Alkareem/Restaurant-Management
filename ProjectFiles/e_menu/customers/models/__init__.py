@@ -4,6 +4,10 @@ import urllib.parse
 from ProjectFiles.e_menu.utils.queries.customers import *
 from ProjectFiles.e_menu.utils.queries.menuItems import *
 from ProjectFiles.e_menu.utils.queries.tables import *
+from ProjectFiles.e_menu.utils.queries.orders_details import *
+from ProjectFiles.e_menu.utils.queries.orders import *
+from ProjectFiles.e_menu.utils.queries.ratings import *
+from ProjectFiles.e_menu.utils.queries.payment_methods import *
 
 
 # Encode the password
@@ -15,9 +19,16 @@ engine = create_engine(DATABASE, echo=True)
 
 
 def generate_key(char) -> str:
-    conn = engine.connect()
-    row = conn.execute(GET_CUSTOMERS_TABLE).fetchone()
 
+    query_dict = {
+        'C': GET_CUSTOMERS_TABLE,
+        'M': GET_MENU_ITEMS_TABLE
+    }
+
+    query = query_dict[char]
+
+    conn = engine.connect()
+    row = conn.execute(query).fetchone()
     conn.commit()
     conn.close()
 

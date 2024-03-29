@@ -84,7 +84,7 @@ def insert_menuItems_data():
             (
                 menuItem["id"], menuItem["name"],
                 menuItem["description"], menuItem["category"],
-                menuItem["price"]
+                menuItem["price"], True
             )
             .insert())
 
