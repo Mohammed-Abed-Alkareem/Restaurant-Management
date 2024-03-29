@@ -1,10 +1,9 @@
-from . import customers  # Import the blueprint from the package
-
 from flask import render_template, request, url_for, redirect, session, flash
 
-from .models.tables_model import *
+from . import customers  # Import the blueprint from the package
 from .models.customers_model import *
 from .models.menuItems_model import *
+from .models.tables_model import *
 
 
 @customers.route('/', methods=['POST', 'GET'])
@@ -146,7 +145,6 @@ def item_details(category, menu_item):
 
 @customers.route('categories/<menu_item>/add', methods=['GET', 'POST'])
 def item_add(menu_item):
-
     if 'table' not in session or session['table'] is None:
         flash("Please Enter table code first", "danger")
         return redirect(url_for('customers.home_page'))

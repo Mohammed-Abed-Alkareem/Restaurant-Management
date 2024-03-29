@@ -8,29 +8,33 @@
     {# Include custom CSS files for the child template #}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/homePage.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/buttons.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/flashed_messages.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/flashed_messages.css') }}">
 {% endblock %}
 
 {% block content %}
 
     <script src="{{ url_for('static', filename='js/alert.js') }}"></script>
 
-        {% for type, message in get_flashed_messages(with_categories=true) %}
-                 <div id="myAlert" class="alert alert-{{ type }}" role="alert">
-                        {{ message }}
-                 </div>
-        {% endfor %}
+    {% for type, message in get_flashed_messages(with_categories=true) %}
+        <div id="myAlert" class="alert alert-{{ type }}" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
 
     <div class="full-screen">
         <div class="logo">
             <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo">
 
             <div class="form-overlay">
-                <h2>Welcome to Our <span class="highlight">Restaurant</span> </h2>
-                 <p >Please choose an option below to continue.</p>
+                <h2>Welcome to Our <span class="highlight">Restaurant</span></h2>
+                <p>Please choose an option below to continue.</p>
                 <div class="button-container">
-                    <a href="{{ url_for('customers.log_in') }}"><button>Log In</button></a>
-                    <a href="{{ url_for('customers.sign_up') }}"><button>Sign Up</button></a>
+                    <a href="{{ url_for('customers.log_in') }}">
+                        <button>Log In</button>
+                    </a>
+                    <a href="{{ url_for('customers.sign_up') }}">
+                        <button>Sign Up</button>
+                    </a>
 
                 </div>
             </div>

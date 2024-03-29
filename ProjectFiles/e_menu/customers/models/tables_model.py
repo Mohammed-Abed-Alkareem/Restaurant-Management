@@ -8,6 +8,31 @@ class Table:
         self.type = type
         self.seats = seats
 
+    @staticmethod
+    def create_table():
+        conn = engine.connect()
+        try:
+            conn.execute(CREATE_TABLES_TABLE)
+            return True
+        except Exception as e:
+            print(f"Error: {e}")
+            return False
+        finally:
+            conn.close()
+
+
+    @staticmethod
+    def drop_table():
+        conn = engine.connect()
+        try:
+            conn.execute(DROP_TABLES_TABLE)
+            return True
+        except Exception as e:
+            print(f"Error: {e}")
+            return False
+        finally:
+            conn.close()
+
     def insert(self):
         conn = engine.connect()
         try:

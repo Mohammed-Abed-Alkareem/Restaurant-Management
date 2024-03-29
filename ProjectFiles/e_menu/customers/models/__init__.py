@@ -1,10 +1,10 @@
-from sqlalchemy import create_engine
 import urllib.parse
+
+from sqlalchemy import create_engine
 
 from ProjectFiles.e_menu.utils.queries.customers import *
 from ProjectFiles.e_menu.utils.queries.menuItems import *
 from ProjectFiles.e_menu.utils.queries.tables import *
-
 
 # Encode the password
 encoded_password = urllib.parse.quote_plus('Mohammed@123')

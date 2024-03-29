@@ -12,6 +12,32 @@ class Customer:
             self.name = args[1]
             self.phone_number = args[2]
 
+    @staticmethod
+    def create_table():
+        conn = engine.connect()
+
+        try:
+            conn.execute(CREATE_CUSTOMERS_TABLE)
+            return 1
+        except Exception as e:
+            print(f"Error: {e}")
+            return 0
+        finally:
+            conn.close()
+
+    @staticmethod
+    def drop_table():
+        conn = engine.connect()
+
+        try:
+            conn.execute(DROP_CUSTOMERS_TABLE)
+            return 1
+        except Exception as e:
+            print(f"Error: {e}")
+            return 0
+        finally:
+            conn.close()
+
     def insert(self):
         conn = engine.connect()
 

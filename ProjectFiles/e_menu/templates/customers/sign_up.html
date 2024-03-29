@@ -12,8 +12,14 @@
 
 {% block content %}
 
-     {% for type, message in get_flashed_messages(with_categories=true) %}
+    {% for type, message in get_flashed_messages(with_categories=true) %}
         <div id="myAlert" class="alert alert-{{ type }}" role="alert">
+            {% if type == 'danger' %}
+                &#x274C;
+            {% elif type == 'success' %}
+                &#x2714;
+            {% endif %}
+
             {{ message }}
             {% if type == 'danger' %}
                 <a href="{{ url_for('customers.log_in') }}">try to Log in</a>
@@ -29,26 +35,26 @@
             <div class="form-overlay">
                 <h2><span class="highlight">Welcome</span></h2>
                 <p>Please enter your name and phone number</p>
-                  <form action="{{ url_for('customers.sign_up') }}" method="POST">
-                      <label for="name"></label><input
-                      type="text"
-                      id="name"
-                      name="name"
-                      placeholder="Your first and last name"
-                      required
-                    />
-                      <label for="phone"></label><input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      placeholder="Your Phone Number"
-                      pattern="[0-9]{10}"
-                      required
-                    />
-                       <div class="button-container">
+                <form action="{{ url_for('customers.sign_up') }}" method="POST">
+                    <label for="name"></label><input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Your first and last name"
+                        required
+                />
+                    <label for="phone"></label><input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        placeholder="Your Phone Number"
+                        pattern="[0-9]{10}"
+                        required
+                />
+                    <div class="button-container">
                         <button type="submit">Submit</button>
-                       </div>
-                  </form>
+                    </div>
+                </form>
             </div>
         </div>
 
