@@ -13,9 +13,12 @@ custom_css %}
 
     <div class="dish-container">
         <h1 class="dish-name">{{ menuItem.name }}</h1>
+
         <img src="{{ url_for('static', filename='img/menuItems/' + menuItem.id + '.png') }}" alt="Dish Name"
              height="300" width="300"/>
+
         <h3><span class="highlight">{{ menuItem.description }}</span></h3>
+
         <form action="/customer/categories/{{ menuItem.id }}/add" method="post" id="add-to-cart-form">
             <div class="quantity-selector">
                 <button type="button" class="decrement">-</button>
@@ -24,6 +27,7 @@ custom_css %}
             </div>
             <button type="submit" class="add-to-cart">Add to Cart</button>
         </form>
+
     </div>
 
 

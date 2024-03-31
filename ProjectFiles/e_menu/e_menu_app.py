@@ -7,7 +7,7 @@ from utils.db import reset_db
 
 app = Flask(__name__)
 
-# Register your blueprints with proper URL prefixes
+# Register blueprints with proper URL prefixes
 
 app.register_blueprint(customers)
 app.register_blueprint(managers)
@@ -26,6 +26,6 @@ def not_found(e):
 
 
 if __name__ == '__main__':
-    reset_db()
+    #reset_db()
 
     app.run(host='0.0.0.0', port=1111, debug=True)
