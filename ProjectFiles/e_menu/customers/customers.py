@@ -181,8 +181,10 @@ def item_add(menu_item):
     return redirect(url_for("customers.categories"))
 
 
-@customers.route('/cart')
-def cart():
+# This is not used now
+
+@customers.route('/checkout', methods=['GET', 'POST'])
+def checkout():
     if 'table' not in session or session['table'] is None:
         flash("Please Enter table code first", "danger")
         return redirect(url_for('customers.home_page'))
@@ -194,12 +196,46 @@ def cart():
     if 'cart' not in session:
         session['cart'] = {}
 
-    cart_items = []
+    items = []
+    quantities = []
 
     for item_id, quantity in session['cart'].items():
         item = MenuItems.get(item_id)
-        cart_items.append((item, quantity))
+        items.append(item)
+        quantities.append(quantity)
 
-    print(cart_items)
+    for item, quantity in zip(items, quantities):
+        print(item.name, quantity)
     return redirect(url_for('customers.home_page'))
-    # return render_template("customers/cart.html", cart_items=cart_items)
+    # return render_template("customers/checkout.html", items=items, quantities=quantities)
+
+
+@customers.route('/checkout/confirm', methods=['POST'])
+def confirm_order():
+    if 'table' not in session or session['table'] is None:
+        flash("Please Enter table code first", "danger")
+        return redirect(url_for('customers.home_page'))
+
+    if 'customer' not in session or session['customer'] is None:
+        flash("Please Login first", "danger")
+        return redirect(url_for('customers.sign_page'))
+
+    if 'cart' not in session:
+        session['cart'] = {}
+
+    items = []
+    quantities = []
+
+    for item_id, quantity in session['cart'].items():
+        item = MenuItems.get(item_id)
+        items.append(item)
+        quantities.append(quantity)
+
+    for item, quantity in zip(items, quantities):
+        print(item.name, quantity)
+
+    # Clear the cart after confirming the order
+    session.pop('cart', None)
+
+    flash("Order Confirmed!", "success")
+    return redirect(url_for('customers.categories'))
