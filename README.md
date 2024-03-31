@@ -9,7 +9,7 @@
         ├── customers/
         │   ├── __init__.py
         │   ├── customers.py
-        │   └── models/
+        │── models/
         ├── managers/
         │   ├── __init__.py
         │   └── managers.py
