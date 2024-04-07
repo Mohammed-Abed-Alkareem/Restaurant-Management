@@ -1,34 +1,34 @@
-{% extends "./base.html" %} {% block title %} Home Page {% endblock %} {% block
+{% extends "./base.html" %} {% block title %} Meal Details {% endblock %} {% block
 custom_css %}
-    <link
-            rel="stylesheet"
-            href="{{ url_for('static', filename='css/item_details.css') }}"
-    />
-    <script src="{{ url_for('static', filename='js/quantity.js') }}"></script>
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/item_details.css') }}"
+/>
+<script src="{{ url_for('static', filename='js/quantity.js') }}"></script>
 
 {% endblock %}
 
 
 {% block content %}
-
-    <div class="dish-container">
-        <h1 class="dish-name">{{ menuItem.name }}</h1>
-
-        <img src="{{ url_for('static', filename='img/menuItems/' + menuItem.id + '.png') }}" alt="Dish Name"
-             height="300" width="300"/>
-
-        <h3><span class="highlight">{{ menuItem.description }}</span></h3>
-
-        <form action="/customer/categories/{{ menuItem.id }}/add" method="post" id="add-to-cart-form">
-            <div class="quantity-selector">
-                <button type="button" class="decrement">-</button>
-                <input type="number" class="quantity-input" name="quantity" value="1" min="1"/>
-                <button type="button" class="increment">+</button>
-            </div>
-            <button type="submit" class="add-to-cart">Add to Cart</button>
-        </form>
-
+<div class="dish-container">
+  <h1 class="dish-name">{{ menuItem.name }}</h1>
+  <img src="{{ url_for('static', filename='img/menuItems/' + menuItem.id + '.png') }}" alt="Dish Name" height="300" width="300" />
+  <h3><span class="highlight">{{ menuItem.description }}</span></h3>
+  <form action="/customer/categories/{{ category }}/{{ menuItem.id }}/add" method="post" id="add-to-cart-form">
+    <div class="hbox">
+      <span>Quantity:</span>
+      <div class="quantity-selector">
+        <button type="button" class="decrement">-</button>
+        <input type="number" class="quantity-input" name="quantity" value="1" min="1" />
+        <button type="button" class="increment">+</button>
+      </div>
     </div>
+    <div style="text-align: center; margin-top: 20px;">
+      <button type="submit" class="add-to-cart">Add to Cart</button>
+      <div class="price-display">₪ 5</div>
+    </div>
+  </form>
+</div>
 
 
 {% endblock %}

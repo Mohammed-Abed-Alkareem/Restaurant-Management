@@ -1,0 +1,57 @@
+.meal-box {
+  display: flex;
+  background-color: #d9d9bd;
+  padding: 10px;
+  margin: 20px;
+  border-radius: 8px;
+}
+
+.left-side,
+.right-side {
+  padding: 10px;
+}
+
+.left-side {
+  width: 30%;
+  text-align: center;
+}
+
+.meal-image {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.right-side {
+  width: 70%;
+}
+
+.meal-name,
+.meal-description,
+.meal-price {
+  margin: 10px 0;
+}
+
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.increment, .decrement {
+  border: 2px solid black;
+  background-color: #aeae8f;
+  color: black;
+  padding: 5px 10px;
+  margin: 0 5px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.quantity-input {
+    width: 30px; /* Consider max-width for flexibility */
+    text-align: center;
+    margin: 0 10px;
+    border: none;
+    background: none;
+    font-size: 15px;
+}
