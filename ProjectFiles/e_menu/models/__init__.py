@@ -11,7 +11,7 @@ from ProjectFiles.e_menu.utils.queries.ratings import *
 from ProjectFiles.e_menu.utils.queries.payment_methods import *
 
 # Encode the password
-encoded_password = urllib.parse.quote_plus('Mohammed@123')
+encoded_password = urllib.parse.quote_plus('password')
 # Construct the connection string
 DATABASE = f'mysql+pymysql://root:{encoded_password}@127.0.0.1/e_menu'
 
