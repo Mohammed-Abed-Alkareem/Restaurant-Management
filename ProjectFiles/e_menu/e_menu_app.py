@@ -17,7 +17,7 @@ app.secret_key = 'mysecret!!@@'
 
 @app.route("/")
 def home_page():
-    return render_template("customers/cart.html")
+    return render_template("home_page.html")
 
 
 @app.errorhandler(404)
