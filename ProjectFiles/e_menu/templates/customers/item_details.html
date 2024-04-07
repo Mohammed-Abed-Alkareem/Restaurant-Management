@@ -14,7 +14,7 @@ custom_css %}
   <h1 class="dish-name">{{ menuItem.name }}</h1>
   <img src="{{ url_for('static', filename='img/menuItems/' + menuItem.id + '.png') }}" alt="Dish Name" height="300" width="300" />
   <h3><span class="highlight">{{ menuItem.description }}</span></h3>
-  <form action="/customer/categories/{{ category }}/{{ menuItem.id }}/add" method="post" id="add-to-cart-form">
+  <form action="/customer/categories/{{ menuItem.id }}/add" method="post" id="add-to-cart-form">
     <div class="hbox">
       <span>Quantity:</span>
       <div class="quantity-selector">
