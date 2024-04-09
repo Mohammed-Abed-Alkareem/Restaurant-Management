@@ -31,6 +31,9 @@
             └── read_initial_data.py
 
 ```
+
+## ER Diagram
+![ER Diagram](ER_diagram.png)
 ## Description
 
 - `e_menu_app.py`: Main application file, responsible for starting the application.
