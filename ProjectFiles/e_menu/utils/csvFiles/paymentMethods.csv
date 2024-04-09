@@ -1,0 +1,6 @@
+id,description
+Cash,"Customers hand over physical currency to the restaurant to cover their bill. The cashier calculates the total, accepts the cash, and returns any change necessary."
+Credit/Debit Cards,"The card is swiped, inserted, or tapped at a card reader, which reads the card's information and processes the transaction by deducting the amount from the customer’s account or credit line."
+Mobile Payments,"Customers use a mobile app to create a digital version of their credit/debit card and then pay by holding their phone close to a contactless reader, which communicates with the app to complete the transaction."
+Cryptocurrency,Customers transfer cryptocurrency from their digital wallet to the restaurant's wallet using the blockchain network. The transaction is verified and recorded on the blockchain.
+Digital Wallets,Customers use a digital wallet app to store payment information and make payments. The app communicates with the payment terminal or online platform to process the payment.

@@ -1,7 +1,7 @@
 from . import *
 
 
-class PaymentMethod:
+class Rating:
     def __init__(self, id, order_id, customer_id, rating, food_rating, service_rating):
         self.id = id
         self.order_id = order_id

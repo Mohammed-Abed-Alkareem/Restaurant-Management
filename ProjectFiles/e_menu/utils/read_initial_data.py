@@ -2,6 +2,7 @@ import random
 import time
 import pandas as pd
 from faker import Faker
+import sqlite3
 
 
 def get_menuItems_data():
@@ -32,10 +33,10 @@ def get_tables_data():
 
     for index, row in df.iterrows():
         data = {
-            'tableId': row['tableId'],
-            'numOfSeats': row['numOfSeats'],
+            'code': row['code'],
+            'seats': row['seats'],
             'location': row['location'],
-            'class': row['class']
+            'type': row['type']
         }
 
         tables_data.append(data)
@@ -62,3 +63,5 @@ def get_customers_data():
         customers_data.append([fake_name, fake_phone_number])
 
     return customers_data
+
+

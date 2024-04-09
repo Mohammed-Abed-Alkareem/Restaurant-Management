@@ -1,7 +1,25 @@
-tableId,location,class,numOfSeats
-1,Near Window,VIP,4
-2,Patio,Standard,2
-3,Main Hall,Economy,6
-4,Main Hall,Economy,8
-5,Near Bar,VIP,2
-6,Patio,Standard,4
+code,location,type,seats
+123456,Entrance,Standard,4
+234567,Patio,Standard,2
+345678,Main Hall,VIP,6
+456789,Main Hall,Standard,4
+567890,Side Area,Family,5
+678901,Patio,Family,4
+789012,Main Hall,Standard,4
+890123,Entrance,VIP,2
+901234,Main Hall,VIP,8
+112233,Main Hall,Standard,4
+223344,Entrance,Standard,2
+334455,Side Area,Family,6
+445566,Patio,Family,6
+556677,Main Hall,Standard,4
+667788,Entrance,VIP,4
+778899,Main Hall,VIP,6
+889900,Entrance,Standard,3
+990011,Patio,Family,4
+123321,Main Hall,Standard,4
+234432,Side Area,Family,5
+345543,Patio,Family,2
+456654,Entrance,VIP,2
+567765,Main Hall,Standard,6
+678876,Main Hall,VIP,8
