@@ -1,48 +1,45 @@
-{% extends "./base.html" %}
+{% extends "./base_after_login.html" %} {% block title %} Home Page {% endblock
+%} {% block custom_css %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/categories.css') }}"
+/>
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/flashed_messages.css') }}"
+/>
 
-{% block title %}
-    Home Page
-{% endblock %}
+<script src="{{ url_for('static', filename='js/cart_window.js') }}"></script>
 
-{% block custom_css %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/categories.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/flashed_messages.css') }}">
-{% endblock %}
+{% endblock %} {% block content %}
 
-{% block content %}
+<script src="{{ url_for('static', filename='js/alert.js') }}"></script>
 
-    <script src="{{ url_for('static', filename='js/alert.js') }}"></script>
+{% for type, message in get_flashed_messages(with_categories=true) %}
+<div id="myAlert" class="alert alert-{{ type }}" role="alert">
+  {% if type == 'danger' %} &#x274C; {% elif type == 'success' %} &#x2714; {%
+  endif %} {{ message }}
+</div>
+{% endfor %}
 
-    {% for type, message in get_flashed_messages(with_categories=true) %}
-        <div id="myAlert" class="alert alert-{{ type }}" role="alert">
-
-            {% if type == 'danger' %}
-                &#x274C;
-            {% elif type == 'success' %}
-                &#x2714;
-            {% endif %}
-
-            {{ message }}
-        </div>
+<div class="centered_container">
+  <div class="hero__content">
+    <h2 class="hero__title">
+      Welcome! <span class="highlight">{{ user_name }}</span>
+    </h2>
+    <h3>Please choose the type of meal you'd like to order</h3>
+  </div>
+  <div class="menu-container">
+    {% for category in items_categories %}
+    <a
+      href="{{ url_for('customers.category_items', category=category) }}"
+      class="menu-item"
+      style="background-image: url('{{ url_for('static', filename='img/categories/' + category + '.png') }}');
+                           background-size: cover; background-position: center;"
+    >
+      <div class="menu-text">{{ category }}</div>
+    </a>
     {% endfor %}
-
-    <div class="centered_container">
-        <div class="hero__content">
-            <h2 class="hero__title">
-                Welcome! <span class="highlight">{{ user_name }}</span>
-            </h2>
-            <h3>Please choose the type of meal you'd like to order</h3>
-        </div>
-        <div class="menu-container">
-            {% for category in items_categories %}
-                <a href="{{ url_for('customers.category_items', category=category) }}"
-                   class="menu-item"
-                   style="background-image: url('{{ url_for('static', filename='img/categories/' + category + '.png') }}');
-                           background-size: cover; background-position: center;">
-                    <div class="menu-text">{{ category }}</div>
-                </a>
-            {% endfor %}
-        </div>
-    </div>
+  </div>
+</div>
 {% endblock %}
-
