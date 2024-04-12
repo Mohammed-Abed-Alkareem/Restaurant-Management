@@ -6,6 +6,33 @@ class PaymentMethod:
         self.id = id
         self.description = description
 
+    @staticmethod
+    def create_table():
+        conn = engine.connect()
+        try:
+            conn.execute(CREATE_PAYMENT_METHODS_TABLE)
+            conn.commit()
+            return True
+        except Exception as e:
+            print(f"Error: {e}")
+            return False
+        finally:
+            conn.close()
+
+    @staticmethod
+    def drop_table():
+        conn = engine.connect()
+
+        try:
+            conn.execute(DROP_PAYMENT_METHODS_TABLE)
+            conn.commit()
+            return 1
+        except Exception as e:
+            print(f"Error: {e}")
+            return 0
+        finally:
+            conn.close()
+
     def insert(self):
         conn = engine.connect()
         try:

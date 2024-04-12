@@ -24,12 +24,39 @@ class Rating:
         finally:
             conn.close()
 
+    @staticmethod
+    def create_table():
+        conn = engine.connect()
+
+        try:
+            conn.execute(CREATE_RATINGS_TABLE)
+            return 1
+        except Exception as e:
+            print(f"Error: {e}")
+            return 0
+        finally:
+            conn.close()
+
+
+    @staticmethod
+    def drop_table():
+        conn = engine.connect()
+
+        try:
+            conn.execute(DROP_RATINGS_TABLE)
+            return 1
+        except Exception as e:
+            print(f"Error: {e}")
+            return 0
+        finally:
+            conn.close()
+
     @classmethod
     def get_all(cls):
         conn = engine.connect()
         try:
             ratings_objects = []
-            ratings = conn.execute(SELECT_PAYMENT_METHODS_TABLE).fetchall()
+            ratings = conn.execute(SELECT_RATINGS_TABLE).fetchall()
             for rating in ratings:
                 ratings_objects.append(cls(id=rating[0], order_id=rating[1], customer_id=rating[2],
                                            rating=rating[3], food_rating=rating[4], service_rating=rating[5]))

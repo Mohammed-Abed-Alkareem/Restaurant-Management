@@ -11,7 +11,7 @@ from ProjectFiles.e_menu.utils.queries.ratings import *
 from ProjectFiles.e_menu.utils.queries.payment_methods import *
 
 # Encode the password
-encoded_password = urllib.parse.quote_plus('mosatukba1')
+encoded_password = urllib.parse.quote_plus('Mohammed@123')
 # Construct the connection string
 DATABASE = f'mysql+pymysql://root:{encoded_password}@127.0.0.1/e_menu'
 
@@ -22,7 +22,8 @@ def generate_key(char) -> str:
 
     query_dict = {
         'C': GET_CUSTOMERS_TABLE,
-        'M': GET_MENU_ITEMS_TABLE
+        'M': GET_MENU_ITEMS_TABLE,
+        'O': GET_ORDERS_TABLE
     }
 
     query = query_dict[char]
@@ -37,6 +38,8 @@ def generate_key(char) -> str:
             return 'C0001'
         elif char == 'M':
             return 'M001'
+        elif char == 'O':
+            return 'O00001'
 
     prev_key = row[0]
     key_length = len(prev_key)

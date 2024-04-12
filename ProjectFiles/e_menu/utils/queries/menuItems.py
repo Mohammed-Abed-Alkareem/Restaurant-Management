@@ -4,7 +4,7 @@ CREATE_MENU_TABLE = text("""
                             CREATE TABLE IF NOT EXISTS menuItems(
                             id CHAR(4) PRIMARY KEY,
                             name VARCHAR(50) NOT NULL,
-                            description VARCHAR(200),
+                            description VARCHAR(1000),
                             category VARCHAR(50) NOT NULL,
                             price DOUBLE NOT NULL,
                             is_available BOOLEAN

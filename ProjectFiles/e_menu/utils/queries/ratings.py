@@ -2,8 +2,8 @@ from sqlalchemy import text
 
 CREATE_RATINGS_TABLE = text("""
                             CREATE TABLE IF NOT EXISTS ratings(
-                            id CHAR(4) PRIMARY KEY,
-                            order_id CHAR(4),
+                            id CHAR(6) PRIMARY KEY,
+                            order_id CHAR(6),
                             customer_id CHAR(5),
                             rating int,
                             food_rating int,
@@ -26,3 +26,7 @@ GET_RATINGS_BY_CUSTOMER_ID = text("""
                                     SELECT * FROM ratings
                                     WHERE customer_id = :customer_id
                                 """)
+
+DROP_RATINGS_TABLE = text("""
+                                DROP TABLE IF EXISTS ratings;
+                            """)
