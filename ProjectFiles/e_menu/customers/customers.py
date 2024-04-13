@@ -196,18 +196,18 @@ def checkout():
     if 'cart' not in session:
         session['cart'] = {}
 
-    items = []
-    quantities = []
-
-    for item_id, quantity in session['cart'].items():
-        item = MenuItems.get(item_id)
-        items.append(item)
-        quantities.append(quantity)
-
-    for item, quantity in zip(items, quantities):
-        print(item.name, quantity)
-    return redirect(url_for('customers.home_page'))
-    # return render_template("customers/checkout.html", items=items, quantities=quantities)
+    # items = []
+    # quantities = []
+    #
+    # for item_id, quantity in session['cart'].items():
+    #     item = MenuItems.get(item_id)
+    #     items.append(item)
+    #     quantities.append(quantity)
+    #
+    # for item, quantity in zip(items, quantities):
+    #     print(item.name, quantity)
+    # return redirect(url_for('customers.home_page'))
+    return render_template("customers/cart_management.html")
 
 
 @customers.route('/checkout/confirm', methods=['POST'])
@@ -257,4 +257,52 @@ def get_session():
     }
     return jsonify(session_data)
 
+
+@customers.route('/update_quantity', methods=['POST'])
+def update_quantity():
+    data = request.json
+    item_id = data.get('itemId')
+    new_quantity = data.get('newQuantity')
+
+    if item_id is None or new_quantity is None:
+        return jsonify({'error': 'Missing item ID or new quantity'}), 400
+
+    session['cart'][item_id] = new_quantity
+    session.modified = True
+    return jsonify({'success': True})
+
+
+@customers.route('/delete_item', methods=['POST'])
+def delete_item():
+    data = request.json
+    item_id = data['itemId']
+    print(item_id)
+    print(session['cart'])
+    print(session['cart'][item_id])
+
+
+    if item_id in session['cart']:
+        session['cart'].pop(item_id)
+        session.modified = True
+        print(
+        session['cart'])
+    return jsonify({'success': True})
+
+
+@customers.route('/get_cart_items')
+def get_cart_items():
+    items = []
+    print("view")
+    print(
+        session.get('cart', {})
+    )
+    for item_id, quantity in session.get('cart', {}).items():
+        item = MenuItems.get(item_id)
+        # Assuming 'name' and 'price' are attributes of your MenuItems model
+        items.append({'id': item.id, 'name': item.name, 'price': item.price * quantity, 'quantity': quantity})
+
+    session_data = {
+        'items': items,
+    }
+    return jsonify(session_data)
 
