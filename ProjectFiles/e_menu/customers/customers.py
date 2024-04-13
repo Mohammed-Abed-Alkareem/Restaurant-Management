@@ -1,4 +1,4 @@
-from flask import render_template, request, url_for, redirect, session, flash
+from flask import render_template, request, url_for, redirect, session, flash, jsonify
 
 from . import customers  # Import the blueprint from the package
 from ProjectFiles.e_menu.models.customers_model import *
@@ -239,3 +239,22 @@ def confirm_order():
 
     flash("Order Confirmed!", "success")
     return redirect(url_for('customers.categories'))
+
+
+#-------------------------------------------------
+
+@customers.route('/get_session')
+def get_session():
+    items = []
+
+    for item_id, quantity in session.get('cart', {}).items():
+        item = MenuItems.get(item_id)
+        # Assuming 'name' and 'price' are attributes of your MenuItems model
+        items.append({'id': item.id, 'name': item.name, 'price': item.price*quantity, 'quantity': quantity})
+
+    session_data = {
+        'items': items,
+    }
+    return jsonify(session_data)
+
+
