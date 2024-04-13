@@ -23,6 +23,33 @@ class OrderDetails:
         finally:
             conn.close()
 
+
+    @staticmethod
+    def create_table():
+        conn = engine.connect()
+
+        try:
+            conn.execute(CREATE_ORDER_DETAILS_TABLE)
+            return 1
+        except Exception as e:
+            print(f"Error: {e}")
+            return 0
+        finally:
+            conn.close()
+
+    @staticmethod
+    def drop_table():
+        conn = engine.connect()
+
+        try:
+            conn.execute(DROP_ORDER_DETAILS_TABLE)
+            return 1
+        except Exception as e:
+            print(f"Error: {e}")
+            return 0
+        finally:
+            conn.close()
+
     @classmethod
     def get_by_order_id(cls, order_id):
         conn = engine.connect()
