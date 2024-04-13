@@ -1,0 +1,17 @@
+{% extends "./base.html" %}
+{% block title %}Cart{% endblock %}
+{% block custom_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/cart.css') }}" />
+{% endblock %}
+
+{% block content %}
+    <h1>cart</h1>
+<div id="cart-items-container" class="cart-items-container">
+    <!-- Cart items will be dynamically added here -->
+</div>
+
+
+
+<script src="{{ url_for('static', filename='js/cart_management.js') }}"></script>
+
+{% endblock %}
