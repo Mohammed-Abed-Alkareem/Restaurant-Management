@@ -298,8 +298,11 @@ def get_cart_items():
     )
     for item_id, quantity in session.get('cart', {}).items():
         item = MenuItems.get(item_id)
-        # Assuming 'name' and 'price' are attributes of your MenuItems model
-        items.append({'id': item.id, 'name': item.name, 'price': item.price * quantity, 'quantity': quantity})
+
+        items.append({'id': item.id, 'name': item.name,
+                      'description': item.description,
+                      'price': item.price * quantity,
+                      'quantity': quantity})
 
     session_data = {
         'items': items,
