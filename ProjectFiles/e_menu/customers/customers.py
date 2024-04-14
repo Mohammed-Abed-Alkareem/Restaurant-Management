@@ -4,6 +4,7 @@ from . import customers  # Import the blueprint from the package
 from ProjectFiles.e_menu.models.customers_model import *
 from ProjectFiles.e_menu.models.menuItems_model import *
 from ProjectFiles.e_menu.models.tables_model import *
+from ProjectFiles.e_menu.models.payment_methods_model import *
 
 
 @customers.route('/', methods=['POST', 'GET'])
@@ -181,8 +182,6 @@ def item_add(menu_item):
     return redirect(url_for("customers.categories"))
 
 
-# This is not used now
-
 @customers.route('/checkout', methods=['GET', 'POST'])
 def checkout():
     if 'table' not in session or session['table'] is None:
@@ -193,25 +192,15 @@ def checkout():
         flash("Please Login first", "danger")
         return redirect(url_for('customers.sign_page'))
 
-    if 'cart' not in session:
-        session['cart'] = {}
+    if 'cart' not in session or len(session['cart']) == 0:
+        flash("Your cart is empty", "danger")
+        return redirect(url_for('customers.categories'))
 
-    # items = []
-    # quantities = []
-    #
-    # for item_id, quantity in session['cart'].items():
-    #     item = MenuItems.get(item_id)
-    #     items.append(item)
-    #     quantities.append(quantity)
-    #
-    # for item, quantity in zip(items, quantities):
-    #     print(item.name, quantity)
-    # return redirect(url_for('customers.home_page'))
     return render_template("customers/cart_management.html")
 
 
-@customers.route('/checkout/confirm', methods=['POST'])
-def confirm_order():
+@customers.route('/checkout/payment', methods=['GET', 'POST'])
+def payment():
     if 'table' not in session or session['table'] is None:
         flash("Please Enter table code first", "danger")
         return redirect(url_for('customers.home_page'))
@@ -220,42 +209,60 @@ def confirm_order():
         flash("Please Login first", "danger")
         return redirect(url_for('customers.sign_page'))
 
-    if 'cart' not in session:
-        session['cart'] = {}
+    if 'cart' not in session or len(session['cart']) == 0:
+        flash("Your cart is empty", "danger")
+        return redirect(url_for('customers.categories'))
 
-    items = []
-    quantities = []
+    payment_methods = PaymentMethod.get_all()
 
-    for item_id, quantity in session['cart'].items():
-        item = MenuItems.get(item_id)
-        items.append(item)
-        quantities.append(quantity)
+    for payment in payment_methods:
+        print(payment.id, payment.description)
 
-    for item, quantity in zip(items, quantities):
-        print(item.name, quantity)
+    return render_template("customers/payment.html", payment_methods=payment_methods)
 
-    # Clear the cart after confirming the order
-    session.pop('cart', None)
 
-    flash("Order Confirmed!", "success")
-    return redirect(url_for('customers.categories'))
-
+# @customers.route('/checkout/payment/confirm', methods=['POST'])
+# def confirm_payment():
+#     if 'table' not in session or session['table'] is None:
+#         flash("Please Enter table code first", "danger")
+#         return redirect(url_for('customers.home_page'))
+#
+#     if 'customer' not in session or session['customer'] is None:
+#         flash("Please Login first", "danger")
+#         return redirect(url_for('customers.sign_page'))
+#
+#     if 'cart' not in session or len(session['cart']) == 0:
+#         flash("Your cart is empty", "danger")
+#         return redirect(url_for('customers.categories'))
+#
+#     data = request.json
+#     payment_method = data['paymentMethod']
+#
+#     print(payment_method)
+#
+#     table = Table.from_dict(session['table'])
+#     customer = Customer.from_dict(session['customer'])
+#
+#     order = Orders.insert(Order(table.id, customer.id, payment_method))
+#
+#     if order:
+#         for item_id, quantity in session['cart'].items():
+#             order_item = OrderItems.insert(OrderItem(order.id, item_id, quantity))
+#
+#         session.pop('cart', None)
+#         session.modified = True
+#
+#         flash("Order Placed Successfully", "success")
+#         return jsonify({'success': True})
+#
+#     else:
+#         flash("Order cannot be placed", "danger")
+#         return jsonify({'success': False})
 
 #-------------------------------------------------
-
-@customers.route('/get_session')
-def get_session():
-    items = []
-
-    for item_id, quantity in session.get('cart', {}).items():
-        item = MenuItems.get(item_id)
-        # Assuming 'name' and 'price' are attributes of your MenuItems model
-        items.append({'id': item.id, 'name': item.name, 'price': item.price*quantity, 'quantity': quantity})
-
-    session_data = {
-        'items': items,
-    }
-    return jsonify(session_data)
+@customers.route('/rate_order')
+def rate_order():
+    return render_template("customers/rate_order.html")
 
 
 @customers.route('/update_quantity', methods=['POST'])
@@ -276,16 +283,11 @@ def update_quantity():
 def delete_item():
     data = request.json
     item_id = data['itemId']
-    print(item_id)
-    print(session['cart'])
-    print(session['cart'][item_id])
-
 
     if item_id in session['cart']:
         session['cart'].pop(item_id)
         session.modified = True
-        print(
-        session['cart'])
+
     return jsonify({'success': True})
 
 
