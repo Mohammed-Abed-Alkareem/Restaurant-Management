@@ -26,7 +26,7 @@ def home_page():
         table = Table.get(code=table_code)
 
         if table is not None:
-            session["table"] = table.to_dict()
+            session["table"] = table_code
             session.modified = True
             return redirect(url_for('customers.sign_page'))
 
@@ -246,11 +246,11 @@ def confirm_payment():
         expiry_date = request.form['expiry-date']
         cvv = request.form['cvv']
 
-    table = Table.from_dict(session['table'])
+    table_code = session['table']
     customer = Customer.from_dict(session['customer'])
 
     # order = Order.insert(Order(table.code, customer.id, payment_method))
-    order = Order(customer.id, table.code, payment_method)
+    order = Order(customer.id, table_code, payment_method)
 
     print(order.id, order.customer_id, order.table_code, order.payment_method_id, order.order_date)
 
