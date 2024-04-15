@@ -1,0 +1,87 @@
+.payment-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  /* background-color: #f5f5f5; */
+  border-radius: 5px;
+}
+
+.payment-option {
+  margin-bottom: 20px;
+}
+
+.option {
+  display: block;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.option input[type="radio"] {
+  display: none;
+}
+
+.bullet {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid #333;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+.option input[type="radio"]:checked + .bullet {
+  background-color: #333;
+}
+
+.payment-details {
+  margin-top: 10px;
+  padding: 20px;
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.expiry-cvv-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.expiry-date-container,
+.cvv-container {
+  flex: 1;
+  margin-right: 10px;
+  margin-bottom: 20px;
+}
+
+.cvv-container {
+  margin-right: 0;
+}
+#full-name,
+#card-number {
+  width: 280px;
+}
+
+#expiry-date,
+#cvv {
+  width: 100px;
+}
