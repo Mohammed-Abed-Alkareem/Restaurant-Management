@@ -262,7 +262,7 @@ def payment():
 #-------------------------------------------------
 @customers.route('/rate_order')
 def rate_order():
-    return render_template("customers/rate_order.html")
+    return render_template("customers/rating.html")
 
 
 @customers.route('/update_quantity', methods=['POST'])

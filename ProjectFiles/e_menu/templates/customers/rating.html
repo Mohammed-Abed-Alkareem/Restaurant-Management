@@ -1,0 +1,30 @@
+{% extends "./base.html" %} {% block title %}Rating{% endblock %} {% block
+custom_css %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/rating.css') }}"
+/>
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/buttons.css') }}"
+/>
+
+{% endblock %} {% block content %}
+<div class="container">
+  <h2>Thank you for your order!</h2>
+  <p>Your order has been set</p>
+
+  <div class="rating">
+    <p>Please rate your experience:</p>
+    <div class="stars">
+      <span class="star" data-rating="1">&#9733;</span>
+      <span class="star" data-rating="2">&#9733;</span>
+      <span class="star" data-rating="3">&#9733;</span>
+      <span class="star" data-rating="4">&#9733;</span>
+      <span class="star" data-rating="5">&#9733;</span>
+    </div>
+  </div>
+</div>
+
+<script src="rating.js"></script>
+{% endblock %}

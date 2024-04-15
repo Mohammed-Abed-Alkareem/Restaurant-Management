@@ -4,6 +4,11 @@ custom_css %}
   rel="stylesheet"
   href="{{ url_for('static', filename='css/cart.css') }}"
 />
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/buttons.css') }}"
+/>
+
 <script src="{{ url_for('static', filename='js/quantity.js') }}"></script>
 {% endblock %} {% block content %}
 <div id="cart-items-container" class="cart-items-container">
@@ -11,7 +16,11 @@ custom_css %}
 </div>
 
 <div id="total-price-container" class="total-price-container"></div>
-
+<a href="{{ url_for('customers.payment') }}" class="button">
+  <div class="button-container">
+    <button type="submit">Checkout</button>
+  </div>
+</a>
 <script src="{{ url_for('static', filename='js/cart_management.js') }}"></script>
 
 {% endblock %}

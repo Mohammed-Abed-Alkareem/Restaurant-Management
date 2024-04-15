@@ -9,7 +9,11 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='css/cart_window.css') }}"
     />
-    <script src="{{ url_for('static', filename='js/fetch_session.js') }}"></script>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/buttons.css') }}"
+    />
+
     {% block custom_css %} {% endblock %}
 
     <meta charset="UTF-8" />
@@ -40,6 +44,11 @@
           <div id="cart-items-container" class="cart-items-container">
             <!-- Items will be dynamically added here -->
           </div>
+          <a href="{{ url_for('customers.checkout') }}" class="button">
+            <div class="button-container">
+              <button type="submit">Go to Cart</button>
+            </div>
+          </a>
         </div>
       </nav>
     </header>
