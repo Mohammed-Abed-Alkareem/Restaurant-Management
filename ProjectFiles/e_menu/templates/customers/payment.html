@@ -1,34 +1,34 @@
-{% extends "./base.html" %} {% block title %}Payment{% endblock %} {% block
-custom_css %}
+{% extends "./base.html" %}
+{% block title %}Payment{% endblock %}
+{% block custom_css %}
 <link
   rel="stylesheet"
   href="{{ url_for('static', filename='css/payment.css') }}"
 />
-
-{% endblock %} {% block content %}
+{% endblock %}
+{% block content %}
 <div class="payment-container">
   <h2>Payment Options</h2>
-  <div class="payment-option">
-    <label class="option">
-      <input type="radio" name="payment-method" value="cash" />
-      <span class="bullet"></span>
-      Cash
-    </label>
-    <div class="payment-details" id="cash-option" style="display: none">
-      <a href="{{ url_for('customers.rate_order') }}" class="button"
-        >Request a Bill</a
-      >
-    </div>
-  </div>
+  <form action="/customer/checkout/payment/confirm" method="post" id="pay">
+    <div class="payment-option">
+      <label class="option">
+        <input type="radio" name="payment-method" value="Cash" />
+        <span class="bullet"></span>
+        Cash
+      </label>
+      <div class="payment-details" id="cash-option" style="display: none">
 
-  <div class="payment-option">
-    <label class="option">
-      <input type="radio" name="payment-method" value="credit-card" />
-      <span class="bullet"></span>
-      Credit Card
-    </label>
-    <div class="payment-details" id="credit-card-option" style="display: none">
-      <form>
+        <button type="submit" class="button">Request Bill</button>
+      </div>
+    </div>
+
+    <div class="payment-option">
+      <label class="option">
+        <input type="radio" name="payment-method" value="Credit Card" />
+        <span class="bullet"></span>
+        Credit Card
+      </label>
+      <div class="payment-details" id="credit-card-option" style="display: none">
         <label for="full-name">Full Name:</label>
         <input type="text" id="full-name" name="full-name" required />
 
@@ -47,12 +47,11 @@ custom_css %}
           </div>
         </div>
 
-        <a href="{{ url_for('customers.rate_order') }}" class="button"
-          >Pay Now</a
-        >
-      </form>
+        <button type="submit" class="button">Pay</button>
+
+      </div>
     </div>
-  </div>
+  </form>
 </div>
 <script>
   const paymentOptions = document.querySelectorAll(

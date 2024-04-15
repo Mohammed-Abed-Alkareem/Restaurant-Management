@@ -5,6 +5,7 @@ from ProjectFiles.e_menu.models.customers_model import *
 from ProjectFiles.e_menu.models.menuItems_model import *
 from ProjectFiles.e_menu.models.tables_model import *
 from ProjectFiles.e_menu.models.payment_methods_model import *
+from ProjectFiles.e_menu.models.orders_model import *
 
 
 @customers.route('/', methods=['POST', 'GET'])
@@ -221,20 +222,37 @@ def payment():
     return render_template("customers/payment.html", payment_methods=payment_methods)
 
 
-# @customers.route('/checkout/payment/confirm', methods=['POST'])
-# def confirm_payment():
-#     if 'table' not in session or session['table'] is None:
-#         flash("Please Enter table code first", "danger")
-#         return redirect(url_for('customers.home_page'))
+@customers.route('/checkout/payment/confirm', methods=['POST'])
+def confirm_payment():
+    if 'table' not in session or session['table'] is None:
+        flash("Please Enter table code first", "danger")
+        return redirect(url_for('customers.home_page'))
 #
-#     if 'customer' not in session or session['customer'] is None:
-#         flash("Please Login first", "danger")
-#         return redirect(url_for('customers.sign_page'))
+    if 'customer' not in session or session['customer'] is None:
+        flash("Please Login first", "danger")
+        return redirect(url_for('customers.sign_page'))
 #
-#     if 'cart' not in session or len(session['cart']) == 0:
-#         flash("Your cart is empty", "danger")
-#         return redirect(url_for('customers.categories'))
-#
+    if 'cart' not in session or len(session['cart']) == 0:
+        flash("Your cart is empty", "danger")
+        return redirect(url_for('customers.categories'))
+
+    payment_method = request.form['payment-method']
+
+    if payment_method != 'cash':
+
+        full_name = request.form['full-name']
+        card_number = request.form['card-number']
+        expiry_date = request.form['expiry-date']
+        cvv = request.form['cvv']
+
+    table = Table.from_dict(session['table'])
+    customer = Customer.from_dict(session['customer'])
+
+    # order = Order.insert(Order(table.code, customer.id, payment_method))
+    order = Order(table.code, customer.id, payment_method)
+
+    print(order.id, order.table_code, order.customer_id, order.payment_method_id, order.order_date)
+    return redirect(url_for('customers.rate_order'))
 #     data = request.json
 #     payment_method = data['paymentMethod']
 #

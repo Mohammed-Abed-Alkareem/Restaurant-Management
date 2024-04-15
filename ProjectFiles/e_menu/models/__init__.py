@@ -23,7 +23,7 @@ def generate_key(char) -> str:
     query_dict = {
         'C': GET_CUSTOMERS_TABLE,
         'M': GET_MENU_ITEMS_TABLE,
-        'O': GET_ORDERS_TABLE
+        'O': GET_ORDERS_REVERSE
     }
 
     query = query_dict[char]
