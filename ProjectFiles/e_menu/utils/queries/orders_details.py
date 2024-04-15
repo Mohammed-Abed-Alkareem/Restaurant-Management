@@ -35,5 +35,11 @@ GET_ORDER_DETAILS_BY_ITEM_ID = text("""
                         WHERE item_id = :item_id
                     """)
 
+GET_ORDER_DETAILS_REVERSE = text("""
+                        SELECT * FROM orderDetails
+                        ORDER BY id DESC
+                        LIMIT 1
+                    """)
+
 
 

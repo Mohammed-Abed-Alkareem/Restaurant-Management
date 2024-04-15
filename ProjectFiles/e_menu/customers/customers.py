@@ -6,6 +6,7 @@ from ProjectFiles.e_menu.models.menuItems_model import *
 from ProjectFiles.e_menu.models.tables_model import *
 from ProjectFiles.e_menu.models.payment_methods_model import *
 from ProjectFiles.e_menu.models.orders_model import *
+from ProjectFiles.e_menu.models.orders_details_model import *
 
 
 @customers.route('/', methods=['POST', 'GET'])
@@ -249,35 +250,23 @@ def confirm_payment():
     customer = Customer.from_dict(session['customer'])
 
     # order = Order.insert(Order(table.code, customer.id, payment_method))
-    order = Order(table.code, customer.id, payment_method)
+    order = Order(customer.id, table.code, payment_method)
 
-    print(order.id, order.table_code, order.customer_id, order.payment_method_id, order.order_date)
+    print(order.id, order.customer_id, order.table_code, order.payment_method_id, order.order_date)
+
+    if order.insert():
+        for item_id, quantity in session['cart'].items():
+            price = MenuItems.get(item_id).price * quantity
+            order_detail = OrderDetails(order.id, item_id, price, quantity)
+            order_detail.insert()
+
+        session.pop('cart', None)
+        session.modified = True
+
+        flash("Order Placed Successfully", "success")
     return redirect(url_for('customers.rate_order'))
-#     data = request.json
-#     payment_method = data['paymentMethod']
-#
-#     print(payment_method)
-#
-#     table = Table.from_dict(session['table'])
-#     customer = Customer.from_dict(session['customer'])
-#
-#     order = Orders.insert(Order(table.id, customer.id, payment_method))
-#
-#     if order:
-#         for item_id, quantity in session['cart'].items():
-#             order_item = OrderItems.insert(OrderItem(order.id, item_id, quantity))
-#
-#         session.pop('cart', None)
-#         session.modified = True
-#
-#         flash("Order Placed Successfully", "success")
-#         return jsonify({'success': True})
-#
-#     else:
-#         flash("Order cannot be placed", "danger")
-#         return jsonify({'success': False})
 
-#-------------------------------------------------
+
 @customers.route('/rate_order')
 def rate_order():
     return render_template("customers/rating.html")
