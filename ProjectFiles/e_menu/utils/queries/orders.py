@@ -27,6 +27,11 @@ GET_ORDERS_TABLE = text("""
                         SELECT * FROM ORDERS
                     """)
 
+GET_ORDERS_REVERSE = text("""
+                        SELECT * FROM ORDERS
+                        ORDER BY id DESC
+                    """)
+
 GET_CUSTOMER_CURRENT_ORDER = text("""
                         SELECT * FROM ORDERS
                         WHERE customer_id = :customer_id
@@ -52,3 +57,4 @@ DROP_ORDERS_CUSTOMER_CONSTRAINT = text("""
 DROP_ORDERS_TABLE_CONSTRAINT = text("""
                                 ALTER TABLE Orders DROP FOREIGN KEY table_code;
                                 """)
+

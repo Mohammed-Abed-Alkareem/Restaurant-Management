@@ -1,4 +1,4 @@
-{% extends "./base.html" %} {% block title %} Meal Details {% endblock %} {% block
+{% extends "./base_after_login.html" %} {% block title %} Meal Details {% endblock %} {% block
 custom_css %}
 <link
   rel="stylesheet"
@@ -25,7 +25,7 @@ custom_css %}
     </div>
     <div style="text-align: center; margin-top: 20px;">
       <button type="submit" class="add-to-cart">Add to Cart</button>
-      <div class="price-display">₪ 5</div>
+      <div class="price-display">₪ {{ menuItem.price }}</div>
     </div>
   </form>
 </div>

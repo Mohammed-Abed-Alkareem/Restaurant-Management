@@ -1,0 +1,74 @@
+{% extends "./base.html" %}
+{% block title %}Payment{% endblock %}
+{% block custom_css %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/payment.css') }}"
+/>
+{% endblock %}
+{% block content %}
+<div class="payment-container">
+  <h2>Payment Options</h2>
+  <form action="/customer/checkout/payment/confirm" method="post" id="pay">
+    <div class="payment-option">
+      <label class="option">
+        <input type="radio" name="payment-method" value="Cash" />
+        <span class="bullet"></span>
+        Cash
+      </label>
+      <div class="payment-details" id="cash-option" style="display: none">
+
+        <button type="submit" class="button">Request Bill</button>
+      </div>
+    </div>
+
+    <div class="payment-option">
+      <label class="option">
+        <input type="radio" name="payment-method" value="Credit Card" />
+        <span class="bullet"></span>
+        Credit Card
+      </label>
+      <div class="payment-details" id="credit-card-option" style="display: none">
+        <label for="full-name">Full Name:</label>
+        <input type="text" id="full-name" name="full-name" required />
+
+        <label for="card-number">Card Number:</label>
+        <input type="text" id="card-number" name="card-number" required />
+
+        <div class="expiry-cvv-container">
+          <div class="expiry-date-container">
+            <label for="expiry-date">Expiry Date:</label>
+            <input type="text" id="expiry-date" name="expiry-date" required />
+          </div>
+
+          <div class="cvv-container">
+            <label for="cvv">CVV:</label>
+            <input type="text" id="cvv" name="cvv" required />
+          </div>
+        </div>
+
+        <button type="submit" class="button">Pay</button>
+
+      </div>
+    </div>
+  </form>
+</div>
+<script>
+  const paymentOptions = document.querySelectorAll(
+    '.payment-option input[type="radio"]'
+  );
+
+  paymentOptions.forEach((option) => {
+    option.addEventListener("change", () => {
+      const paymentDetails = document.querySelectorAll(".payment-details");
+      paymentDetails.forEach((detail) => {
+        detail.style.display = "none";
+      });
+
+      const selectedOption = option.parentNode.parentNode;
+      const selectedDetails = selectedOption.querySelector(".payment-details");
+      selectedDetails.style.display = "block";
+    });
+  });
+</script>
+{% endblock %}

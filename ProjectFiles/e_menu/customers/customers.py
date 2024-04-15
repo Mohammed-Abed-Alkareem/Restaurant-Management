@@ -1,9 +1,12 @@
-from flask import render_template, request, url_for, redirect, session, flash
+from flask import render_template, request, url_for, redirect, session, flash, jsonify
 
 from . import customers  # Import the blueprint from the package
 from ProjectFiles.e_menu.models.customers_model import *
 from ProjectFiles.e_menu.models.menuItems_model import *
 from ProjectFiles.e_menu.models.tables_model import *
+from ProjectFiles.e_menu.models.payment_methods_model import *
+from ProjectFiles.e_menu.models.orders_model import *
+from ProjectFiles.e_menu.models.orders_details_model import *
 
 
 @customers.route('/', methods=['POST', 'GET'])
@@ -23,7 +26,7 @@ def home_page():
         table = Table.get(code=table_code)
 
         if table is not None:
-            session["table"] = table.to_dict()
+            session["table"] = table_code
             session.modified = True
             return redirect(url_for('customers.sign_page'))
 
@@ -181,8 +184,6 @@ def item_add(menu_item):
     return redirect(url_for("customers.categories"))
 
 
-# This is not used now
-
 @customers.route('/checkout', methods=['GET', 'POST'])
 def checkout():
     if 'table' not in session or session['table'] is None:
@@ -193,25 +194,15 @@ def checkout():
         flash("Please Login first", "danger")
         return redirect(url_for('customers.sign_page'))
 
-    if 'cart' not in session:
-        session['cart'] = {}
+    if 'cart' not in session or len(session['cart']) == 0:
+        flash("Your cart is empty", "danger")
+        return redirect(url_for('customers.categories'))
 
-    items = []
-    quantities = []
-
-    for item_id, quantity in session['cart'].items():
-        item = MenuItems.get(item_id)
-        items.append(item)
-        quantities.append(quantity)
-
-    for item, quantity in zip(items, quantities):
-        print(item.name, quantity)
-    return redirect(url_for('customers.home_page'))
-    # return render_template("customers/checkout.html", items=items, quantities=quantities)
+    return render_template("customers/cart_management.html")
 
 
-@customers.route('/checkout/confirm', methods=['POST'])
-def confirm_order():
+@customers.route('/checkout/payment', methods=['GET', 'POST'])
+def payment():
     if 'table' not in session or session['table'] is None:
         flash("Please Enter table code first", "danger")
         return redirect(url_for('customers.home_page'))
@@ -220,22 +211,110 @@ def confirm_order():
         flash("Please Login first", "danger")
         return redirect(url_for('customers.sign_page'))
 
-    if 'cart' not in session:
-        session['cart'] = {}
+    if 'cart' not in session or len(session['cart']) == 0:
+        flash("Your cart is empty", "danger")
+        return redirect(url_for('customers.categories'))
 
+    payment_methods = PaymentMethod.get_all()
+
+    for payment in payment_methods:
+        print(payment.id, payment.description)
+
+    return render_template("customers/payment.html", payment_methods=payment_methods)
+
+
+@customers.route('/checkout/payment/confirm', methods=['POST'])
+def confirm_payment():
+    if 'table' not in session or session['table'] is None:
+        flash("Please Enter table code first", "danger")
+        return redirect(url_for('customers.home_page'))
+#
+    if 'customer' not in session or session['customer'] is None:
+        flash("Please Login first", "danger")
+        return redirect(url_for('customers.sign_page'))
+#
+    if 'cart' not in session or len(session['cart']) == 0:
+        flash("Your cart is empty", "danger")
+        return redirect(url_for('customers.categories'))
+
+    payment_method = request.form['payment-method']
+
+    if payment_method != 'cash':
+
+        full_name = request.form['full-name']
+        card_number = request.form['card-number']
+        expiry_date = request.form['expiry-date']
+        cvv = request.form['cvv']
+
+    table_code = session['table']
+    customer = Customer.from_dict(session['customer'])
+
+    # order = Order.insert(Order(table.code, customer.id, payment_method))
+    order = Order(customer.id, table_code, payment_method)
+
+    print(order.id, order.customer_id, order.table_code, order.payment_method_id, order.order_date)
+
+    if order.insert():
+        for item_id, quantity in session['cart'].items():
+            price = MenuItems.get(item_id).price * quantity
+            order_detail = OrderDetails(order.id, item_id, price, quantity)
+            order_detail.insert()
+
+        session.pop('cart', None)
+        session.modified = True
+
+        flash("Order Placed Successfully", "success")
+    return redirect(url_for('customers.rate_order'))
+
+
+@customers.route('/rate_order')
+def rate_order():
+    return render_template("customers/rating.html")
+
+
+@customers.route('/update_quantity', methods=['POST'])
+def update_quantity():
+    data = request.json
+    item_id = data.get('itemId')
+    new_quantity = data.get('newQuantity')
+
+    if item_id is None or new_quantity is None:
+        return jsonify({'error': 'Missing item ID or new quantity'}), 400
+
+    session['cart'][item_id] = new_quantity
+    session.modified = True
+    return jsonify({'success': True})
+
+
+@customers.route('/delete_item', methods=['POST'])
+def delete_item():
+    data = request.json
+    item_id = data['itemId']
+
+    if item_id in session['cart']:
+        session['cart'].pop(item_id)
+        session.modified = True
+
+    return jsonify({'success': True})
+
+
+@customers.route('/get_cart_items')
+def get_cart_items():
     items = []
-    quantities = []
-
-    for item_id, quantity in session['cart'].items():
+    print("view")
+    print(
+        session.get('cart', {})
+    )
+    for item_id, quantity in session.get('cart', {}).items():
         item = MenuItems.get(item_id)
-        items.append(item)
-        quantities.append(quantity)
 
-    for item, quantity in zip(items, quantities):
-        print(item.name, quantity)
+        items.append({'id': item.id, 'name': item.name,
+                      'description': item.description,
+                      'price': item.price * quantity,
+                      'quantity': quantity})
 
-    # Clear the cart after confirming the order
-    session.pop('cart', None)
+    session_data = {
+        'items': items,
+    }
+    return jsonify(session_data)
 
-    flash("Order Confirmed!", "success")
-    return redirect(url_for('customers.categories'))

@@ -1,13 +1,23 @@
+from datetime import datetime
+
 from . import *
 
 
 class Order:
-    def __init__(self, id, customer_id, table_code, payment_method_id, order_date):
-        self.id = id
-        self.customer_id = customer_id
-        self.table_code = table_code
-        self.payment_method_id = payment_method_id
-        self.order_date = order_date
+    def __init__(self, *args):
+        if len(args) == 3:
+            self.id = generate_key('O')
+            self.customer_id = args[0]
+            self.table_code = args[1]
+            self.payment_method_id = args[2]
+            self.order_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        else:
+            self.id = args[0]
+            self.customer_id = args[1]
+            self.table_code = args[2]
+            self.payment_method_id = args[3]
+            self.order_date = args[4]
+
 
     def insert(self):
         conn = engine.connect()

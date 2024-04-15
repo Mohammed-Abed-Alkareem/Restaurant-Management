@@ -1,0 +1,115 @@
+/* Base styles for the body and layout */
+body {
+  background: #f5f5dc;
+  font-family: "Montserrat", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  height: 100px;
+  margin: 0 auto;
+  border-bottom: 5px solid #cbcb9d;
+  position: relative; /* Ensure nav is properly aligned */
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  padding: 20px 30px;
+}
+
+nav img {
+  max-width: 80px; /* Limits the logo size */
+  height: auto;
+  margin-right: 10px; /* Space between logo and restaurant name */
+}
+
+h1 {
+  margin: 0;
+  flex-grow: 1; /* Ensures it fills the space left by other nav items */
+}
+
+.highlight {
+  color: #bb512c; /* Accent color for the restaurant name */
+}
+
+#cart-button {
+  cursor: pointer;
+  position: absolute;
+  right: 20px;
+  top: 25px; /* Aligns button with the middle of the nav */
+}
+
+/* Cart Preview Styles */
+.cart-preview {
+  background: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  position: absolute;
+  top: 100px; /* Positioned right below the header */
+  right: 10px; /* Align to the right, with a small margin */
+  width: 60%; /* Scaled width for better mobile viewing */
+  display: none; /* Hidden by default */
+  z-index: 1001; /* Ensures it is above other content */
+  padding: 10px;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.item-image {
+  width: 100px;
+  height: 100px;
+  margin-right: 20px;
+}
+
+.item-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-name,
+.item-price {
+  margin: 5px 0;
+}
+
+/* Footer Styles */
+footer {
+  background: #cbcb9d;
+  padding: 40px 0;
+  text-align: center;
+}
+
+.footer__top h1 {
+  color: inherit; /* Ensures consistent text color */
+}
+
+.footer__bottom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer__wrapper {
+  display: flex;
+  gap: 30px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li a {
+  color: #acb2b2;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+ul li a:hover {
+  color: #0c1b21; /* A darker shade for hover effects */
+}

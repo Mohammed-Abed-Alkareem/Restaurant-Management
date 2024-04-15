@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/base_after_login.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/cart_window.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/buttons.css') }}"
+    />
+
+    {% block custom_css %} {% endblock %}
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}My Flask App{% endblock %}</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <img
+          src="{{ url_for('static', filename='img/logo.png') }}"
+          alt="Restaurant Logo"
+          height="90"
+          width="100%"
+        />
+        <h1>Restaurant <span class="highlight">Name</span></h1>
+
+        <!-- Code for Cart Window -->
+        <div id="cart-button" onclick="toggleCartVisibility()">
+          <img
+            src="{{ url_for('static', filename='img/cart_button.png') }}"
+            alt="Cart Button"
+            width="50"
+            height="50"
+          />
+        </div>
+        <div id="cart-preview" class="cart-preview" style="display: none">
+          <div id="cart-items-container" class="cart-items-container">
+            <!-- Items will be dynamically added here -->
+          </div>
+          <a href="{{ url_for('customers.checkout') }}" class="button">
+            <div class="button-container">
+              <button type="submit">Go to Cart</button>
+            </div>
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    {% block content %}
+    <!-- This block will be overridden by child templates -->
+    {% endblock %}
+
+    <footer>
+      <div class="footer__top">
+        <h1>Restaurant <span class="highlight">Name</span></h1>
+      </div>
+      <div class="footer__bottom">
+        <div class="footer__wrapper">
+          <div>
+            <h3>Information</h3>
+            <ul>
+              <li><a href="#about">About Us</a></li>
+              <li><a href="#">Events</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>Social</h3>
+            <ul>
+              <li><a href="#">Facebook</a></li>
+              <li><a href="#">Linkedin</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JavaScript for toggling cart visibility and fetching session data -->
+    <script>
+      // Call the fetchSessionAndUpdateCartPreview function when the page loads
+      window.onload = fetchSessionAndUpdateCartPreview;
+    </script>
+  </body>
+</html>

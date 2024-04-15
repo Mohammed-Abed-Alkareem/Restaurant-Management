@@ -2,12 +2,22 @@ from . import *
 
 
 class OrderDetails:
-    def __init__(self, id, order_id, item_id, price, quantity):
-        self.id = id
-        self.order_id = order_id
-        self.item_id = item_id
-        self.price = price
-        self.quantity = quantity
+    def __init__(self, *args):
+
+        if len(args) == 4:
+            self.id = generate_key('D')
+            self.order_id = args[0]
+            self.item_id = args[1]
+            self.price = args[2]
+            self.quantity = args[3]
+
+        else:
+            self.id = args[0]
+            self.order_id = args[1]
+            self.item_id = args[2]
+            self.price = args[3]
+            self.quantity = args[4]
+
 
     def insert(self):
         conn = engine.connect()
