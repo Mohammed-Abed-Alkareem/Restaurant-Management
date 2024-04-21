@@ -7,6 +7,7 @@ from ProjectFiles.e_menu.models.tables_model import *
 from ProjectFiles.e_menu.models.payment_methods_model import *
 from ProjectFiles.e_menu.models.orders_model import *
 from ProjectFiles.e_menu.models.orders_details_model import *
+from ProjectFiles.e_menu.models.ratings_model import *
 
 
 @customers.route('/', methods=['POST', 'GET'])
@@ -217,9 +218,6 @@ def payment():
 
     payment_methods = PaymentMethod.get_all()
 
-    for payment in payment_methods:
-        print(payment.id, payment.description)
-
     return render_template("customers/payment.html", payment_methods=payment_methods)
 
 
@@ -263,13 +261,41 @@ def confirm_payment():
         session.pop('cart', None)
         session.modified = True
 
+        #add order id to the session
+        session['order_id'] = order.id
+        session.modified = True
+
         flash("Order Placed Successfully", "success")
     return redirect(url_for('customers.rate_order'))
 
 
-@customers.route('/rate_order')
+@customers.route('/rate_order', methods=['GET', 'POST'])
 def rate_order():
-    return render_template("customers/rating.html")
+
+
+    if request.method == 'POST':
+        if 'order_id' not in session:
+            flash("Please place an order first", "danger")
+            return redirect(url_for('customers.categories'))
+
+        order_id = session['order_id']
+        rating = request.form['rating']
+        food_rating = request.form['food-rating']
+        service_rating = request.form['service-rating']
+
+        rating = Rating(order_id, rating, food_rating, service_rating) #mosa must edit this
+
+        if rating.insert():
+            flash("Rating submitted successfully", "success")
+            return redirect(url_for('customers.home_page'))
+        else:
+            flash("Rating could not be submitted", "danger")
+            return redirect(url_for('customers.rate_order'))
+
+    #send for rating page the colums
+    rating = ["rating", "food_rating", "service_rating"]
+
+    return render_template("customers/rating.html", rating=rating)
 
 
 @customers.route('/update_quantity', methods=['POST'])

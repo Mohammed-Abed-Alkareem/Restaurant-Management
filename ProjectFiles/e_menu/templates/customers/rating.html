@@ -14,8 +14,9 @@ custom_css %}
   <h2>Thank you for your order!</h2>
   <p>Your order has been set</p>
 
+    {% for rate in rating %}
   <div class="rating">
-    <p>Please rate your experience:</p>
+    <p>{{ rate}}</p>
     <div class="stars">
       <span class="star" data-rating="1">&#9733;</span>
       <span class="star" data-rating="2">&#9733;</span>
@@ -23,7 +24,9 @@ custom_css %}
       <span class="star" data-rating="4">&#9733;</span>
       <span class="star" data-rating="5">&#9733;</span>
     </div>
+
   </div>
+    {% endfor %}
 </div>
 
 <script src="rating.js"></script>

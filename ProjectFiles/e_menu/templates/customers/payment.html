@@ -12,7 +12,7 @@
   <form action="/customer/checkout/payment/confirm" method="post" id="pay">
     <div class="payment-option">
       <label class="option">
-        <input type="radio" name="payment-method" value="Cash" />
+        <input type="radio" name="payment-method" value="{{ payment_methods[0].id }}" />
         <span class="bullet"></span>
         Cash
       </label>
@@ -24,7 +24,7 @@
 
     <div class="payment-option">
       <label class="option">
-        <input type="radio" name="payment-method" value="Credit Card" />
+        <input type="radio" name="payment-method" value="{{ payment_methods[1].id }}" />
         <span class="bullet"></span>
         Credit Card
       </label>
