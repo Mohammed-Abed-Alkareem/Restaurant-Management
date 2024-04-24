@@ -107,7 +107,6 @@ def generate_ratings(orders):
         ratings_data.append({
             'id': generate_key('R', ratings_data),
             'order_id': order['id'],
-            'customer_id': order['customer_id'],
             'rating': fake.random_int(min=1, max=5),
             'food_rating': fake.random_int(min=1, max=5),
             'service_rating': fake.random_int(min=1, max=5)

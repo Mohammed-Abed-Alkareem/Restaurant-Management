@@ -122,18 +122,17 @@ def get_ratings_data():
     df = pd.read_csv(PATH + 'ratings.csv')
     df.fillna('', inplace=True)
 
-    orders_details_data = []
+    ratings_data = []
 
     for index, row in df.iterrows():
         data = {
             'id': row['id'],
             'order_id': row['order_id'],
-            'customer_id': row['customer_id'],
             'rating': row['rating'],
             'food_rating': row['food_rating'],
             'service_rating': row['service_rating']
         }
 
-        orders_details_data.append(data)
+        ratings_data.append(data)
 
-    return orders_details_data
+    return ratings_data
