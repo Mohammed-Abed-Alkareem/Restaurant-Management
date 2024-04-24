@@ -6,7 +6,7 @@ from ProjectFiles.e_menu.models.orders_model import *
 from ProjectFiles.e_menu.models.orders_details_model import *
 from ProjectFiles.e_menu.models.ratings_model import *
 
-from .read_initial_data import *
+from ProjectFiles.e_menu.utils.read_initial_data import *
 
 
 def init_db():
@@ -114,7 +114,6 @@ def insert_orders():
         order_object.insert()
 
 
-
 def insert_orders_details():
     orders_details_data = get_orders_details_data()
 
@@ -138,10 +137,12 @@ def insert_ratings():
         rating_object = Rating(
             rating['id'],
             rating['order_id'],
-            rating['customer_id'],
             rating['rating'],
             rating['food_rating'],
             rating['service_rating']
         )
 
         rating_object.insert()
+
+if __name__ == '__main__':
+    reset_db()
