@@ -24,16 +24,16 @@ INSERT_INTO_ORDERS_TABLE = text("""
                             """)
 
 GET_ORDERS_TABLE = text("""
-                        SELECT * FROM ORDERS
+                        SELECT * FROM orders
                     """)
 
 GET_ORDERS_REVERSE = text("""
-                        SELECT * FROM ORDERS
+                        SELECT * FROM orders
                         ORDER BY id DESC
                     """)
 
 GET_CUSTOMER_CURRENT_ORDER = text("""
-                        SELECT * FROM ORDERS
+                        SELECT * FROM orders
                         WHERE customer_id = :customer_id
                         ORDER BY order_date DESC
                         LIMIT 1
@@ -41,20 +41,20 @@ GET_CUSTOMER_CURRENT_ORDER = text("""
 
 
 GET_TABLE_CURRENT_ORDER = text("""
-                        SELECT * FROM ORDERS
+                        SELECT * FROM orders
                         WHERE table_code = :table_code
                         ORDER BY order_date DESC
                         LIMIT 1
                     """)
 
 DROP_ORDERS_PAYMENT_CONSTRAINT = text("""
-                                ALTER TABLE Orders DROP FOREIGN KEY orders_ibfk_3;
+                                ALTER TABLE orders DROP FOREIGN KEY orders_ibfk_3;
                                 """)
 DROP_ORDERS_CUSTOMER_CONSTRAINT = text("""
-                                ALTER TABLE Orders DROP FOREIGN KEY customer_id;
+                                ALTER TABLE orders DROP FOREIGN KEY customer_id;
                                 """)
 
 DROP_ORDERS_TABLE_CONSTRAINT = text("""
-                                ALTER TABLE Orders DROP FOREIGN KEY table_code;
+                                ALTER TABLE orders DROP FOREIGN KEY table_code;
                                 """)
 

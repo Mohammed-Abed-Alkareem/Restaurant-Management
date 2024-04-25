@@ -237,7 +237,7 @@ def confirm_payment():
 
     payment_method = request.form['payment-method']
 
-    if payment_method != 'cash':
+    if payment_method != 'Cash':
 
         full_name = request.form['full-name']
         card_number = request.form['card-number']
