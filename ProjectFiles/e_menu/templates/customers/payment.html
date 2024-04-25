@@ -9,26 +9,29 @@
 {% block content %}
 <div class="payment-container">
   <h2>Payment Options</h2>
-  <form action="/customer/checkout/payment/confirm" method="post" id="pay">
-    <div class="payment-option">
-      <label class="option">
-        <input type="radio" name="payment-method" value="{{ payment_methods[0].id }}" />
-        <span class="bullet"></span>
-        Cash
-      </label>
-      <div class="payment-details" id="cash-option" style="display: none">
-
+  <div class="payment-option">
+    <label class="option">
+      <input type="radio" name="payment-method" value="{{ payment_methods[0].id }}" />
+      <span class="bullet"></span>
+      Cash
+    </label>
+    <div class="payment-details" id="cash-option" style="display: none">
+      <form action="/customer/checkout/payment/confirm" method="post">
+        <input type="hidden" name="payment-method" value="{{ payment_methods[0].id }}" />
         <button type="submit" class="button">Request Bill</button>
-      </div>
+      </form>
     </div>
+  </div>
 
-    <div class="payment-option">
-      <label class="option">
-        <input type="radio" name="payment-method" value="{{ payment_methods[1].id }}" />
-        <span class="bullet"></span>
-        Credit Card
-      </label>
-      <div class="payment-details" id="credit-card-option" style="display: none">
+  <div class="payment-option">
+    <label class="option">
+      <input type="radio" name="payment-method" value="{{ payment_methods[1].id }}" />
+      <span class="bullet"></span>
+      Credit Card
+    </label>
+    <div class="payment-details" id="credit-card-option" style="display: none">
+      <form action="/customer/checkout/payment/confirm" method="post">
+        <input type="hidden" name="payment-method" value="{{ payment_methods[1].id }}" />
         <label for="full-name">Full Name:</label>
         <input type="text" id="full-name" name="full-name" required />
 
@@ -48,10 +51,9 @@
         </div>
 
         <button type="submit" class="button">Pay</button>
-
-      </div>
+      </form>
     </div>
-  </form>
+  </div>
 </div>
 <script>
   const paymentOptions = document.querySelectorAll(

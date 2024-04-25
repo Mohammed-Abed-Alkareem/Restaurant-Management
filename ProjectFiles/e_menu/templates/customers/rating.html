@@ -14,19 +14,18 @@ custom_css %}
   <h2>Thank you for your order!</h2>
   <p>Your order has been set</p>
 
-    {% for rate in rating %}
+  {% for rate in rating %}
   <div class="rating">
-    <p>{{ rate}}</p>
-    <div class="stars">
+    <p>{{ rate }}</p>
+    <div class="stars" data-rating-id="{{ loop.index }}">
       <span class="star" data-rating="1">&#9733;</span>
       <span class="star" data-rating="2">&#9733;</span>
       <span class="star" data-rating="3">&#9733;</span>
       <span class="star" data-rating="4">&#9733;</span>
       <span class="star" data-rating="5">&#9733;</span>
     </div>
-
   </div>
-    {% endfor %}
+  {% endfor %}
 </div>
 
 <script src="{{ url_for('static', filename='js/rating.js') }}"></script>

@@ -1,36 +1,34 @@
-{% extends "./base.html" %}
+{% extends "./base.html" %} {% block title %} Home Page {% endblock %} {% block
+custom_css %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/menuItems.css') }}"
+/>
+{% endblock %} {% block content %}
+<section class="section" id="menu">
+  <div class="container">
+    <div class="menu__section-top">
+      <h2>{{ category }}</h2>
+    </div>
+    {% for menuItem in menuItems %}
+    <div class="menu__wrapper">
+      <a
+        href="{{ url_for('customers.item_details', category=category , menu_item=menuItem.id) }}"
+      >
+        <div class="menu__item">
+          <div class="menu__img">
+            <img
+              src="{{ url_for('static', filename='img/menuItems/' + menuItem.id + '.png') }}"
+              alt="Logo"
+            />
+          </div>
 
-{% block title %}
-    Home Page
-{% endblock %}
-
-{% block custom_css %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/menuItems.css') }}">
-{% endblock %}
-
-{% block content %}
-    <section class="section" id="menu">
-        <div class="container">
-            <div class="menu__section-top">
-                <h2>{{ category }}</h2>
-            </div>
-            {% for menuItem in menuItems %}
-                <div class="menu__wrapper">
-                    <a href="{{ url_for('customers.item_details', category=category , menu_item=menuItem.id) }}">
-                        <div class="menu__item">
-
-                            <div class="menu__img">
-                                <img src="{{ url_for('static', filename='img/menuItems/' + menuItem.id + '.png') }}"
-                                     alt="Logo">
-
-                            </div>
-
-                            <h3>{{ menuItem.name }}</h3>
-                            <span class="menuItem__price">{{ menuItem.price }}$</span>
-                        </div>
-                    </a>
-                </div>
-            {% endfor %}
+          <h3>{{ menuItem.name }}</h3>
+          <span class="menuItem__price">{{ menuItem.price }} ₪</span>
         </div>
-    </section>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+</section>
 {% endblock %}
