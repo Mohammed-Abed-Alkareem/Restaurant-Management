@@ -28,3 +28,10 @@ GET_RATINGS_BY_ORDER_ID = text("""
 DROP_RATINGS_TABLE = text("""
                                 DROP TABLE IF EXISTS ratings;
                             """)
+
+
+GET_RATINGS_TABLE_REVERSED = text("""
+                            SELECT * FROM ratings
+                            ORDER BY id DESC
+                            LIMIT 1;
+                        """)
