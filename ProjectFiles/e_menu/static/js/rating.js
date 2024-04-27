@@ -3,11 +3,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
   starsContainers.forEach(function(starsContainer) {
     const stars = starsContainer.querySelectorAll('.star');
-    let rating = 0;
 
     stars.forEach(function(star) {
       star.addEventListener('click', function() {
-        rating = parseInt(this.getAttribute('data-rating'));
+        const rating = parseInt(this.getAttribute('data-rating'));
         updateRating(starsContainer, rating);
       });
 
@@ -17,7 +16,8 @@ document.addEventListener('DOMContentLoaded', function() {
       });
 
       star.addEventListener('mouseout', function() {
-        highlightStars(starsContainer, rating);
+        const currentRating = parseInt(starsContainer.querySelector('input[name="rating"]').value);
+        highlightStars(starsContainer, currentRating);
       });
     });
   });
@@ -25,9 +25,9 @@ document.addEventListener('DOMContentLoaded', function() {
   function updateRating(starsContainer, rating) {
     highlightStars(starsContainer, rating);
 
-    // Send the rating data to the server using AJAX or form submission
-    const ratingId = starsContainer.getAttribute('data-rating-id');
-    console.log(`Rating ${ratingId}: ${rating}`);
+    // Update hidden input field with the rating
+    const hiddenField = starsContainer.querySelector('input[name="rating"]');
+    hiddenField.value = rating;
   }
 
   function highlightStars(starsContainer, rating) {

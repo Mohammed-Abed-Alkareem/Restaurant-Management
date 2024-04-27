@@ -258,7 +258,11 @@ def confirm_payment():
             order_detail = OrderDetails(order.id, item_id, price, quantity)
             order_detail.insert()
 
+    #clear the session
         session.pop('cart', None)
+        session.pop('table', None)
+        session.pop('customer', None)
+
         session.modified = True
 
         #add order id to the session
@@ -272,25 +276,27 @@ def confirm_payment():
 @customers.route('/rate_order', methods=['GET', 'POST'])
 def rate_order():
 
-
     if request.method == 'POST':
         if 'order_id' not in session:
             flash("Please place an order first", "danger")
             return redirect(url_for('customers.categories'))
 
         order_id = session['order_id']
+        #get rating from javascript
         rating = request.form['rating']
-        food_rating = request.form['food-rating']
-        service_rating = request.form['service-rating']
+        food_rating = request.form['food_rating']
+        service_rating = request.form['service_rating']
 
-        rating = Rating(order_id, rating, food_rating, service_rating) #mosa must edit this
+        print(rating, food_rating, service_rating)
 
-        if rating.insert():
-            flash("Rating submitted successfully", "success")
-            return redirect(url_for('customers.home_page'))
-        else:
-            flash("Rating could not be submitted", "danger")
-            return redirect(url_for('customers.rate_order'))
+        # rating = Rating(order_id, rating, food_rating, service_rating) #mosa must edit this
+        #
+        # if rating.insert():
+        #     flash("Rating submitted successfully", "success")
+        #     return redirect(url_for('customers.home_page'))
+        # else:
+        #     flash("Rating could not be submitted", "danger")
+        #     return redirect(url_for('customers.rate_order'))
 
     #send for rating page the colums
     rating = ["rating", "food_rating", "service_rating"]
