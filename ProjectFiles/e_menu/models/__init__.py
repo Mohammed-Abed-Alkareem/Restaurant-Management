@@ -24,7 +24,8 @@ def generate_key(char) -> str:
         'C': GET_CUSTOMERS_TABLE,
         'M': GET_MENU_ITEMS_TABLE,
         'O': GET_ORDERS_REVERSE,
-        'D': GET_ORDER_DETAILS_REVERSE
+        'D': GET_ORDER_DETAILS_REVERSE,
+        'R': GET_RATINGS_TABLE_REVERSED
     }
 
     query = query_dict[char]
@@ -43,6 +44,8 @@ def generate_key(char) -> str:
             return 'O00001'
         elif char == 'D':
             return 'D00001'
+        elif char == 'R':
+            return 'R00001'
 
     prev_key = row[0]
     key_length = len(prev_key)

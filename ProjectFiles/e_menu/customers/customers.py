@@ -289,14 +289,14 @@ def rate_order():
 
         print(rating, food_rating, service_rating)
 
-        # rating = Rating(order_id, rating, food_rating, service_rating) #mosa must edit this
-        #
-        # if rating.insert():
-        #     flash("Rating submitted successfully", "success")
-        #     return redirect(url_for('customers.home_page'))
-        # else:
-        #     flash("Rating could not be submitted", "danger")
-        #     return redirect(url_for('customers.rate_order'))
+        rating = Rating(order_id, rating, food_rating, service_rating)
+
+        if rating.insert():
+            flash("Rating submitted successfully", "success")
+            return redirect(url_for('customers.home_page'))
+        else:
+            flash("Rating could not be submitted", "danger")
+            return redirect(url_for('customers.rate_order'))
 
     #send for rating page the colums
     rating = ["rating", "food_rating", "service_rating"]

@@ -1,41 +1,32 @@
-{% extends "./base.html" %} {% block title %}Rating{% endblock %} {% block
-customcss %}
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='css/rating.css') }}"
-/>
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='css/buttons.css') }}"
-/>
+{% extends "./base.html" %}
+{% block title %}Rating{% endblock %}
+{% block customcss %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/rating.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/buttons.css') }}">
+{% endblock %}
 
-{% endblock %} {% block content %}
+{% block content %}
 <div class="container">
   <h2>Thank you for your order!</h2>
   <p>Your order has been set</p>
 
- <form id="rating-form" method="post" action="{{ url_for('customers.rate_order') }}">
-  <input type="hidden" name="order_id" value="{{ session['order_id'] }}">
-  {% for rate in rating %}
-  <div class="rating">
-    <p>{{ rate }}</p>
-    <div class="stars" data-rating-id="{{ rate }}">
-      <span class="star" data-rating="1">&#9733;</span>
-      <span class="star" data-rating="2">&#9733;</span>
-      <span class="star" data-rating="3">&#9733;</span>
-      <span class="star" data-rating="4">&#9733;</span>
-      <span class="star" data-rating="5">&#9733;</span>
-      <input type="hidden" name="rating" value="0"> <!-- Rating input -->
-      <input type="hidden" name="food_rating" value="0"> <!-- Food rating input -->
-      <input type="hidden" name="service_rating" value="0"> <!-- Service rating input -->
+  <form id="rating-form" method="post" action="{{ url_for('customers.rate_order') }}">
+    <input type="hidden" name="order_id" value="{{ session['order_id'] }}">
+    {% for rate in rating %}
+    <div class="rating">
+      <p>{{ rate }}</p>
+      <div class="stars" data-rating-id="{{ rate }}">
+        <span class="star" data-rating="1">&#9733;</span>
+        <span class="star" data-rating="2">&#9733;</span>
+        <span class="star" data-rating="3">&#9733;</span>
+        <span class="star" data-rating="4">&#9733;</span>
+        <span class="star" data-rating="5">&#9733;</span>
+        <input type="hidden" name="{{ rate }}" value="0">
+      </div>
     </div>
-  </div>
-  {% endfor %}
-  <button type="submit" class="button">Submit Rating</button>
-</form>
-
-
-
+    {% endfor %}
+    <button type="submit" class="button">Submit Rating</button>
+  </form>
 </div>
 
 <script src="{{ url_for('static', filename='js/rating.js') }}"></script>
