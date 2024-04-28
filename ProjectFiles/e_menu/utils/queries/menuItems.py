@@ -62,3 +62,9 @@ UPDATE_MENU_ITEM = text("""
                                 is_available = :is_available
                             WHERE id = :id;
                         """)
+
+CHANGE_AVAILIBILITY = text("""
+                            UPDATE menuItems
+                            SET is_available = :is_available
+                            WHERE id = :id;
+                        """)

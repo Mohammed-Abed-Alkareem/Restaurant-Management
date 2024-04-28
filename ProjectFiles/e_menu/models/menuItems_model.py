@@ -140,3 +140,16 @@ class MenuItems:
             return []
         finally:
             conn.close()
+
+    @staticmethod
+    def change_availability(item_id, is_available):
+        conn = engine.connect()
+        try:
+            conn.execute(CHANGE_AVAILIBILITY, {'id': item_id, 'is_available': is_available})
+            conn.commit()
+            return True
+        except Exception as e:
+            print(f"Error: {e}")
+            return False
+        finally:
+            conn.close()
