@@ -4,15 +4,15 @@ from . import *
 class Table:
     def __init__(self, *args):
         if len(args) == 4:
-            self.code = args[0].strip()
+            self.code = args[0]
             self.location = args[1].strip()
             self.type = args[2].strip()
             self.seats = args[3]
-        else:
-            self.code = generate_key('T')
-            self.location = args[0].strip()
-            self.type = args[1].strip()
-            self.seats = args[2]
+        # else:
+        #     self.code = generate_key('T')
+        #     self.location = args[0].strip()
+        #     self.type = args[1].strip()
+        #     self.seats = args[2]
 
 
     @staticmethod
@@ -72,7 +72,7 @@ class Table:
         conn = engine.connect()
         try:
             table = conn.execute(SELECT_TABLE_BY_ID, {'code': code}).fetchone()
-            return cls(code=table[0], location=table[1], type=table[2], seats=table[3])
+            return cls(table[0], table[1], table[2], table[3])
         except Exception as e:
             print(f"Error: {e}")
             return None

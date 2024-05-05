@@ -1,0 +1,77 @@
+{% extends "./base.html" %} {% block title %} Home Page {% endblock %} {% block
+custom_css %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/menuItems.css') }}"
+
+/>
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/buttons.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/flashed_messages.css') }}"/>
+{% endblock %}
+
+{% block content %}
+
+     <script src="{{ url_for('static', filename='js/alert.js') }}"></script>
+
+    {% for type, message in get_flashed_messages(with_categories=true) %}
+
+        <div id="myAlert" class="alert alert-{{ type }}" role="alert">
+             {% if type == 'danger' %}
+                &#x274C;
+            {% elif type == 'success' %}
+                &#x2714;
+            {% endif %}
+            {{ message }}
+        </div>
+    {% endfor %}
+
+
+<section class="section" id="menu">
+  <div class="container">
+    <div class="menu__section-top">
+      <h2>{{ category }}</h2>
+    </div>
+    {% for menuItem in menuItems %}
+    <div class="menu__wrapper">
+
+        <div class="menu__item">
+          <div class="menu__img">
+            <img
+              src="{{ url_for('static', filename='img/menuItems/' + menuItem.id + '.png') }}"
+              alt="Logo"
+            />
+          </div>
+
+          <h3>{{ menuItem.name }}</h3>
+          <span class="menuItem__price">{{ menuItem.price }} ₪</span>
+
+
+            <div class="button-container">
+                        <button>Update</button>
+                    </div>
+
+
+<div class="button-container">
+    <a href="{{ url_for('employees.change_availability', item_id=menuItem.id) }}">
+        {% if menuItem.is_available == 1 %}
+            <button>Make Unavailable</button>
+
+        {% else %}
+            <button>Make Available</button>
+        {% endif %}
+    </a>
+</div>
+
+
+
+
+
+
+
+        </div>
+
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

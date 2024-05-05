@@ -6,6 +6,7 @@
 
 {% block custom_css %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/flashed_messages.css') }}"/>
 {% endblock %}
 
 {% block content %}
@@ -43,7 +44,7 @@
             <span>Add Menu Item</span>
        </a>
 
-        <a href="{{ url_for('employees.add_menu_item') }}" class="square" style="background-image: url('{{ url_for('static', filename='img/dashboard/view_menu_items.png') }}');">
+        <a href="{{ url_for('employees.view_menu_items') }}" class="square" style="background-image: url('{{ url_for('static', filename='img/dashboard/view_menu_items.png') }}');">
             <span>View Menu Items</span>
         </a>
 

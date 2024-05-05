@@ -63,11 +63,15 @@ def insert_employee():
         password = request.form.get('password')
         position = request.form.get('position')
 
-        employee = Employee(name, phone_number, password, position)
-        if employee.insert():
-            return "Employee added successfully"
-        else:
-            return "Error adding employee"
+        print(name, phone_number, password, position)
+
+        # employee = Employee(name, phone_number, password, position)
+        # if employee.insert():
+        #     return "Employee added successfully"
+        # else:
+        #     return "Error adding employee"
+        flash("Employee added successfully", "success")
+        return redirect(url_for('employees.dashboard'))
 
 
 @employees.route("delete_employee/<employee_id>")
@@ -81,12 +85,12 @@ def view_employees():
     return render_template("employees/view_employees.html", employees=employees)
 
 
-@employees.route("change_availibility/<item_id>", methods=['POST'])
+@employees.route("change_availability/<item_id>")
 def change_availability(item_id):
 
-    is_available = request.form.get('is_available')
-    MenuItems.change_availability(item_id, is_available)
-    return "Item availability changed successfully"
+    MenuItems.change_availability(item_id)
+    flash("Item availability changed successfully", "success")
+    return redirect(url_for('employees.view_menu_items'))
 
 
 @employees.route("add_table", methods=['GET', 'POST'])
@@ -151,3 +155,11 @@ def add_menu_item():
             uploaded_file.save(file_path)
             return "Item added successfully"
 
+
+@employees.route("view_menu_items")
+def view_menu_items():
+    items = MenuItems.get_all()
+    if items:
+        for item in items:
+            print(item.is_available)
+    return render_template("employees/view_menu_items.html", menuItems=items)
