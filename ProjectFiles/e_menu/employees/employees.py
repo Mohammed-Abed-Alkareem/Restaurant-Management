@@ -1,5 +1,6 @@
 import bcrypt
-from flask import render_template, request, session, redirect, url_for, flash
+import os
+from flask import render_template, request, session, redirect, url_for, flash, current_app
 
 from . import employees  # Import the blueprint from the package
 
@@ -16,35 +17,6 @@ from ProjectFiles.e_menu.models.empoyees_model import Employee
 ALLOWED_EXTENSIONS = {'png'}
 
 
-@employees.route("/")
-@employees.route("sign_in", methods=['GET', 'POST'])
-def sign_in():
-    session.clear()
-
-    if request.method == 'GET':
-        return render_template("employees/sign_in.html")
-    else:
-        phone_number = request.form.get('phone_number')
-        password = request.form.get('password')
-
-        employee = Employee.get_by_phone_number(phone_number)
-        if employee and bcrypt.checkpw(password.encode('utf-8'), employee['password']):
-            session['employee_id'] = employee['id']
-            session['employee_name'] = employee['name']
-            session['employee_position'] = employee['position']
-            return redirect(url_for('employees.sign_in'))
-        else:
-            flash("Invalid phone number or password", "danger")
-            return redirect(url_for('employees.sign_in'))
-
-
-
-@employees.route("dashboard")
-def dashboard():
-    # if 'employee_id' not in session:
-    #     return redirect(url_for('employees.sign_in'))
-
-    return render_template("employees/dashboard.html")
 
 
 @employees.route("sign_out")
@@ -85,12 +57,6 @@ def view_employees():
     return render_template("employees/view_employees.html", employees=employees)
 
 
-@employees.route("change_availability/<item_id>")
-def change_availability(item_id):
-
-    MenuItems.change_availability(item_id)
-    flash("Item availability changed successfully", "success")
-    return redirect(url_for('employees.view_menu_items'))
 
 
 @employees.route("add_table", methods=['GET', 'POST'])
@@ -131,10 +97,57 @@ def update_menu_item(item_id):
 
 
 
+
+#______________________________________________
+#|
+#|          Done
+#______________________________________________
+@employees.route("/")
+@employees.route("sign_in", methods=['GET', 'POST'])
+def sign_in():
+    session.clear()
+
+    if request.method == 'GET':
+        return render_template("employees/sign_in.html")
+    else:
+        phone_number = request.form.get('phone_number')
+        password = request.form.get('password')
+
+        employee = Employee.get_by_phone_number(phone_number)
+        if employee and bcrypt.checkpw(password.encode('utf-8'), employee['password']):
+            session['employee_id'] = employee['id']
+            session['employee_name'] = employee['name']
+            session['employee_position'] = employee['position']
+            return redirect(url_for('employees.sign_in'))
+        else:
+            flash("Invalid phone number or password", "danger")
+            return redirect(url_for('employees.sign_in'))
+
+
+
+@employees.route("dashboard")
+def dashboard():
+    # if 'employee_id' not in session:
+    #     return redirect(url_for('employees.sign_in'))
+
+    return render_template("employees/dashboard.html")
+
+@employees.route("change_availability/<item_id>")
+def change_availability(item_id):
+
+    MenuItems.change_availability(item_id)
+    flash("Item availability changed successfully", "success")
+    return redirect(url_for('employees.view_menu_items'))
+
+
 @employees.route("add_menu_item", methods=['GET', 'POST'])
 def add_menu_item():
     if request.method == 'GET':
-        return render_template("employees/add_menu_item.html")
+        #get catigories
+
+        categories = MenuItems.get_categories()
+
+        return render_template("employees/add_menu_item.html", categories=categories)
     else:
 
         item_name = request.form.get('item_name')
@@ -142,24 +155,38 @@ def add_menu_item():
         item_description = request.form.get('item_description')
         item_category = request.form.get('item_category')
         item_is_available = True
-        item = MenuItems(item_name, item_price, item_description, item_category, item_is_available)
+        item = MenuItems(item_name, item_description, item_category, item_price, item_is_available)
 
         uploaded_file = request.files['item_image']
-        file_path = f"ProjectFiles/e_menu/static/img/menuItems/{item.id}.png"
-
-        #check if saved successfully
-
-
+        if uploaded_file:
+            file_path = os.path.join(current_app.root_path, "static", "img", "menuItems", f"{item.id}.png")
+            uploaded_file.save(file_path)
 
         if item.insert():
-            uploaded_file.save(file_path)
-            return "Item added successfully"
+
+            flash("Item added successfully", "success")
+        else:
+            flash("Error adding item", "danger")
+
+        return redirect(url_for('employees.dashboard'))
 
 
 @employees.route("view_menu_items")
 def view_menu_items():
     items = MenuItems.get_all()
-    if items:
-        for item in items:
-            print(item.is_available)
     return render_template("employees/view_menu_items.html", menuItems=items)
+
+
+@employees.route("delete_menu_item/<item_id>")
+def delete_menu_item(item_id):
+    if MenuItems.delete(item_id):
+        #delete the image of the item
+        file_path = os.path.join(current_app.root_path, "static", "img", "menuItems", f"{item_id}.png")
+        if os.path.exists(file_path):
+            os.remove(file_path)
+
+        flash("Item deleted successfully", "success")
+        return redirect(url_for('employees.view_menu_items'))
+    else:
+        flash("Error deleting item", "danger")
+        return redirect(url_for('employees.view_menu_items'))

@@ -1,2 +1,69 @@
-<h1>hello
-</h1>
+{% extends "./base.html" %}
+
+{% block title %}
+    Insert Menu Item
+{% endblock %}
+
+{% block custom_css %}
+    {# Include custom CSS files for the child template #}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/add_menu_item.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/buttons.css') }}">
+{% endblock %}
+
+{% block content %}
+
+
+    <script src="{{ url_for('static', filename='js/alert.js') }}"></script>
+
+    {% for type, message in get_flashed_messages(with_categories=true) %}
+
+        <div id="myAlert" class="alert alert-{{ type }}" role="alert">
+            {% if type == 'danger' %}
+                &#x274C;
+            {% elif type == 'success' %}
+                &#x2714;
+            {% endif %}
+            {{ message }}
+        </div>
+    {% endfor %}
+
+
+    <div class="full-screen">
+
+        <!-- Form for submitting a table code -->
+        <div class="form-overlay">
+            <h1>Insert Employee</h1>
+            <h1>Add Menu Item</h1>
+            <form action="{{ url_for('employees.add_menu_item') }}" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="item_name">Item Name:</label>
+                    <input type="text" id="item_name" name="item_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="item_price">Item Price:</label>
+                    <input type="number" id="item_price" name="item_price" required>
+                </div>
+                <div class="form-group">
+                    <label for="item_description">Item Description:</label>
+                    <textarea id="item_description" name="item_description" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="item_category">Item Category:</label>
+                    <select id="item_category" name="item_category" required>
+                        {% for category in categories %}
+                            <option value="{{ category }}">{{ category }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="item_image">Item Image:</label>
+                    <input type="file" id="item_image" name="item_image" accept="image/*" required>
+                </div>
+
+                <button type="submit">Add Item</button>
+            </form>
+        </div>
+    </div>
+
+
+{% endblock %}
