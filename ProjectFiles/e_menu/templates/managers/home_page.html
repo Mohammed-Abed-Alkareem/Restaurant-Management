@@ -16,7 +16,7 @@
             <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo">
             <!-- Form for submitting a table code -->
             <div class="form-overlay">
-                <form action="{{ url_for('managers.manager_login') }}" method="post">
+                <form action="{{ url_for('employees.manager_login') }}" method="post">
                     <label for="usr_name">Username:</label><br>
                     <input type="text" id="usr_name" name="usr_name" required>
 

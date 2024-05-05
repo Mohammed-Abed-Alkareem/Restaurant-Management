@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 
 from customers import customers
-from managers import managers
+from employees import employees
 
 from utils.db import reset_db
 
@@ -10,7 +10,7 @@ app = Flask(__name__)
 # Register blueprints with proper URL prefixes
 
 app.register_blueprint(customers)
-app.register_blueprint(managers)
+app.register_blueprint(employees)
 
 app.secret_key = 'mysecret!!@@'
 
