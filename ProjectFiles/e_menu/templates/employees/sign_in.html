@@ -1,10 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "./base.html" %}
 
-</body>
-</html>
+{% block title %}
+    Sign In
+{% endblock %}
+
+{% block custom_css %}
+    {# Include custom CSS files for the child template #}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/homePage.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/buttons.css') }}">
+{% endblock %}
+
+{% block content %}
+
+
+    <script src="{{ url_for('static', filename='js/alert.js') }}"></script>
+
+    {% for type, message in get_flashed_messages(with_categories=true) %}
+
+        <div id="myAlert" class="alert alert-{{ type }}" role="alert">
+             {% if type == 'danger' %}
+                &#x274C;
+            {% elif type == 'success' %}
+                &#x2714;
+            {% endif %}
+            {{ message }}
+        </div>
+    {% endfor %}
+
+
+    <div class="full-screen">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo">
+            <!-- Form for submitting a table code -->
+            <div class="form-overlay">
+                <form action="{{ url_for('employees.sign_in') }}" method="post">
+                    <label for="phone_number">Phone Number:</label><br>
+                    <input type="text" id="phone_number" name="phone_number" required>
+
+                    <label for="password">Password:</label><br>
+                    <input type="text" id="password" name="password" required>
+                    <div class="button-container">
+                    <button type="submit">Submit</button>
+                </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

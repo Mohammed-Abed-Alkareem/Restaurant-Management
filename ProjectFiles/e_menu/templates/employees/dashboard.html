@@ -1,0 +1,59 @@
+{% extends "./base.html" %}
+
+{% block title %}
+    Home Page
+{% endblock %}
+
+{% block custom_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+
+{% block content %}
+
+
+    <script src="{{ url_for('static', filename='js/alert.js') }}"></script>
+
+    {% for type, message in get_flashed_messages(with_categories=true) %}
+
+        <div id="myAlert" class="alert alert-{{ type }}" role="alert">
+             {% if type == 'danger' %}
+                &#x274C;
+            {% elif type == 'success' %}
+                &#x2714;
+            {% endif %}
+            {{ message }}
+        </div>
+    {% endfor %}
+
+
+       <div class="container">
+        <a href="{{ url_for('employees.insert_employee') }}" class="square" style="background-image: url('{{ url_for('static', filename='img/dashboard/insert_employee.png') }}');">
+            <span>Insert Employee</span>
+        </a>
+
+        <a href="{{ url_for('employees.view_employees') }}" class="square" style="background-image: url('{{ url_for('static', filename='img/dashboard/view_employees.png') }}');">
+            <span>View Employees</span>
+        </a>
+
+       <a href="{{ url_for('employees.insert_employee') }}" class="square" style="background-image: url('{{ url_for('static', filename='img/dashboard/view_statistics.png') }}');">
+            <span>View Statistics</span>
+        </a>
+
+       <a href="{{ url_for('employees.add_menu_item') }}" class="square" style="background-image: url('{{ url_for('static', filename='img/dashboard/add_menu_item.png') }}');">
+            <span>Add Menu Item</span>
+       </a>
+
+        <a href="{{ url_for('employees.add_menu_item') }}" class="square" style="background-image: url('{{ url_for('static', filename='img/dashboard/view_menu_items.png') }}');">
+            <span>View Menu Items</span>
+        </a>
+
+       <a href="{{ url_for('employees.add_table') }}" class="square" style="background-image: url('{{ url_for('static', filename='img/dashboard/add_table.png') }}');">
+            <span>Add Table</span>
+        </a>
+
+
+
+        <!-- Add more buttons as needed -->
+    </div>
+
+{% endblock %}

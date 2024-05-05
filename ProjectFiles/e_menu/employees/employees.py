@@ -10,20 +10,15 @@ from ProjectFiles.e_menu.models.payment_methods_model import *
 from ProjectFiles.e_menu.models.orders_model import *
 from ProjectFiles.e_menu.models.orders_details_model import *
 from ProjectFiles.e_menu.models.ratings_model import *
-from ..models.empoyees_model import Employee
+from ProjectFiles.e_menu.models.empoyees_model import Employee
 
 #allow only png images
 ALLOWED_EXTENSIONS = {'png'}
 
 
 @employees.route("/")
-def home_page():
-    return render_template("employees/home_page.html")
-
-
 @employees.route("sign_in", methods=['GET', 'POST'])
 def sign_in():
-
     session.clear()
 
     if request.method == 'GET':
@@ -37,10 +32,19 @@ def sign_in():
             session['employee_id'] = employee['id']
             session['employee_name'] = employee['name']
             session['employee_position'] = employee['position']
-            return redirect(url_for('employees.home_page'))
+            return redirect(url_for('employees.sign_in'))
         else:
             flash("Invalid phone number or password", "danger")
             return redirect(url_for('employees.sign_in'))
+
+
+
+@employees.route("dashboard")
+def dashboard():
+    # if 'employee_id' not in session:
+    #     return redirect(url_for('employees.sign_in'))
+
+    return render_template("employees/dashboard.html")
 
 
 @employees.route("sign_out")
