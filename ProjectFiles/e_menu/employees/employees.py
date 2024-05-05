@@ -1,4 +1,5 @@
-from flask import render_template, request
+import bcrypt
+from flask import render_template, request, session, redirect, url_for, flash
 
 from . import employees  # Import the blueprint from the package
 
@@ -9,6 +10,7 @@ from ProjectFiles.e_menu.models.payment_methods_model import *
 from ProjectFiles.e_menu.models.orders_model import *
 from ProjectFiles.e_menu.models.orders_details_model import *
 from ProjectFiles.e_menu.models.ratings_model import *
+from ..models.empoyees_model import Employee
 
 #allow only png images
 ALLOWED_EXTENSIONS = {'png'}
@@ -16,8 +18,63 @@ ALLOWED_EXTENSIONS = {'png'}
 
 @employees.route("/")
 def home_page():
-    return render_template ("managers/home_page.html")
+    return render_template("employees/home_page.html")
 
+
+@employees.route("sign_in", methods=['GET', 'POST'])
+def sign_in():
+
+    session.clear()
+
+    if request.method == 'GET':
+        return render_template("employees/sign_in.html")
+    else:
+        phone_number = request.form.get('phone_number')
+        password = request.form.get('password')
+
+        employee = Employee.get_by_phone_number(phone_number)
+        if employee and bcrypt.checkpw(password.encode('utf-8'), employee['password']):
+            session['employee_id'] = employee['id']
+            session['employee_name'] = employee['name']
+            session['employee_position'] = employee['position']
+            return redirect(url_for('employees.home_page'))
+        else:
+            flash("Invalid phone number or password", "danger")
+            return redirect(url_for('employees.sign_in'))
+
+
+@employees.route("sign_out")
+def sign_out():
+    session.clear()
+    return redirect(url_for('employees.sign_in'))
+
+
+@employees.route("insert_employee", methods=['GET', 'POST'])
+def insert_employee():
+    if request.method == 'GET':
+        return render_template("employees/insert_employee.html")
+    else:
+        name = request.form.get('name')
+        phone_number = request.form.get('phone_number')
+        password = request.form.get('password')
+        position = request.form.get('position')
+
+        employee = Employee(name, phone_number, password, position)
+        if employee.insert():
+            return "Employee added successfully"
+        else:
+            return "Error adding employee"
+
+
+@employees.route("delete_employee/<employee_id>")
+def delete_employee(employee_id):
+    Employee.delete(employee_id)
+    return "Employee deleted successfully"
+
+@employees.route("view_employees")
+def view_employees():
+    employees = Employee.get_all()
+    return render_template("employees/view_employees.html", employees=employees)
 
 
 @employees.route("change_availibility/<item_id>", methods=['POST'])
@@ -51,7 +108,7 @@ def add_table():
 def update_menu_item(item_id):
     if request.method == 'GET':
         item = MenuItems.get(item_id)
-        return render_template("managers/update_menu_item.html", item=item)
+        return render_template("employees/update_menu_item.html", item=item)
     else:
         item_name = request.form.get('item_name')
         item_price = request.form.get('item_price')
@@ -69,7 +126,7 @@ def update_menu_item(item_id):
 @employees.route("add_menu_item", methods=['GET', 'POST'])
 def add_menu_item():
     if request.method == 'GET':
-        return render_template("managers/add_menu_item.html")
+        return render_template("employees/add_menu_item.html")
     else:
 
         item_name = request.form.get('item_name')
