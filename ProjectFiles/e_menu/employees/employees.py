@@ -177,7 +177,7 @@ def view_menu_items():
     return render_template("employees/view_menu_items.html", menuItems=items)
 
 
-@employees.route("delete_menu_item/<item_id>")
+@employees.route("delete_menu_item/<item_id>") # this will be in the view menu items page
 def delete_menu_item(item_id):
     if MenuItems.delete(item_id):
         #delete the image of the item
@@ -190,3 +190,34 @@ def delete_menu_item(item_id):
     else:
         flash("Error deleting item", "danger")
         return redirect(url_for('employees.view_menu_items'))
+
+@employees.route("view_tables")
+def view_tables():
+    tables = Table.get_all()
+    return render_template("employees/view_tables.html", tables=tables)
+
+
+@employees.route("update_table/<table_code>", methods=['GET', 'POST'])
+def update_table(table_code):
+    if request.method == 'GET':
+        table = Table.get(table_code)
+        return render_template("employees/update_table.html", table=table)
+    else:
+        table_location = request.form.get('table_location')
+        table_type = request.form.get('table_type')
+        table_seats = request.form.get('table_seats')
+        if Table.update(table_code, table_location, table_type, table_seats):
+            flash("Table updated successfully", "success")
+            return redirect(url_for('employees.view_tables'))
+        else:
+            flash("Error updating table", "danger")
+            return redirect(url_for('employees.view_tables'))
+
+@employees.route("delete_table/<table_code>") #this will be in the update table page
+def delete_table(table_code):
+    if Table.delete(table_code):
+        flash("Table deleted successfully", "success")
+        return redirect(url_for('employees.view_tables'))
+    else:
+        flash("Error deleting table", "danger")
+        return redirect(url_for('employees.view_tables'))

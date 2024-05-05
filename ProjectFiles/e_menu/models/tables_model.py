@@ -86,7 +86,7 @@ class Table:
             tables_objects = []
             tables = conn.execute(SELECT_TABLES).fetchall()
             for table in tables:
-                tables_objects.append(cls(code=table[0], location=table[1], type=table[2], seats=table[3]))
+                tables_objects.append(cls(table[0], table[1], table[2], table[3]))
             return tables_objects
         except Exception as e:
             print(f"Error: {e}")
