@@ -9,6 +9,7 @@ from ProjectFiles.e_menu.utils.queries.orders_details import *
 from ProjectFiles.e_menu.utils.queries.orders import *
 from ProjectFiles.e_menu.utils.queries.ratings import *
 from ProjectFiles.e_menu.utils.queries.payment_methods import *
+from ProjectFiles.e_menu.utils.queries.employees import *
 
 # Encode the password
 encoded_password = urllib.parse.quote_plus('Mohammed@123')

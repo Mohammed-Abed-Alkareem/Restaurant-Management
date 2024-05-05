@@ -1,0 +1,63 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px;
+}
+.square {
+  width: 200px; /* Adjust size as needed */
+  height: 200px; /* Adjust size as needed */
+  margin: 10px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  position: relative;
+}
+.square span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Adjust shadow as needed */
+  font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+
+}
+.square::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+  border-radius: 10px;
+}
+
+.square:hover {
+    transform: scale(1.05); /* Increase size slightly on hover */
+    opacity: 0.8; /* Reduce opacity on hover */
+}
+
+.square img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+
+
+/* Adjust styles for smaller screens */
+@media screen and (max-width: 600px) {
+  .square {
+    width: calc(50% - 20px);
+  }
+}

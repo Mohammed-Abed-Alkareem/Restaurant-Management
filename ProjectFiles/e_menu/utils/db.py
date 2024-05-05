@@ -6,6 +6,7 @@ from ProjectFiles.e_menu.models.orders_model import *
 from ProjectFiles.e_menu.models.orders_details_model import *
 from ProjectFiles.e_menu.models.ratings_model import *
 
+
 from ProjectFiles.e_menu.utils.read_initial_data import *
 
 

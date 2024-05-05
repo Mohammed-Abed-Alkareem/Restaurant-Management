@@ -142,9 +142,11 @@ class MenuItems:
             conn.close()
 
     @staticmethod
-    def change_availability(item_id, is_available):
+    def change_availability(item_id):
         conn = engine.connect()
         try:
+            item = conn.execute(SELECT_MENU_ITEM_BY_ID, {'id': item_id}).fetchone()
+            is_available = not item[5]
             conn.execute(CHANGE_AVAILIBILITY, {'id': item_id, 'is_available': is_available})
             conn.commit()
             return True
