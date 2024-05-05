@@ -1,0 +1,62 @@
+{% extends "./base.html" %} {% block title %} View Tables {% endblock %} {% block
+custom_css %}
+    <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='css/menuItems.css') }}"
+
+    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/flashed_messages.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tables.css') }}"/>
+{% endblock %}
+
+{% block content %}
+
+    <script src="{{ url_for('static', filename='js/alert.js') }}"></script>
+
+    {% for type, message in get_flashed_messages(with_categories=true) %}
+
+        <div id="myAlert" class="alert alert-{{ type }}" role="alert">
+            {% if type == 'danger' %}
+                &#x274C;
+            {% elif type == 'success' %}
+                &#x2714;
+            {% endif %}
+            {{ message }}
+        </div>
+    {% endfor %}
+
+
+
+<h2>Tables</h2>
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>Location</th>
+        <th>Type</th>
+        <th>Seats</th>
+        <th>Update</th> <!-- New column for delete button -->
+      </tr>
+    </thead>
+    <tbody>
+      {% for table in tables %}
+      <tr>
+        <td>{{ table.code }}</td>
+        <td>{{ table.location }}</td>
+        <td>{{ table.type }}</td>
+        <td>{{ table.seats }}</td>
+        <td>
+                            <a href="{{ url_for('employees.update_table', table_code=table.code) }}">
+
+                                <button>Update</button>
+                            </a>
+
+        </td> <!-- Delete button -->
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

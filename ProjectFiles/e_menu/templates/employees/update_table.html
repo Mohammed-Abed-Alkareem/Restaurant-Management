@@ -1,0 +1,48 @@
+
+
+{% extends "./base.html" %}
+
+{% block title %}
+    Insert Employee
+{% endblock %}
+
+{% block custom_css %}
+    {# Include custom CSS files for the child template #}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/homePage.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/buttons.css') }}">
+{% endblock %}
+
+{% block content %}
+
+    <h1>Update Table</h1>
+    <div class="full-screen">
+
+        <!-- Form for submitting a table code -->
+        <div class="form-overlay">
+            <form action="{{ url_for('employees.update_table', table_code=table.code) }}" method="POST"
+                  class="form-container">
+                <label for="table_location">Location:</label>
+                <input type="text" id="table_location" name="table_location" value="{{ table.location }}" required>
+
+                <label for="table_type">Type:</label>
+                <input type="text" id="table_type" name="table_type" value="{{ table.type }}" required>
+
+                <label for="table_seats">Seats:</label>
+                <input type="number" id="table_seats" name="table_seats" value="{{ table.seats }}" required>
+
+                <div class="button-container">
+                    <button>Submit</button>
+                </div>
+
+            </form>
+
+            <div class="button-container">
+                <a href="{{ url_for('employees.delete_table', table_code=table.code) }}">
+                    <button>Delete</button>
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

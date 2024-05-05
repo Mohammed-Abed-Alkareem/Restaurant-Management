@@ -1,0 +1,58 @@
+/* Styles for responsive table */
+
+.table-container {
+  overflow-x: auto;
+}
+h2 {
+  font-size: 24px; /* Adjust font size as needed */
+  color: #333; /* Text color */
+  margin-bottom: 20px; /* Bottom margin to create space */
+  margin-top: 20px; /* Top margin to create space */
+    text-align: center; /* Center text */
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 30px 6px; /* Added vertical padding */
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+@media screen and (max-width: 600px) {
+  table {
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  table thead {
+    display: table-header-group; /* Show table header */
+  }
+
+  table tbody {
+    display: table-row-group; /* Ensure table body is displayed */
+  }
+
+  table tr {
+    border-bottom: 2px solid #ddd;
+  }
+
+  table td {
+    display: table-cell; /* Change display to table-cell */
+    text-align: center;
+    border: none; /* Remove border from cells */
+  }
+
+  table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    float: left;
+    text-transform: uppercase;
+  }
+}
