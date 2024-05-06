@@ -13,10 +13,17 @@ from ProjectFiles.e_menu.utils.queries.employees import *
 
 # Encode the password
 encoded_password = urllib.parse.quote_plus('Mohammed@123')
+print(encoded_password)
 # Construct the connection string
 DATABASE = f'mysql+pymysql://root:{encoded_password}@127.0.0.1/e_menu'
 
-engine = create_engine(DATABASE, echo=True)
+try:
+    engine = create_engine(DATABASE, echo=True)
+    print("Connection successful")
+
+except Exception as e:
+    print(f"Error: {e}")
+    exit(1)
 
 
 def generate_key(char) -> str:
