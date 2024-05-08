@@ -5,7 +5,8 @@ CREATE_EMPLOYEES_TABLE = text("""
                             id CHAR(9) PRIMARY KEY,
                             name VARCHAR(40) NOT NULL,
                             phone_number CHAR(10) NOT NULL,
-                            password CHAR(60) NOT NULL
+                            password CHAR(60) NOT NULL,
+                            salary integer,
                             position VARCHAR(20) NOT NULL
                             );
                         """)
@@ -16,8 +17,8 @@ DROP_EMPLOYEES_TABLE = text("""
 
 INSERT_INTO_EMPLOYEES = text("""
                             INSERT INTO employees
-                            (id, name, phone_number, password, position)
-                            VALUES (:id, :name, :phone_number, :password, :position);
+                            (id, name, phone_number, salary, password, position)
+                            VALUES (:id, :name, :phone_number, :salary, :password, :position);
                         """)
 
 GET_EMPLOYEES_TABLE = text("""

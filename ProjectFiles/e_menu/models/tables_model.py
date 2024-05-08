@@ -8,12 +8,11 @@ class Table:
             self.location = args[1].strip()
             self.type = args[2].strip()
             self.seats = args[3]
-        # else:
-        #     self.code = generate_key('T')
-        #     self.location = args[0].strip()
-        #     self.type = args[1].strip()
-        #     self.seats = args[2]
-
+        else:
+            self.code = generate_key('T')
+            self.location = args[0].strip()
+            self.type = args[1].strip()
+            self.seats = args[2]
 
     @staticmethod
     def create_table():
@@ -110,3 +109,45 @@ class Table:
             type=data_dict['type'],
             seats=data_dict['seats']
         )
+
+    @classmethod
+    def change_location(cls, table_code, new_location):
+        conn = engine.connect()
+        try:
+            conn.execute(UPDATE_LOCATION_IN_TABLE,
+                         {'code': table_code, 'location': new_location})
+            conn.commit()
+            return True
+        except Exception as e:
+            print(f"Error: {e}")
+            return False
+        finally:
+            conn.close()
+
+    @classmethod
+    def change_type(cls, table_code, new_type):
+        conn = engine.connect()
+        try:
+            conn.execute(UPDATE_TYPE_IN_TABLE,
+                         {'code': table_code, 'type': new_type})
+            conn.commit()
+            return True
+        except Exception as e:
+            print(f"Error: {e}")
+            return False
+        finally:
+            conn.close()
+
+    @classmethod
+    def change_seats(cls, table_code, new_seats):
+        conn = engine.connect()
+        try:
+            conn.execute(UPDATE_SEATS_IN_TABLE,
+                         {'code': table_code, 'seats': new_seats})
+            conn.commit()
+            return True
+        except Exception as e:
+            print(f"Error: {e}")
+            return False
+        finally:
+            conn.close()

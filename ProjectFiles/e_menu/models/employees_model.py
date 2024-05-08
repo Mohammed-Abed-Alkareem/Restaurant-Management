@@ -2,22 +2,23 @@ import bcrypt
 
 from . import *
 
-class Employee():
+
+class Employee:
     def __init__(self, *args):
-        if len(args) == 4:
+        if len(args) == 5:
             self.id = generate_key('E')
             self.name = args[0]
             self.phone_number = args[1]
-            self.password = Employee.hash_password(args[2])
-            self.position = args[3]
+            self.salary = args[2]
+            self.password = Employee.hash_password(args[3])
+            self.position = args[4]
         else:
             self.id = args[0]
             self.name = args[1]
             self.phone_number = args[2]
-            self.password = Employee.hash_password(args[3])
-            self.position = args[4]
-
-
+            self.phone_number = args[3]
+            self.password = Employee.hash_password(args[4])
+            self.position = args[5]
 
     def insert(self):
         conn = engine.connect()
@@ -25,8 +26,10 @@ class Employee():
         try:
             conn.execute(
                         INSERT_INTO_EMPLOYEES,
+                         id=self.id,
                          name=self.name,
                          phone_number=self.phone_number,
+                         salary=self.salary,
                          password=self.password,
                          position=self.position
                          )
@@ -52,7 +55,8 @@ class Employee():
                                         employee[1],
                                         employee[2],
                                         employee[3],
-                                        employee[4]
+                                        employee[4],
+                                        employee[5]
                                     )
                 )
 
@@ -114,8 +118,9 @@ class Employee():
                     'id': employee[0],
                     'name': employee[1],
                     'phone_number': employee[2],
-                    'password': employee[3],
-                    'position': employee[4]
+                    'salary': employee[3],
+                    'password': employee[4],
+                    'position': employee[5]
                     }
 
         except Exception as e:
@@ -123,8 +128,6 @@ class Employee():
             return None
         finally:
             conn.close()
-
-
 
     @staticmethod
     def hash_password(password):  # hash the password to 60 characters

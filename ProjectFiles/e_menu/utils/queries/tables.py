@@ -32,3 +32,21 @@ DELETE_FROM_TABLES = text("""
                                 DELETE FROM tables 
                                 WHERE code = :code;
                         """)
+
+UPDATE_LOCATION_IN_TABLE = text("""
+                            UPDATE menuItems  
+                            SET location = :location 
+                            WHERE code = :code;
+                        """)
+
+UPDATE_TYPE_IN_TABLE = text("""
+                            UPDATE menuItems  
+                            SET type = :type 
+                            WHERE code = :code;
+                        """)
+
+UPDATE_SEATS_IN_TABLE = text("""
+                            UPDATE menuItems  
+                            SET seats = :seats 
+                            WHERE code = :code;
+                        """)
