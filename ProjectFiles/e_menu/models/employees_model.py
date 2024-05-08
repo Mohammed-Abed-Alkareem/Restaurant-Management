@@ -10,15 +10,16 @@ class Employee:
             self.name = args[0]
             self.phone_number = args[1]
             self.salary = args[2]
-            self.password = Employee.hash_password(args[3])
-            self.position = args[4]
+            self.position = args[3]
+            self.password = Employee.hash_password(args[4])
         else:
             self.id = args[0]
             self.name = args[1]
             self.phone_number = args[2]
             self.salary = args[3]
-            self.password = Employee.hash_password(args[4])
-            self.position = args[5]
+            self.position = args[4]
+            self.password = Employee.hash_password(args[5])
+
 
     def insert(self):
         conn = engine.connect()
@@ -30,8 +31,8 @@ class Employee:
                  'name': self.name,
                  'phone_number': self.phone_number,
                  'salary': self.salary,
-                 'password': self.password,
-                 'position': self.position}
+                 'position': self.position,
+                 'password': self.password}
             )
             conn.commit()
             return 1
@@ -48,7 +49,7 @@ class Employee:
         try:
             result = conn.execute(GET_EMPLOYEES_TABLE)
             employees = result.fetchall()
-
+            print(employees)
             for employee in employees:
                 employees_info.append(
                                     Employee(
@@ -64,6 +65,7 @@ class Employee:
             return employees_info
 
         except Exception as e:
+
             print(f"Error: {e}")
             return None
         finally:
@@ -132,5 +134,4 @@ class Employee:
 
     @staticmethod
     def hash_password(password):  # hash the password to 60 characters
-        return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-
+        return bcrypt.hashpw(str(password).encode('utf-8'), bcrypt.gensalt())

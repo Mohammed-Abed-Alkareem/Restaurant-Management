@@ -5,9 +5,9 @@ CREATE_EMPLOYEES_TABLE = text("""
                             id CHAR(9) PRIMARY KEY,
                             name VARCHAR(40) NOT NULL,
                             phone_number CHAR(10) NOT NULL,
-                            password CHAR(60) NOT NULL,
                             salary integer,
-                            position VARCHAR(20) NOT NULL
+                            position VARCHAR(20) NOT NULL,
+                            password CHAR(60) NOT NULL
                             );
                         """)
 

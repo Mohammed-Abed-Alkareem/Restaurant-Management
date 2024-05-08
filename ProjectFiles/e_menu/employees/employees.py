@@ -199,7 +199,7 @@ def insert_employee():
         salary = request.form.get('salary')
         print(name, phone_number, salary, password, position)
 
-        employee = Employee(name, phone_number, salary, password, position)
+        employee = Employee(name, phone_number, salary, position, password)
         print(employee.id, employee.name, employee.phone_number, employee.salary, employee.password,
               employee.position)
         if employee.insert():
