@@ -51,3 +51,10 @@ GET_EMPLOYEE_POSITION = text("""
                             WHERE id = :id;
                         """)
 
+GET_EMPLOYEES_TABLE_REVERSED = text(""" 
+                            SELECT * FROM employees 
+                            ORDER BY id DESC
+                            LIMIT 1;
+                        """)
+
+

@@ -1,0 +1,57 @@
+{% extends "./base.html" %}
+
+{% block title %}
+    Insert Table
+{% endblock %}
+
+{% block custom_css %}
+    {# Include custom CSS files for the child template #}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/homePage.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/buttons.css') }}">
+{% endblock %}
+
+{% block content %}
+
+
+    <script src="{{ url_for('static', filename='js/alert.js') }}"></script>
+
+    {% for type, message in get_flashed_messages(with_categories=true) %}
+
+        <div id="myAlert" class="alert alert-{{ type }}" role="alert">
+             {% if type == 'danger' %}
+                &#x274C;
+            {% elif type == 'success' %}
+                &#x2714;
+            {% endif %}
+            {{ message }}
+        </div>
+    {% endfor %}
+
+
+    <div class="full-screen">
+
+            <!-- Form for submitting a table code -->
+            <div class="form-overlay">
+             <h1>Insert Table</h1>
+    <form action="{{ url_for('employees.add_table') }}" method="post">
+
+        <label for="table_location">Table Location:</label><br>
+        <input type="text" id="table_location" name="table_location"><br>
+
+        <label for="table_type">Table Type:</label><br>
+        <input type="text" id="table_type" name="table_type"><br>
+
+
+
+         <label for="table_seats">Table Seats:</label><br>
+        <input type="number" id="table_seats" name="table_seats"><br>
+
+
+
+        <input type="submit" value="Submit">
+    </form>
+            </div>
+        </div>
+
+
+{% endblock %}

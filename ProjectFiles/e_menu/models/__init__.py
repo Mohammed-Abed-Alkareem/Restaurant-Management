@@ -28,38 +28,37 @@ except Exception as e:
 
 
 def generate_key(char):
-
-    query_dict = {
-        'C': GET_CUSTOMERS_TABLE,
-        'M': GET_MENU_ITEMS_TABLE,
-        'O': GET_ORDERS_REVERSE,
-        'D': GET_ORDER_DETAILS_REVERSE,
-        'R': GET_RATINGS_TABLE_REVERSED,
-        'E': GET_EMPLOYEES_TABLE
-    }
-
-    query = query_dict[char]
-
     conn = engine.connect()
-    row = conn.execute(query).fetchone()
-    conn.commit()
-    conn.close()
-
-    if row is None:
-        if char == 'C':
-            return 'C0001'
-        elif char == 'M':
-            return 'M001'
-        elif char == 'O':
-            return 'O00001'
-        elif char == 'D':
-            return 'D00001'
-        elif char == 'R':
-            return 'R00001'
-        elif char == 'E':
-            return 'E001'
-
     if char != 'T':
+        query_dict = {
+            'C': GET_CUSTOMERS_TABLE,
+            'M': GET_MENU_ITEMS_TABLE,
+            'O': GET_ORDERS_REVERSE,
+            'D': GET_ORDER_DETAILS_REVERSE,
+            'R': GET_RATINGS_TABLE_REVERSED,
+            'E': GET_EMPLOYEES_TABLE_REVERSED
+        }
+
+        query = query_dict[char]
+
+        row = conn.execute(query).fetchone()
+
+        conn.close()
+
+        if row is None:
+            if char == 'C':
+                return 'C0001'
+            elif char == 'M':
+                return 'M001'
+            elif char == 'O':
+                return 'O00001'
+            elif char == 'D':
+                return 'D00001'
+            elif char == 'R':
+                return 'R00001'
+            elif char == 'E':
+                return 'E001'
+
         prev_key = row[0]
         key_length = len(prev_key)
         number = int(prev_key[1:])
@@ -74,6 +73,7 @@ def generate_key(char):
         while True:
             new_table_code = random.randint(100000, 999999)
             tables = conn.execute(SELECT_TABLES).fetchall()
-            existing_table_codes = [table.table_code for table in tables]
+            conn.close()
+            existing_table_codes = [table.code for table in tables]
             if new_table_code not in existing_table_codes:
                 return new_table_code

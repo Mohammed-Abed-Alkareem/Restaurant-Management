@@ -52,6 +52,21 @@ class Table:
         finally:
             conn.close()
 
+
+    def update(code, location, type, seats):
+        conn = engine.connect()
+        try:
+            conn.execute(UPDATE_TABLE, {'code': code, 'location': location, 'type': type, 'seats': seats})
+            conn.commit()
+            return 1
+        except Exception as e:
+            print(f"Error: {e}")
+            return 0
+        finally:
+            conn.close()
+
+
+
     @classmethod
     def delete(cls, code):
         conn = engine.connect()

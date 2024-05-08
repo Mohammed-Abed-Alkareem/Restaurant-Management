@@ -25,26 +25,7 @@ def sign_out():
     return redirect(url_for('employees.sign_in'))
 
 
-@employees.route("insert_employee", methods=['GET', 'POST'])
-def insert_employee():
-    if request.method == 'GET':
-        return render_template("employees/insert_employee.html")
-    else:
-        name = request.form.get('name')
-        phone_number = request.form.get('phone_number')
-        password = request.form.get('password')
-        position = request.form.get('position')
-        salary = request.form.get('salary')
-        print(name, phone_number, salary, password, position)
 
-        employee = Employee(name, phone_number, salary, password, position)
-        print(employee.id, employee.name, employee.phone_number, employee.salary, employee.password, employee.position)
-        if employee.insert():
-            flash("Employee added successfully", "success")
-        else:
-            flash("Error adding employee", "danger")
-
-        return redirect(url_for('employees.dashboard'))
 
 
 @employees.route("delete_employee/<employee_id>")
@@ -58,23 +39,6 @@ def view_employees():
     return render_template("employees/view_employees.html", employees=employees)
 
 
-
-
-@employees.route("add_table", methods=['GET', 'POST'])
-def add_table():
-    if request.method == 'GET':
-        return
-
-    table_code = request.form.get('table_code')
-    table_location = request.form.get('table_location')
-    table_type = request.form.get('table_type')
-    table_seats = request.form.get('table_seats')
-
-    table = Table(table_location, table_type, table_seats)
-    if table.insert():
-        return "Table added successfully"
-    else:
-        return "Error adding table"
 
 
 
@@ -214,7 +178,7 @@ def update_table(table_code):
             flash("Error updating table", "danger")
             return redirect(url_for('employees.view_tables'))
 
-@employees.route("delete_table/<table_code>") #this will be in the update table page
+@employees.route("delete_table/<table_code>")
 def delete_table(table_code):
     if Table.delete(table_code):
         flash("Table deleted successfully", "success")
@@ -222,3 +186,43 @@ def delete_table(table_code):
     else:
         flash("Error deleting table", "danger")
         return redirect(url_for('employees.view_tables'))
+
+@employees.route("insert_employee", methods=['GET', 'POST'])
+def insert_employee():
+    if request.method == 'GET':
+        return render_template("employees/insert_employee.html")
+    else:
+        name = request.form.get('name')
+        phone_number = request.form.get('phone_number')
+        password = request.form.get('password')
+        position = request.form.get('position')
+        salary = request.form.get('salary')
+        print(name, phone_number, salary, password, position)
+
+        employee = Employee(name, phone_number, salary, password, position)
+        print(employee.id, employee.name, employee.phone_number, employee.salary, employee.password,
+              employee.position)
+        if employee.insert():
+            flash("Employee added successfully", "success")
+        else:
+            flash("Error adding employee", "danger")
+
+        return redirect(url_for('employees.dashboard'))
+
+
+@employees.route("add_table", methods=['GET', 'POST'])
+def add_table():
+    if request.method == 'GET':
+        return render_template("employees/add_table.html")
+
+    table_location = request.form.get('table_location')
+    table_type = request.form.get('table_type')
+    table_seats = request.form.get('table_seats')
+
+    table = Table(table_location, table_type, table_seats)
+    if table.insert():
+        flash("Table added successfully", "success")
+        return redirect(url_for('employees.view_tables'))
+    else:
+        flash("Error adding table", "danger")
+        return redirect(url_for('employees.add_table'))

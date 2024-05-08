@@ -50,3 +50,9 @@ UPDATE_SEATS_IN_TABLE = text("""
                             SET seats = :seats 
                             WHERE code = :code;
                         """)
+
+UPDATE_TABLE = text("""
+                            UPDATE tables
+                            SET location = :location, type = :type, seats = :seats
+                            WHERE code = :code;
+                        """)
