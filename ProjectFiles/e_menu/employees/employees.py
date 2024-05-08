@@ -34,15 +34,16 @@ def insert_employee():
         phone_number = request.form.get('phone_number')
         password = request.form.get('password')
         position = request.form.get('position')
+        salary = request.form.get('salary')
+        print(name, phone_number, salary, password, position)
 
-        print(name, phone_number, password, position)
+        employee = Employee(name, phone_number, salary, password, position)
+        print(employee.id, employee.name, employee.phone_number, employee.salary, employee.password, employee.position)
+        if employee.insert():
+            flash("Employee added successfully", "success")
+        else:
+            flash("Error adding employee", "danger")
 
-        # employee = Employee(name, phone_number, password, position)
-        # if employee.insert():
-        #     return "Employee added successfully"
-        # else:
-        #     return "Error adding employee"
-        flash("Employee added successfully", "success")
         return redirect(url_for('employees.dashboard'))
 
 
