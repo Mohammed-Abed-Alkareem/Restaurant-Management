@@ -11,7 +11,7 @@ from ProjectFiles.e_menu.models.payment_methods_model import *
 from ProjectFiles.e_menu.models.orders_model import *
 from ProjectFiles.e_menu.models.orders_details_model import *
 from ProjectFiles.e_menu.models.ratings_model import *
-from ProjectFiles.e_menu.models.empoyees_model import Employee
+from ProjectFiles.e_menu.models.employees_model import Employee
 
 #allow only png images
 ALLOWED_EXTENSIONS = {'png'}
