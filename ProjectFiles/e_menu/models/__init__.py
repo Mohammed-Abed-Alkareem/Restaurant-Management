@@ -10,10 +10,10 @@ from ProjectFiles.e_menu.utils.queries.orders import *
 from ProjectFiles.e_menu.utils.queries.ratings import *
 from ProjectFiles.e_menu.utils.queries.payment_methods import *
 from ProjectFiles.e_menu.utils.queries.employees import *
-from ProjectFiles.e_menu.models.tables_model import *
 from ProjectFiles.e_menu.utils.queries.employees import *
+
 # Encode the password
-encoded_password = urllib.parse.quote_plus('mosatukba1')
+encoded_password = urllib.parse.quote_plus('Mohammed@123')
 print(encoded_password)
 # Construct the connection string
 DATABASE = f'mysql+pymysql://root:{encoded_password}@127.0.0.1/e_menu'
@@ -73,7 +73,7 @@ def generate_key(char):
     else:
         while True:
             new_table_code = random.randint(100000, 999999)
-            tables = Table.get_all()
+            tables = conn.execute(SELECT_TABLES).fetchall()
             existing_table_codes = [table.table_code for table in tables]
             if new_table_code not in existing_table_codes:
                 return new_table_code

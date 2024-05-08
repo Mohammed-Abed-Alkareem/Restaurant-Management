@@ -1,6 +1,5 @@
 from . import *
 
-
 class Table:
     def __init__(self, *args):
         if len(args) == 4:

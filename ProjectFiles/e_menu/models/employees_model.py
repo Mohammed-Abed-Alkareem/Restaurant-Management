@@ -16,7 +16,7 @@ class Employee:
             self.id = args[0]
             self.name = args[1]
             self.phone_number = args[2]
-            self.phone_number = args[3]
+            self.salary = args[3]
             self.password = Employee.hash_password(args[4])
             self.position = args[5]
 
@@ -25,14 +25,15 @@ class Employee:
 
         try:
             conn.execute(
-                        INSERT_INTO_EMPLOYEES,
-                         id=self.id,
-                         name=self.name,
-                         phone_number=self.phone_number,
-                         salary=self.salary,
-                         password=self.password,
-                         position=self.position
-                         )
+                INSERT_INTO_EMPLOYEES,
+                {'id': self.id,
+                 'name': self.name,
+                 'phone_number': self.phone_number,
+                 'salary': self.salary,
+                 'password': self.password,
+                 'position': self.position}
+            )
+            conn.commit()
             return 1
         except Exception as e:
             print(f"Error: {e}")
