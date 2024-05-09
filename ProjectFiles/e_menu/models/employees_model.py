@@ -4,21 +4,29 @@ from . import *
 
 
 class Employee:
-    def __init__(self, *args):
-        if len(args) == 5:
-            self.id = generate_key('E')
-            self.name = args[0]
-            self.phone_number = args[1]
-            self.salary = args[2]
-            self.position = args[3]
-            self.password = Employee.hash_password(args[4])
-        else:
-            self.id = args[0]
-            self.name = args[1]
-            self.phone_number = args[2]
-            self.salary = args[3]
-            self.position = args[4]
-            self.password = Employee.hash_password(args[5])
+    def __init__(self, name, phone_number, salary, position, password, id=generate_key('E')):
+        self.id = id
+        self.name = name
+        self.phone_number = phone_number
+        self.salary = salary
+        self.position = position
+        self.password = Employee.hash_password(password)
+
+    # def __init__(self, *args):
+    #     if len(args) == 5:
+    #         self.id = generate_key('E')
+    #         self.name = args[0]
+    #         self.phone_number = args[1]
+    #         self.salary = args[2]
+    #         self.position = args[3]
+    #         self.password = Employee.hash_password(args[4])
+    #     else:
+    #         self.id = args[0]
+    #         self.name = args[1]
+    #         self.phone_number = args[2]
+    #         self.salary = args[3]
+    #         self.position = args[4]
+    #         self.password = Employee.hash_password(args[5])
 
 
     def insert(self):
@@ -53,12 +61,12 @@ class Employee:
             for employee in employees:
                 employees_info.append(
                                     Employee(
-                                  employee[0],
-                                        employee[1],
-                                        employee[2],
-                                        employee[3],
-                                        employee[4],
-                                        employee[5]
+                                        id=employee[0],
+                                        name=employee[1],
+                                        phone_number=employee[2],
+                                        salary=employee[3],
+                                        position=employee[4],
+                                        password=employee[5]
                                     )
                 )
 
@@ -118,20 +126,57 @@ class Employee:
             result = conn.execute(SELECT_EMPLOYEE_BY_PHONE, {'phone_number': phone_number})
             employee = result.fetchone()
             print(employee)
-            return {
-                    'id': employee[0],
-                    'name': employee[1],
-                    'phone_number': employee[2],
-                    'salary': employee[3],
-                    'position': employee[4],
-                    'password': employee[5]
-                    }
+            return Employee(
+                id=employee[0],
+                name=employee[1],
+                phone_number=employee[2],
+                salary=employee[3],
+                position=employee[4],
+                password=employee[5]
+            )
 
         except Exception as e:
             print(f"Error: {e}")
             return None
         finally:
             conn.close()
+
+    def update(self, name=None, phone_number=None, salary=None, position=None, password=None):
+
+        if name is None:
+            name = self.name
+
+        if phone_number is None:
+            phone_number = self.phone_number
+
+        if salary is None:
+            salary = self.salary
+
+        if position is None:
+            position = self.position
+
+        if password is None:
+            password = self.password
+        else:
+            password = Employee.hash_password(password)
+
+        conn = engine.connect()
+        try:
+            conn.execute(UPDATE_EMPLOYEE, {'id': id,
+                                           'name': name,
+                                           'phone_number': phone_number,
+                                           'salary': salary,
+                                           'position': position,
+                                           'password': password}
+                         )
+            conn.commit()
+            return 1
+        except Exception as e:
+            print(f"Error: {e}")
+            return 0
+        finally:
+            conn.close()
+
 
     @staticmethod
     def hash_password(password):  # hash the password to 60 characters

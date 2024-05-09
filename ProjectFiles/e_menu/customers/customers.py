@@ -59,7 +59,7 @@ def sign_up():
 
         print(customer_name, customer_phone)
 
-        check = Customer.insert(Customer(customer_name, customer_phone))
+        check = Customer.insert(Customer(name=customer_name, phone_number=customer_phone))
 
         # check insert_customer(customer_name, customer_phone)
         if check:

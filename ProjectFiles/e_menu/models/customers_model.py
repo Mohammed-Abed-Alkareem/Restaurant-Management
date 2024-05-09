@@ -2,15 +2,11 @@ from . import *
 
 
 class Customer:
-    def __init__(self, *args):
-        if len(args) == 2:
-            self.id = generate_key('C')
-            self.name = args[0]
-            self.phone_number = args[1]
-        else:
-            self.id = args[0]
-            self.name = args[1]
-            self.phone_number = args[2]
+    def __init__(self, name, phone_number, id=generate_key('C')):
+        self.id = id
+        self.name = name
+        self.phone_number = phone_number
+
 
     @staticmethod
     def create_table():
@@ -76,7 +72,7 @@ class Customer:
 
         try:
             customer = conn.execute(SELECT_CUSTOMER_BY_ID, {'id': id}).fetchone()
-            return cls(customer[0], customer[1], customer[2])
+            return cls(id=customer[0], name=customer[1], phone_number=customer[2])
         except Exception as e:
             print(f"Error: {e}")
             return None
@@ -91,7 +87,7 @@ class Customer:
             customers_objects = []
             customers = conn.execute(GET_CUSTOMERS_TABLE).fetchall()
             for customer in customers:
-                customers_objects.append(cls(customer[0], customer[1], customer[2]))
+                customers_objects.append(cls(id=customer[0], name=customer[1], phone_number=customer[2]))
             return customers_objects
         except Exception as e:
             print(f"Error: {e}")
@@ -105,7 +101,7 @@ class Customer:
 
         try:
             customer = conn.execute(SELECT_CUSTOMER_BY_PHONE, {'phone_number': phone_number}).fetchone()
-            return cls(customer[0], customer[1], customer[2])
+            return cls(id=customer[0], name=customer[1], phone_number=customer[2])
         except Exception as e:
             print(f"Error: {e}")
             return None

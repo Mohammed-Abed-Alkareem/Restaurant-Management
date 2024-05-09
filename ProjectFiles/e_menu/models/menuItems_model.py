@@ -2,21 +2,31 @@ from . import *
 
 
 class MenuItems:
-    def __init__(self, *args):
-        if len(args) == 6:
-            self.id = args[0].strip()
-            self.name = args[1].strip()
-            self.description = args[2].strip()
-            self.category = args[3].strip()
-            self.price = args[4]
-            self.is_available = args[5]
-        else:
-            self.id = generate_key('M')
-            self.name = args[0].strip()
-            self.description = args[1].strip()
-            self.category = args[2].strip()
-            self.price = args[3]
-            self.is_available = args[4]
+
+    def __init__(self, name, description, category, price, id=generate_key('M'), is_available=True):
+        self.id = id
+        self.name = name
+        self.description = description
+        self.category = category
+        self.price = price
+        self.is_available = is_available
+
+    # def __init__(self, *args):
+    #
+    #     if len(args) == 6:
+    #         self.id = args[0].strip()
+    #         self.name = args[1].strip()
+    #         self.description = args[2].strip()
+    #         self.category = args[3].strip()
+    #         self.price = args[4]
+    #         self.is_available = args[5]
+    #     else:
+    #         self.id = generate_key('M')
+    #         self.name = args[0].strip()
+    #         self.description = args[1].strip()
+    #         self.category = args[2].strip()
+    #         self.price = args[3]
+    #         self.is_available = args[4]
 
     @staticmethod
     def create_table():

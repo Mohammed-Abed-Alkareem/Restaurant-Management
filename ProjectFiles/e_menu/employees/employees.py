@@ -86,15 +86,16 @@ def update_employee(employee_id):
         if 'employee_id' not in session:
             return redirect(url_for('employees.sign_in'))
 
+        employee = Employee.get(employee_id)
         if request.method == 'GET':
-            employee = Employee.get(employee_id)
+
             return render_template("employees/update_employee.html", employee=employee)
         else:
             name = request.form.get('name')
             phone_number = request.form.get('phone_number')
             salary = request.form.get('salary')
             position = request.form.get('position')
-            if Employee.update(employee_id, name, phone_number, salary, position):
+            if employee.update( name, phone_number, salary, position):
                 return "Employee updated successfully"
             else:
                 return "Error updating employee"
@@ -120,9 +121,9 @@ def sign_in():
         if employee:
             hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
             if bcrypt.checkpw(password.encode('utf-8'), hashed_password):
-                session['employee_id'] = employee['id']
-                session['employee_name'] = employee['name']
-                session['employee_position'] = employee['position']
+                session['employee_id'] = employee.id
+                session['employee_name'] = employee.name
+                session['employee_position'] = employee.position
                 return redirect(url_for('employees.dashboard'))
 
         flash("Invalid phone number or password", "danger")
@@ -165,8 +166,8 @@ def add_menu_item():
         item_price = request.form.get('item_price')
         item_description = request.form.get('item_description')
         item_category = request.form.get('item_category')
-        item_is_available = True
-        item = MenuItems(item_name, item_description, item_category, item_price, item_is_available)
+
+        item = MenuItems(name=item_name, description=item_description, category=item_category, price=item_price)
 
         uploaded_file = request.files['item_image']
         if uploaded_file:

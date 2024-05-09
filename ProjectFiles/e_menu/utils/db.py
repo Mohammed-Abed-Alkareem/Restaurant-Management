@@ -72,9 +72,9 @@ def insert_customers():
     customers_data = get_customers_data()
     for customer in customers_data:
         customer_object = Customer(
-            customer['id'],
-            customer['name'],
-            customer['phone_number']
+            id=customer['id'],
+            name=customer['name'],
+            phone_number=customer['phone_number']
         )
         customer_object.insert()
 
@@ -94,12 +94,13 @@ def insert_menuItems_data():
     menuItems_data = get_menu_items_data()
     for menuItem in menuItems_data:
         (MenuItems
-
-             (
-             menuItem["id"], menuItem["name"],
-             menuItem["description"], menuItem["category"],
-             menuItem["price"], True
-         )
+            (
+             id=menuItem["id"],
+             name=menuItem["name"],
+             description=menuItem["description"],
+             category=menuItem["category"],
+             price=menuItem["price"]
+            )
          .insert())
 
 
