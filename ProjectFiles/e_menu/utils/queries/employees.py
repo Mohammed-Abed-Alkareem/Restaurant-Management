@@ -42,7 +42,7 @@ DELETE_FROM_EMPLOYEES = text("""
 
 UPDATE_EMPLOYEE = text("""
                             UPDATE employees
-                            SET name = :name, phone_number = :phone_number, password = :password, position = :position
+                            SET name = :name, phone_number = :phone_number, salary = :salary, position = :position, password = :password
                             WHERE id = :id;
                         """)
 

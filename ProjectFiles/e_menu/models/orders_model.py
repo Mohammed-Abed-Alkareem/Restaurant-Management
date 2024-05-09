@@ -4,19 +4,32 @@ from . import *
 
 
 class Order:
-    def __init__(self, *args):
-        if len(args) == 3:
-            self.id = generate_key('O')
-            self.customer_id = args[0]
-            self.table_code = args[1]
-            self.payment_method_id = args[2]
-            self.order_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        else:
-            self.id = args[0]
-            self.customer_id = args[1]
-            self.table_code = args[2]
-            self.payment_method_id = args[3]
-            self.order_date = args[4]
+    def __init__(self, customer_id, table_code, payment_method_id, id=None, order_date=None):
+        if id is None:
+            id = generate_key('O')
+
+        if order_date is None:
+            order_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        self.id = id
+        self.customer_id = customer_id
+        self.table_code = table_code
+        self.payment_method_id = payment_method_id
+        #current date
+        self.order_date = order_date
+    # def __init__(self, *args):
+    #     if len(args) == 3:
+    #         self.id = generate_key('O')
+    #         self.customer_id = args[0]
+    #         self.table_code = args[1]
+    #         self.payment_method_id = args[2]
+    #         self.order_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    #     else:
+    #         self.id = args[0]
+    #         self.customer_id = args[1]
+    #         self.table_code = args[2]
+    #         self.payment_method_id = args[3]
+    #         self.order_date = args[4]
 
 
     def insert(self):

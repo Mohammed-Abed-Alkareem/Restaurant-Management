@@ -1,17 +1,25 @@
 from . import *
 
 class Table:
-    def __init__(self, *args):
-        if len(args) == 4:
-            self.code = args[0]
-            self.location = args[1].strip()
-            self.type = args[2].strip()
-            self.seats = args[3]
-        else:
-            self.code = generate_key('T')
-            self.location = args[0].strip()
-            self.type = args[1].strip()
-            self.seats = args[2]
+    def __init__(self, location, type, seats, code=None):
+        if code is None:
+            code = generate_key('T')
+
+        self.code = code
+        self.location = location
+        self.type = type
+        self.seats = seats
+    # def __init__(self, *args):
+    #     if len(args) == 4:
+    #         self.code = args[0]
+    #         self.location = args[1].strip()
+    #         self.type = args[2].strip()
+    #         self.seats = args[3]
+    #     else:
+    #         self.code = generate_key('T')
+    #         self.location = args[0].strip()
+    #         self.type = args[1].strip()
+    #         self.seats = args[2]
 
     @staticmethod
     def create_table():
@@ -53,7 +61,12 @@ class Table:
             conn.close()
 
 
-    def update(code, location, type, seats):
+    def update(self, location=None, type=None, seats=None):
+        code = self.code
+        location = location if location else self.location
+        type = type if type else self.type
+        seats = seats if seats else self.seats
+
         conn = engine.connect()
         try:
             conn.execute(UPDATE_TABLE, {'code': code, 'location': location, 'type': type, 'seats': seats})
@@ -85,7 +98,7 @@ class Table:
         conn = engine.connect()
         try:
             table = conn.execute(SELECT_TABLE_BY_ID, {'code': code}).fetchone()
-            return cls(table[0], table[1], table[2], table[3])
+            return cls(code=table[0], location=table[1], type=table[2], seats=table[3])
         except Exception as e:
             print(f"Error: {e}")
             return None
@@ -99,7 +112,7 @@ class Table:
             tables_objects = []
             tables = conn.execute(SELECT_TABLES).fetchall()
             for table in tables:
-                tables_objects.append(cls(table[0], table[1], table[2], table[3]))
+                tables_objects.append(cls(code=table[0], location=table[1], type=table[2], seats=table[3]))
             return tables_objects
         except Exception as e:
             print(f"Error: {e}")
@@ -124,44 +137,4 @@ class Table:
             seats=data_dict['seats']
         )
 
-    @classmethod
-    def change_location(cls, table_code, new_location):
-        conn = engine.connect()
-        try:
-            conn.execute(UPDATE_LOCATION_IN_TABLE,
-                         {'code': table_code, 'location': new_location})
-            conn.commit()
-            return True
-        except Exception as e:
-            print(f"Error: {e}")
-            return False
-        finally:
-            conn.close()
 
-    @classmethod
-    def change_type(cls, table_code, new_type):
-        conn = engine.connect()
-        try:
-            conn.execute(UPDATE_TYPE_IN_TABLE,
-                         {'code': table_code, 'type': new_type})
-            conn.commit()
-            return True
-        except Exception as e:
-            print(f"Error: {e}")
-            return False
-        finally:
-            conn.close()
-
-    @classmethod
-    def change_seats(cls, table_code, new_seats):
-        conn = engine.connect()
-        try:
-            conn.execute(UPDATE_SEATS_IN_TABLE,
-                         {'code': table_code, 'seats': new_seats})
-            conn.commit()
-            return True
-        except Exception as e:
-            print(f"Error: {e}")
-            return False
-        finally:
-            conn.close()

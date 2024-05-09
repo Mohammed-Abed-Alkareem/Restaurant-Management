@@ -95,7 +95,7 @@ def update_employee(employee_id):
             phone_number = request.form.get('phone_number')
             salary = request.form.get('salary')
             position = request.form.get('position')
-            if employee.update( name, phone_number, salary, position):
+            if employee.update(name=name, phone_number=phone_number, salary=salary, position=position):
                 return "Employee updated successfully"
             else:
                 return "Error updating employee"
@@ -132,8 +132,8 @@ def sign_in():
 
 @employees.route("dashboard")
 def dashboard():
-    if 'employee_id' not in session:
-        return redirect(url_for('employees.sign_in'))
+    # if 'employee_id' not in session:
+    #     return redirect(url_for('employees.sign_in'))
 
     print(session)
     return render_template("employees/dashboard.html")
@@ -227,15 +227,15 @@ def update_table(table_code):
 
     if 'employee_id' not in session:
         return redirect(url_for('employees.sign_in'))
-
+    table = Table.get(table_code)
     if request.method == 'GET':
-        table = Table.get(table_code)
+
         return render_template("employees/update_table.html", table=table)
     else:
         table_location = request.form.get('table_location')
         table_type = request.form.get('table_type')
         table_seats = request.form.get('table_seats')
-        if Table.update(table_code, table_location, table_type, table_seats):
+        if table.update(location=table_location, type=table_type, seats=table_seats):
             flash("Table updated successfully", "success")
             return redirect(url_for('employees.view_tables'))
         else:
@@ -258,8 +258,8 @@ def delete_table(table_code):
 @employees.route("insert_employee", methods=['GET', 'POST'])
 def insert_employee():
 
-    if 'employee_id' not in session:
-        return redirect(url_for('employees.sign_in'))
+    # if 'employee_id' not in session:
+    #     return redirect(url_for('employees.sign_in'))
 
     if request.method == 'GET':
         return render_template("employees/insert_employee.html")
@@ -271,7 +271,7 @@ def insert_employee():
         salary = request.form.get('salary')
         print(name, phone_number, salary, password, position)
 
-        employee = Employee(name, phone_number, salary, position, password)
+        employee = Employee(name=name, phone_number=phone_number, salary=salary, position=position, password=password)
         print(employee.id, employee.name, employee.phone_number, employee.salary, employee.password,
               employee.position)
         if employee.insert():
@@ -295,7 +295,7 @@ def add_table():
     table_type = request.form.get('table_type')
     table_seats = request.form.get('table_seats')
 
-    table = Table(table_location, table_type, table_seats)
+    table = Table(location=table_location, type=table_type, seats=table_seats)
     if table.insert():
         flash("Table added successfully", "success")
         return redirect(url_for('employees.view_tables'))
