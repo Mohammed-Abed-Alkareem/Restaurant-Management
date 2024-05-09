@@ -119,16 +119,23 @@ def sign_in():
         password = request.form.get('password')
         employee = Employee.get_by_phone_number(phone_number)
         if employee:
-            hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-            if bcrypt.checkpw(password.encode('utf-8'), hashed_password):
+            # Here, you should use the hashed password stored in the employee object
+            hashed_password = employee.password
+            print(employee.password)
+            print(password)
+
+            if  bcrypt.checkpw(password.encode('utf-8'), hashed_password):
+                print("Password is correct")
                 session['employee_id'] = employee.id
                 session['employee_name'] = employee.name
                 session['employee_position'] = employee.position
                 return redirect(url_for('employees.dashboard'))
+            else:
+                print("Password is incorrect")
+
 
         flash("Invalid phone number or password", "danger")
         return redirect(url_for('employees.sign_in'))
-
 
 @employees.route("dashboard")
 def dashboard():
