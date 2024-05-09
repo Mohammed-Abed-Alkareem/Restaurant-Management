@@ -3,7 +3,10 @@ from . import *
 
 class MenuItems:
 
-    def __init__(self, name, description, category, price, id=generate_key('M'), is_available=True):
+    def __init__(self, name, description, category, price, id=None, is_available=True):
+        if id is None:
+            id = generate_key('M')
+
         self.id = id
         self.name = name
         self.description = description
@@ -105,7 +108,7 @@ class MenuItems:
         conn = engine.connect()
         try:
             item = conn.execute(SELECT_MENU_ITEM_BY_ID, {'id': id}).fetchone()
-            return cls(item[0], item[1], item[2], item[3], item[4], item[5])
+            return cls(id=item[0], name=item[1], description=item[2], category=item[3], price=item[4], is_available=item[5])
         except Exception as e:
             print(f"Error: {e}")
             return None
@@ -119,7 +122,7 @@ class MenuItems:
             items_objects = []
             items = conn.execute(SELECT_MENU_ITEMS).fetchall()
             for item in items:
-                items_objects.append(cls(item[0], item[1], item[2], item[3], item[4], item[5]))
+                items_objects.append(cls(id=item[0], name=item[1], description=item[2], category=item[3], price=item[4], is_available=item[5]))
             return items_objects
         except Exception as e:
             print(f"Error: {e}")
@@ -135,7 +138,7 @@ class MenuItems:
             items = conn.execute(SELECT_MENU_ITEMS_BY_CATEGORY, {'category': category}).fetchall()
             for item in items:
                 if item[5] == True: # is_available is True
-                    items_objects.append(cls(item[0], item[1], item[2], item[3], item[4], item[5]))
+                    items_objects.append(cls(id=item[0], name=item[1], description=item[2], category=item[3], price=item[4], is_available=item[5]))
             return items_objects
         except Exception as e:
             print(f"Error: {e}")

@@ -4,7 +4,11 @@ from . import *
 
 
 class Employee:
-    def __init__(self, name, phone_number, salary, position, password, id=generate_key('E')):
+    def __init__(self, name, phone_number, salary, position, password, id=None):
+
+        if id is None:
+            id=generate_key('E')
+
         self.id = id
         self.name = name
         self.phone_number = phone_number
@@ -49,6 +53,29 @@ class Employee:
             return 0
         finally:
             conn.close()
+
+    @staticmethod
+    def get(id):
+        conn = engine.connect()
+
+        try:
+            result = conn.execute(SELECT_EMPLOYEE_BY_ID, {'id': id})
+            employee = result.fetchone()
+            return Employee(
+                id=employee[0],
+                name=employee[1],
+                phone_number=employee[2],
+                salary=employee[3],
+                position=employee[4],
+                password=employee[5]
+            )
+
+        except Exception as e:
+            print(f"Error: {e}")
+            return None
+        finally:
+            conn.close()
+
 
     @staticmethod
     def get_all():

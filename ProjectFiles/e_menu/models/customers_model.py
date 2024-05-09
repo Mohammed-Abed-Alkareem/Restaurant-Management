@@ -2,7 +2,10 @@ from . import *
 
 
 class Customer:
-    def __init__(self, name, phone_number, id=generate_key('C')):
+    def __init__(self, name, phone_number, id=None):
+        if id is None:
+            generate_key('C')
+
         self.id = id
         self.name = name
         self.phone_number = phone_number
@@ -118,7 +121,7 @@ class Customer:
     @classmethod
     def from_dict(cls, data_dict):
         return cls(
-            data_dict['id'],
-            data_dict['name'],
-            data_dict['phone_number']
+            id=data_dict['id'],
+            name=data_dict['name'],
+            phone_number=data_dict['phone_number']
         )

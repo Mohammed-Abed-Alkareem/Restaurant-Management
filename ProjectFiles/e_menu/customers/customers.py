@@ -113,7 +113,9 @@ def categories():
         return redirect(url_for('customers.sign_page'))
 
     items_categories = MenuItems.get_categories()
+    print(session)
     customer = Customer.from_dict(session['customer'])
+
     return render_template("customers/categories.html", items_categories=items_categories, user_name=customer.name)
 
 
@@ -248,7 +250,7 @@ def confirm_payment():
     customer = Customer.from_dict(session['customer'])
 
     # order = Order.insert(Order(table.code, customer.id, payment_method))
-    order = Order(customer.id, table_code, payment_method)
+    order = Order(customer_id=customer.id, table_code=table_code, payment_method_id=payment_method)
 
     print(order.id, order.customer_id, order.table_code, order.payment_method_id, order.order_date)
 

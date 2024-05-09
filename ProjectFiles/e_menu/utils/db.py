@@ -59,12 +59,12 @@ def insert_tables():
 
     for table in tables_data:
         (Table
-             (
-             table["code"],
-             table["location"],
-             table["type"],
-             table["seats"]
-         )
+            (
+                 code=table["code"],
+                 location=table["location"],
+                 type=table["type"],
+                 seats=table["seats"]
+            )
          .insert())
 
 
@@ -84,8 +84,8 @@ def insert_payment_methods():
 
     for payment_method in payment_methods_data:
         payment_method_object = PaymentMethod(
-            payment_method['id'],
-            payment_method['description']
+            id=payment_method['id'],
+            description=payment_method['description']
         )
         payment_method_object.insert()
 
@@ -109,11 +109,11 @@ def insert_orders():
 
     for order in orders_data:
         order_object = Order(
-            order['id'],
-            order['customer_id'],
-            order['table_code'],
-            order['payment_method_id'],
-            order['order_date']
+            id=order['id'],
+            customer_id=order['customer_id'],
+            table_code=order['table_code'],
+            payment_method_id=order['payment_method_id'],
+            order_date=order['order_date']
 
         )
 
@@ -125,12 +125,11 @@ def insert_orders_details():
 
     for order_details in orders_details_data:
         order_details_object = OrderDetails(
-            order_details['id'],
-            order_details['order_id'],
-            order_details['item_id'],
-            order_details['price'],
-            order_details['quantity']
-
+            id=order_details['id'],
+            order_id=order_details['order_id'],
+            item_id=order_details['item_id'],
+            price=order_details['price'],
+            quantity=order_details['quantity']
         )
 
         order_details_object.insert()
@@ -141,11 +140,11 @@ def insert_ratings():
 
     for rating in ratings_data:
         rating_object = Rating(
-            rating['id'],
-            rating['order_id'],
-            rating['rating'],
-            rating['food_rating'],
-            rating['service_rating']
+            id=rating['id'],
+            order_id=rating['order_id'],
+            rating=rating['rating'],
+            food_rating=rating['food_rating'],
+            service_rating=rating['service_rating']
         )
 
         rating_object.insert()
