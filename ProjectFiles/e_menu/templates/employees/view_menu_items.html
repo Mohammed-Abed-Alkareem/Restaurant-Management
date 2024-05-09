@@ -54,14 +54,6 @@ custom_css %}
                         </div>
 
                         <div class="button-container">
-                            <a href="{{ url_for('employees.delete_menu_item', item_id=menuItem.id) }}">
-
-                                <button>Delete</button>
-                            </a>
-                        </div>
-
-
-                        <div class="button-container">
                             <a href="{{ url_for('employees.change_availability', item_id=menuItem.id) }}">
                                 {% if menuItem.is_available == 1 %}
                                     <button>Make Unavailable</button>
