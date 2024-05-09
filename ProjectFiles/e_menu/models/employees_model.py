@@ -115,15 +115,16 @@ class Employee:
         conn = engine.connect()
 
         try:
-            result = conn.execute(SELECT_EMPLOYEE_BY_PHONE, phone_number)
+            result = conn.execute(SELECT_EMPLOYEE_BY_PHONE, {'phone_number': phone_number})
             employee = result.fetchone()
+            print(employee)
             return {
                     'id': employee[0],
                     'name': employee[1],
                     'phone_number': employee[2],
                     'salary': employee[3],
-                    'password': employee[4],
-                    'position': employee[5]
+                    'position': employee[4],
+                    'password': employee[5]
                     }
 
         except Exception as e:

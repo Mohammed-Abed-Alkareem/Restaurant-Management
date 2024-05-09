@@ -57,13 +57,18 @@ class MenuItems:
         finally:
             conn.close()
 
-    @classmethod
-    def update(cls, id, name, price, description, category, is_available):
+    def update(self, name=None, price=None, description=None, category=None, is_available=None):
+        name = self.name if name is None else name
+        price = self.price if price is None else price
+        description = self.description if description is None else description
+        category = self.category if category is None else category
+        is_available = self.is_available if is_available is None else is_available
+
         conn = engine.connect()
         try:
             conn.execute(UPDATE_MENU_ITEM,
                          {'name': name, 'price': price, 'description': description,
-                          'category': category, 'is_available': is_available, 'id': id})
+                          'category': category, 'is_available': is_available, 'id': self.id})
             conn.commit()
             return True
         except Exception as e:

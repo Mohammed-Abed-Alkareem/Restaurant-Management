@@ -1,0 +1,34 @@
+{% extends "./base.html" %}
+
+{% block title %} Update Meal Details {% endblock %}
+
+{% block custom_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/update_item.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/buttons.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="dish-container">
+  <form action="{{ url_for('employees.update_menu_item' , item_id=menuItem.id) }}" method="post" id="update-meal-form" enctype="multipart/form-data">
+    <h1 class="dish-name">{{ menuItem.name }}</h1>
+    <input type="text" name="name" value="{{ menuItem.name }}" placeholder="Name" class="dish-input">
+    <textarea name="description" placeholder="Description" class="dish-input">{{ menuItem.description }}</textarea>
+
+    <div class="price-display">₪ <input type="number" name="price" value="{{ menuItem.price }}" placeholder="Price" class="price-input"></div>
+
+<input type="file" name="image" accept=".png" class="image-input">
+
+    <button type="submit" class="update-meal">Update Meal</button>
+
+
+  </form>
+
+    <div class="button-container">
+                            <a href="{{ url_for('employees.delete_menu_item', item_id=menuItem.id) }}">
+
+                                <button>Delete</button>
+                            </a>
+                        </div>
+
+</div>
+{% endblock %}
