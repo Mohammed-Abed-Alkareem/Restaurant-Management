@@ -1,3 +1,5 @@
+
+
 import bcrypt
 
 from . import *
@@ -10,27 +12,11 @@ class Employee:
             id=generate_key('E')
 
         self.id = id
-        self.name = name
-        self.phone_number = phone_number
+        self.name = name.strip()
+        self.phone_number = phone_number.strip()
         self.salary = salary
-        self.position = position
+        self.position = position.strip()
         self.password = Employee.hash_password(password)
-
-    # def __init__(self, *args):
-    #     if len(args) == 5:
-    #         self.id = generate_key('E')
-    #         self.name = args[0]
-    #         self.phone_number = args[1]
-    #         self.salary = args[2]
-    #         self.position = args[3]
-    #         self.password = Employee.hash_password(args[4])
-    #     else:
-    #         self.id = args[0]
-    #         self.name = args[1]
-    #         self.phone_number = args[2]
-    #         self.salary = args[3]
-    #         self.position = args[4]
-    #         self.password = Employee.hash_password(args[5])
 
 
     def insert(self):
@@ -208,3 +194,9 @@ class Employee:
     @staticmethod
     def hash_password(password):  # hash the password to 60 characters
         return bcrypt.hashpw(str(password).encode('utf-8'), bcrypt.gensalt())
+
+    @staticmethod
+    def verify_password(hashed_password, input_password):
+        if isinstance(hashed_password, str):
+            hashed_password = hashed_password.encode('utf-8')
+        return bcrypt.checkpw(input_password.encode('utf-8'), hashed_password)

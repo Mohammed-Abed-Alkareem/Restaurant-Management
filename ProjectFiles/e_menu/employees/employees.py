@@ -119,12 +119,12 @@ def sign_in():
         password = request.form.get('password')
         employee = Employee.get_by_phone_number(phone_number)
         if employee:
-            # Here, you should use the hashed password stored in the employee object
+
             hashed_password = employee.password
             print(employee.password)
             print(password)
 
-            if  bcrypt.checkpw(password.encode('utf-8'), hashed_password):
+            if Employee.verify_password(hashed_password, password):
                 print("Password is correct")
                 session['employee_id'] = employee.id
                 session['employee_name'] = employee.name
@@ -133,14 +133,13 @@ def sign_in():
             else:
                 print("Password is incorrect")
 
-
         flash("Invalid phone number or password", "danger")
         return redirect(url_for('employees.sign_in'))
 
 @employees.route("dashboard")
 def dashboard():
-    # if 'employee_id' not in session:
-    #     return redirect(url_for('employees.sign_in'))
+    if 'employee_id' not in session:
+        return redirect(url_for('employees.sign_in'))
 
     print(session)
     return render_template("employees/dashboard.html")
@@ -265,8 +264,8 @@ def delete_table(table_code):
 @employees.route("insert_employee", methods=['GET', 'POST'])
 def insert_employee():
 
-    # if 'employee_id' not in session:
-    #     return redirect(url_for('employees.sign_in'))
+    if 'employee_id' not in session:
+        return redirect(url_for('employees.sign_in'))
 
     if request.method == 'GET':
         return render_template("employees/insert_employee.html")

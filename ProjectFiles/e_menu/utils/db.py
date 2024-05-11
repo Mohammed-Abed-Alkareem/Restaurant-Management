@@ -149,5 +149,19 @@ def insert_ratings():
 
         rating_object.insert()
 
-if __name__ == '__main__':
-    reset_db()
+
+def insert_employees():
+    employees_data = get_employees_data()
+
+    for employee in employees_data:
+        employee_object = Employee(
+            id=employee['id'],
+            name=employee['name'],
+            phone_number=employee['phone_number'],
+            salary=employee['salary'],
+            position=employee['position'],
+            password=employee['password']
+        )
+
+        employee_object.insert()
+
