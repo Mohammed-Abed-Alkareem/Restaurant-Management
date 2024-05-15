@@ -121,8 +121,13 @@ def sign_in():
         if employee:
 
             hashed_password = employee.password
-            print(employee.password)
-            print(password)
+            print(type(hashed_password)
+                    , hashed_password
+                    , type(password)
+                    , password
+
+                    )
+
 
             if Employee.verify_password(hashed_password, password):
                 print("Password is correct")
