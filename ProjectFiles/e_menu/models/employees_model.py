@@ -6,7 +6,7 @@ from . import *
 
 
 class Employee:
-    def __init__(self, name, phone_number, salary, position, password, id=None):
+    def __init__(self, name, phone_number, salary, position, password, id=None, hash_password=True):
 
         if id is None:
             id=generate_key('E')
@@ -16,7 +16,10 @@ class Employee:
         self.phone_number = phone_number.strip()
         self.salary = salary
         self.position = position.strip()
-        self.password = Employee.hash_password(password)
+        if hash_password:
+            self.password = Employee.hash_password(password)
+        else:
+            self.password = password
 
 
     def insert(self):
@@ -53,7 +56,8 @@ class Employee:
                 phone_number=employee[2],
                 salary=employee[3],
                 position=employee[4],
-                password=employee[5]
+                password=employee[5],
+                hash_password=False
             )
 
         except Exception as e:
@@ -79,7 +83,8 @@ class Employee:
                                         phone_number=employee[2],
                                         salary=employee[3],
                                         position=employee[4],
-                                        password=employee[5]
+                                        password=employee[5],
+                                        hash_password=False
                                     )
                 )
 
@@ -145,7 +150,8 @@ class Employee:
                 phone_number=employee[2],
                 salary=employee[3],
                 position=employee[4],
-                password=employee[5]
+                password=employee[5],
+                hash_password=False
             )
 
         except Exception as e:
@@ -200,3 +206,4 @@ class Employee:
         if isinstance(hashed_password, str):
             hashed_password = hashed_password.encode('utf-8')
         return bcrypt.checkpw(input_password.encode('utf-8'), hashed_password)
+
