@@ -43,20 +43,33 @@ def generate_customers():
     random.seed(time.time())  # Seed the random number generator with current date and time
 
     # Generate a list of elements with format ({name},{phone number})
+    genders = ['Male', 'Female']
+    cuisines = ['Turkish', 'Mediterranean', 'American', 'Italian', 'French', 'Greek', 'Seafood', 'Beverages']
+
     customers_data = []
+
     for _ in range(50):
-        fake_name = fake.name()
 
         prefixes = ['052', '056', '059']
         prefix = random.choice(prefixes)
         suffix = fake.numerify('#######')  # Generates a 7-digit random number
 
         fake_phone_number = f"{prefix}{suffix}"
+        fake_gender = random.choice(genders)
+        fake_birth_year = random.randint(1950, 2010)  # Random birth year between 1950 and 2010
+        fake_favourite_cuisine = random.choice(cuisines)
 
+        if fake_gender == 'Male':
+            fake_name = fake.first_name_male() + ' ' + fake.last_name()
+        else:
+            fake_name = fake.first_name_female() + ' ' + fake.last_name()
         customers_data.append({
             'id': generate_key('C', customers_data),
             'name': fake_name,
-            'phone_number': fake_phone_number
+            'phone_number': fake_phone_number,
+            'gender': fake_gender,
+            'birth_year': fake_birth_year,
+            'favourite_cuisine': fake_favourite_cuisine
         })
 
     customers_df = pd.DataFrame(customers_data)

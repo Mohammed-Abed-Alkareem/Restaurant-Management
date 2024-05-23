@@ -21,7 +21,7 @@ def init_db():
     Order.create_table()
     OrderDetails.create_table()
     Rating.create_table()
-    Employee.create_table()
+    # Employee.create_table()
     # _________________________
 
     # inset any initial data
@@ -48,7 +48,7 @@ def reset_db():
     Table.drop_table()
     Customer.drop_table()
     PaymentMethod.drop_table()
-    Employee.drop_table()
+    #Employee.drop_table()
     # _________________________
 
     init_db()
@@ -70,12 +70,17 @@ def insert_tables():
 
 def insert_customers():
     customers_data = get_customers_data()
+    print(customers_data)
     for customer in customers_data:
         customer_object = Customer(
             id=customer['id'],
             name=customer['name'],
-            phone_number=customer['phone_number']
+            phone_number=customer['phone_number'],
+            gender=customer['gender'],
+            birth_year=customer['birth_year'],
+            favourite_cuisine=customer['favourite_cuisine']
         )
+        print(customer)
         customer_object.insert()
 
 
@@ -99,7 +104,8 @@ def insert_menuItems_data():
              name=menuItem["name"],
              description=menuItem["description"],
              category=menuItem["category"],
-             price=menuItem["price"]
+             price=menuItem["price"],
+             cuisine_type=menuItem["cuisine_type"]
             )
          .insert())
 
@@ -164,4 +170,3 @@ def insert_employees():
         )
 
         employee_object.insert()
-

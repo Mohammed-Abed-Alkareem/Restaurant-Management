@@ -7,7 +7,8 @@ CREATE_MENU_TABLE = text("""
                             description VARCHAR(1000),
                             category VARCHAR(50) NOT NULL,
                             price DOUBLE NOT NULL,
-                            is_available BOOLEAN
+                            is_available BOOLEAN,
+                            cuisine_type varchar(20)
                             );
                         """)
 
@@ -21,8 +22,8 @@ SELECT_MENU_ITEMS = text("""
 
 INSERT_INTO_MENU_ITEMS = text("""
                             INSERT INTO menuItems 
-                            (id, name, description, category, price, is_available) 
-                            VALUES (:id, :name, :description, :category, :price, :is_available);
+                            (id, name, description, category, price, is_available, cuisine_type) 
+                            VALUES (:id, :name, :description, :category, :price, :is_available, :cuisine_type);
                         """)
 
 UPDATE_PRICE_IN_MENU_ITEMS = text("""

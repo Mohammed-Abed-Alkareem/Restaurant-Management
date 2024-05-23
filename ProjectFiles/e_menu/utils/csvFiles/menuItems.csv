@@ -1,92 +1,92 @@
-id,name,description,category,price
-M001,Turkish Red Lentil Soup,"A blend of red lentil beans, Turkish seasoning, and fresh herbs.",SOUPS,20
-M002,Freekeh Soup,Flavorful traditional freekeh seeds soup.,SOUPS,20
-M003,Hummus,"Mashed chickpeas with tahini, lemon juice and olive oil.",MAZE & APPETIZERS TO SHARE,16
-M004,VegetarianSesameHummus With Meat,"Mashed chickpeas with tahini, lemon juice and olive oil, topped with beef fillet and toasted pine nuts.",MAZE & APPETIZERS TO SHARE,38
-M005,Mutabale,"Char-grilled smoked eggplant, tahini sauce, fresh roasted garlic, lemon juice, and olive oil.",MAZE & APPETIZERS TO SHARE,16
-M006,VegetarianSesameFattet Batinjan,"Fried eggplant chunks, topped with warm yogurt, baked bread, ground beef, and pine nuts.",MAZE & APPETIZERS TO SHARE,38
-M007,SesameHalloumi With Fig Jam,"Grilled halloumi cheese, served with fig jam.",MAZE & APPETIZERS TO SHARE,38
-M008,Kubbeh,"Ground beef and bulgur shell stuffed with spiced beef, onions, and pine nuts.",MAZE & APPETIZERS TO SHARE,28
-M009,Sambousek With Cheese,Deep fried pastry stuffed with Akkawi cheese.,MAZE & APPETIZERS TO SHARE,24
-M010,Crunchy Shrimp,"Fried shrimp coated with crunchy batter, served with Thousand Island and sweet chili dip.",MAZE & APPETIZERS TO SHARE,52
-M011,Stuffed Mushroom,Fresh mushrooms stuffed with cream cheese and herbs coated with breadcrumb.,MAZE & APPETIZERS TO SHARE,34
-M012,Nachos,"Crispy corn tortilla chips topped with melted cheddar cheese, jalapenos, tomatoes, spring onion, and red kidney beans, served with cream cheese, guacamole, and salsa fresca dips.",MAZE & APPETIZERS TO SHARE,50
-M013,Mozzarella Sticks,"Our classic melt-in-your-mouth mozzarella sticks, served with marinara souce.",MAZE & APPETIZERS TO SHARE,32
-M014,Super Platters,"A mouthwatering mix of our crunchy shrimps, mozzarella sticks, stuffed mushroom, veggie spring rolls, and popcorn chicken, served with ranch, Thousand Island, sweet chili and buffalo dip.Platter for two",MAZE & APPETIZERS TO SHARE,50
-M015,Popcorn Chicken,"Crispy chicken balls coated with crunchy batter, served with french fries sweet chili and ranch dip.",MAZE & APPETIZERS TO SHARE,42
-M016,Spicy Popcorn Chicken,"Crispy chicken balls coated with crunchy batter and spicy paprika, served with french fries sweet chili and ranch dip.",MAZE & APPETIZERS TO SHARE,42
-M017,Crispy Shrimp,"Fried Shrimp coated with crunchy batter, served with French fries and sweet chili dip.",MAZE & APPETIZERS TO SHARE,58
-M018,French Fries,"A basket of our original french fries, crisped to golden perfection, served with ranch dip.",MAZE & APPETIZERS TO SHARE,22
-M019,Fries N Cheddar,"Our original french fries, crisped to golden perfection, topped with melted cheddar cheese.",MAZE & APPETIZERS TO SHARE,38
-M020,Curly Fries,"A basket of crunchy fries with a twist, served with ranch dip.",MAZE & APPETIZERS TO SHARE,32
-M021,Golden Wedges,"Your ultimate craving! fried potato wedges, served with ranch dip.",MAZE & APPETIZERS TO SHARE,32
-M022,Shawarma Salad,"Our signature chicken Shawarma, tomatoes, cucumber pickles, parsley, lettuce, mint, pine nuts, lemon slices and tarator sauce.",SALAD,38
-M023,SesameHalloumi Pesto Salad,"Lettuce, mushroom, cherry tomatoes, baby corn, green apples, quinoa, fried halloumi, dried fig, and pesto sauce.",SALAD,42
-M024,Seafood Salad,"Baby corn, lettuce, carrots, red cabbage topped with shrimps, calamari, mushroom and sesame seeds.",SALAD,48
-M025,ShellfishClassic Caesar,"A mix of crisp romaine lettuce, topped with shredded parmesan, herb croutons, and Caesar dressing.",SALAD,32
-M026,Deluxe Caesar,"A mix of crisp romaine lettuce, topped with grilled chicken, shredded parmesan, herb croutons, and Caesar dressing.",SALAD,38
-M027,Tabbouleh,"A mix of bulgur, diced tomatoes, spring onion, parsley and fresh mint with olive oil lemon dressing.",SALAD,30
-M028,Quinoa Tabbouleh,"A mix of Quinoa seeds, diced tomatoes, spring onion, parsley and fresh mint with olive oil lemon dressing.",SALAD,35
-M029,Fatoush,"A mix of tomatoes, cucumber, mint, parsley, spring onion, radish slides, sumac and golden bread with vinaigrette dressing.",SALAD,30
-M030,Greek Salad,"Lettuce, tomatoes, cucumbers, onions, black olives, feta cheese, and olive oil, vinaigrette, and oregano dressing.",SALAD,32
-M031,Fallahieh,"A mix of tomatoes, radish, red onion, parsley, mint and pepper with olive oil lemon dressing.",SALAD,30
-M032,Beetroot Rocca Salad,"Beetroot slices, Rocca leaves, red onion, walnut, feta cheese and cranberry, and balsamic dressing.",SALAD,38
-M033,Classic Rocca salad,"A mix of Rocca leaves, red onion, cherry tomatoes, and sumac with vinaigrette dressing.",SALAD,34
-M034,The Ultimate Steak,"Grilled beef fillet with fresh mushrooms, onion and melted cheddar cheese, served in ciabatta bread.",SANDWICHES & BURGER,52
-M035,Classic B,"Grilled beef patty topped with red onion slices, crisp lettuce, fresh tomato slices, tangy pickles, and Thousand Island sauce.",SANDWICHES & BURGER,46
-M036,Mushroom N Cheese B,"Grilled beef patty topped with melted cheddar cheese, sauted mushrooms, and caramelized onions.",SANDWICHES & BURGER,52
-M037,Cheesy B,"Grilled beef patty topped with melted cheddar cheese, fresh tomato, crisp lettuce, red onion, tangy pickles, and thousand Island sauce.",SANDWICHES & BURGER,48
-M038,Crispy Chicken,"Fried breaded chicken breast topped with red onion slices, crisp lettuce, fresh tomato slices, tangy pickles, and classic Mayo sauce.",SANDWICHES & BURGER,40
-M039,Penne Pesto,"Penne pasta mixed with homemade pesto sauce, topped with parmesan cheese.",PASTA,45
-M040,Chicken Penne Alfredo,"Penne pasta mixed with fresh mushrooms, white sauce, and chicken breast, topped with parmesan cheese.",PASTA,55
-M041,Shrimp Penne Alfredo,"Penne pasta mixed with fresh mushrooms, white sauce, and shrimps, topped with parmesan cheese.",PASTA,60
-M042,Lasagna Bolognese,"Layers of baked pasta, Bolognese sauce, bechamel sauce, topped with melted cheese.",PASTA,55
-M043,Mushroom Chicken,"Juicy grilled chicken breast topped with fresh mushroom and white sauce, served with sauted vegetables and mashed potatoes.",CHICKEN,65
-M044,Garlic Lemon Chicken,"Juicy grilled chicken breast topped with garlic and lemon sauce, served with sauted vegetables and mashed potatoes.",CHICKEN,65
-M045,Chicken Stroganoff,"Chicken breasts sauted with butter, onions and creamy fresh mushroom, served with steamed rice.",CHICKEN,68
-M046,Stir Fry Chicken,"Chinese-style marinated strips of chicken breast and vegetables stir-fried in our special sauce, served with steamed rice.",CHICKEN,68
-M047,Shish Tawook,"Juicy grilled chicken breast marinated, served with golden wedges, grilled vegetable, hummus, mutabale, and Garlic sauce.",CHICKEN,68
-M048,Cordon Bleu,"Fried breaded chicken breast, rolled in smoked turkey slices, and melted cheese, served with sauted vegetables and mashed potatoes.",CHICKEN,68
-M049,Fillet,"A tender steak regarded by many as the best cut, served with sauted vegetables and mashed potatoes.",MEAT,115
-M050,Rib Eye Steak,"Well-marbled, juicy and savory steak, served with sauted vegetables and mashed potatoes.",MEAT,136
-M051,Steak N Fries,"Our tender grilled steak fillet soaked in herb sauce, served with french fries and bread slices.",MEAT,110
-M052,Beef Stroganoff,"Beef fillet sauted with butter, onions and creamy fresh mushroom, served with steamed rice.",MEAT,78
-M053,Lamb Chops,"Grilled lamb chops, served with golden wedges, grilled vegetables, hummus, mutabale and Tahini parsley sauce.",MEAT,115
-M054,Mixed Grilled,"Grilled lamb chops, kebab and chicken thighs, served with golden wedges, grilled vegetables, hummus, mutabale and Tahini parsley sauce.",MEAT,105
-M055,Kabab,"Grilled kabab mixed with our blend of spices, served with golden wedges, grilled vegetables, hummus, mutabale, and Tahini parsley sauce.",MEAT,75
-M056,Grilled Salmon Fillet,"Freshly grilled salmon fillet, served with sauted vegetables, mashed potatoes, and lemon-garlic sauce.",SEAFOOD ,90
-M057,Salmon N Shrimp,"Freshly grilled salmon fillet topped with sauted shrimp and lemon-garlic sauce, served with sauted vegetables and mashed potatoes.",SEAFOOD ,95
-M058,Chicken Fukhara,"Chicken breast cubes cooked in white sauce, and fresh mushrooms, served with steamed rice.",FUKHARA,80
-M059,Shrimp Fukhara,"Shrimp cooked in special marinated tomato sauce, served with steamed rice.",FUKHARA,95
-M060,Lamb Meat Fukhara,"Lamb meat cubes cooked with seasoned vegetables, served with steamed rice.",FUKHARA,105
-M061,Chocolate Cake,,DESSERT,22
-M062,Baked Cheese Cake,,DESSERT,26
-M063,Umm Ali,,DESSERT,38
-M064,Souffl,,DESSERT,25
-M065,German Chocolate Cake,,DESSERT,30
-M066,Red Velvet,,DESSERT,30
-M067,Espresso,,COFFEE & MILK,11
-M068,Double Espresso,,COFFEE & MILK,13
-M069,Turkish coffee,,COFFEE & MILK,10
-M070,Cappuccino,,COFFEE & MILK,16
-M071,Caff Latte,,COFFEE & MILK,16
-M072,Caff Americano,,COFFEE & MILK,14
-M073,Caff Mocha,,COFFEE & MILK,19
-M074,Nescaf,,COFFEE & MILK,16
-M075,Hot Chocolate,,COFFEE & MILK,19
-M076,Chai Latte,,COFFEE & MILK,18
-M077,Premium Tea,,TEA,16
-M078,Green Tea,,TEA,16
-M079,Herbs,,TEA,16
-M080,Home-Style Lemonade,,JUICES & SMOOTHIES,18
-M081,Lemon N Mint,,JUICES & SMOOTHIES,18
-M082,Apple,,JUICES & SMOOTHIES,18
-M083,Orange,,JUICES & SMOOTHIES,18
-M084,Carrot,,JUICES & SMOOTHIES,18
-M085,Pomegranate (Seasonal),,JUICES & SMOOTHIES,18
-M086,Mango,,JUICES & SMOOTHIES,18
-M087,Strawberry,,JUICES & SMOOTHIES,18
-M088,Pepsi | 7Up | Mirinda | Pepsi Max,,SOFT DRINK,8
-M089,Energy Drink,,SOFT DRINK,16
-M090,Perrier,,SOFT DRINK,16
-M091,S. Pellegrino water,,SOFT DRINK,22
+id,name,description,category,price,cuisine_type
+M001,Turkish Red Lentil Soup,"A blend of red lentil beans, Turkish seasoning, and fresh herbs.",SOUPS,20,Turkish
+M002,Freekeh Soup,Flavorful traditional freekeh seeds soup.,SOUPS,20,Turkish
+M003,Hummus,"Mashed chickpeas with tahini, lemon juice and olive oil.",MAZE & APPETIZERS TO SHARE,16,Mediterranean
+M004,VegetarianSesameHummus With Meat,"Mashed chickpeas with tahini, lemon juice and olive oil, topped with beef fillet and toasted pine nuts.",MAZE & APPETIZERS TO SHARE,38,Mediterranean
+M005,Mutabale,"Char-grilled smoked eggplant, tahini sauce, fresh roasted garlic, lemon juice, and olive oil.",MAZE & APPETIZERS TO SHARE,16,Mediterranean
+M006,VegetarianSesameFattet Batinjan,"Fried eggplant chunks, topped with warm yogurt, baked bread, ground beef, and pine nuts.",MAZE & APPETIZERS TO SHARE,38,Mediterranean
+M007,SesameHalloumi With Fig Jam,"Grilled halloumi cheese, served with fig jam.",MAZE & APPETIZERS TO SHARE,38,Mediterranean
+M008,Kubbeh,"Ground beef and bulgur shell stuffed with spiced beef, onions, and pine nuts.",MAZE & APPETIZERS TO SHARE,28,Mediterranean
+M009,Sambousek With Cheese,Deep fried pastry stuffed with Akkawi cheese.,MAZE & APPETIZERS TO SHARE,24,Mediterranean
+M010,Crunchy Shrimp,"Fried shrimp coated with crunchy batter, served with Thousand Island and sweet chili dip.",MAZE & APPETIZERS TO SHARE,52,Seafood
+M011,Stuffed Mushroom,Fresh mushrooms stuffed with cream cheese and herbs coated with breadcrumb.,MAZE & APPETIZERS TO SHARE,34,Other
+M012,Nachos,"Crispy corn tortilla chips topped with melted cheddar cheese, jalapenos, tomatoes, spring onion, and red kidney beans, served with cream cheese, guacamole, and salsa fresca dips.",MAZE & APPETIZERS TO SHARE,50,American
+M013,Mozzarella Sticks,"Our classic melt-in-your-mouth mozzarella sticks, served with marinara souce.",MAZE & APPETIZERS TO SHARE,32,American
+M014,Super Platters,"A mouthwatering mix of our crunchy shrimps, mozzarella sticks, stuffed mushroom, veggie spring rolls, and popcorn chicken, served with ranch, Thousand Island, sweet chili and buffalo dip.Platter for two",MAZE & APPETIZERS TO SHARE,50,American
+M015,Popcorn Chicken,"Crispy chicken balls coated with crunchy batter, served with french fries sweet chili and ranch dip.",MAZE & APPETIZERS TO SHARE,42,American
+M016,Spicy Popcorn Chicken,"Crispy chicken balls coated with crunchy batter and spicy paprika, served with french fries sweet chili and ranch dip.",MAZE & APPETIZERS TO SHARE,42,American
+M017,Crispy Shrimp,"Fried Shrimp coated with crunchy batter, served with French fries and sweet chili dip.",MAZE & APPETIZERS TO SHARE,58,American
+M018,French Fries,"A basket of our original french fries, crisped to golden perfection, served with ranch dip.",MAZE & APPETIZERS TO SHARE,22,American
+M019,Fries N Cheddar,"Our original french fries, crisped to golden perfection, topped with melted cheddar cheese.",MAZE & APPETIZERS TO SHARE,38,American
+M020,Curly Fries,"A basket of crunchy fries with a twist, served with ranch dip.",MAZE & APPETIZERS TO SHARE,32,American
+M021,Golden Wedges,"Your ultimate craving! fried potato wedges, served with ranch dip.",MAZE & APPETIZERS TO SHARE,32,American
+M022,Shawarma Salad,"Our signature chicken Shawarma, tomatoes, cucumber pickles, parsley, lettuce, mint, pine nuts, lemon slices and tarator sauce.",SALAD,38,Mediterranean
+M023,SesameHalloumi Pesto Salad,"Lettuce, mushroom, cherry tomatoes, baby corn, green apples, quinoa, fried halloumi, dried fig, and pesto sauce.",SALAD,42,Mediterranean
+M024,Seafood Salad,"Baby corn, lettuce, carrots, red cabbage topped with shrimps, calamari, mushroom and sesame seeds.",SALAD,48,Seafood
+M025,ShellfishClassic Caesar,"A mix of crisp romaine lettuce, topped with shredded parmesan, herb croutons, and Caesar dressing.",SALAD,32,Seafood
+M026,Deluxe Caesar,"A mix of crisp romaine lettuce, topped with grilled chicken, shredded parmesan, herb croutons, and Caesar dressing.",SALAD,38,Seafood
+M027,Tabbouleh,"A mix of bulgur, diced tomatoes, spring onion, parsley and fresh mint with olive oil lemon dressing.",SALAD,30,Mediterranean
+M028,Quinoa Tabbouleh,"A mix of Quinoa seeds, diced tomatoes, spring onion, parsley and fresh mint with olive oil lemon dressing.",SALAD,35,Mediterranean
+M029,Fatoush,"A mix of tomatoes, cucumber, mint, parsley, spring onion, radish slides, sumac and golden bread with vinaigrette dressing.",SALAD,30,Mediterranean
+M030,Greek Salad,"Lettuce, tomatoes, cucumbers, onions, black olives, feta cheese, and olive oil, vinaigrette, and oregano dressing.",SALAD,32,Greek
+M031,Fallahieh,"A mix of tomatoes, radish, red onion, parsley, mint and pepper with olive oil lemon dressing.",SALAD,30,Mediterranean
+M032,Beetroot Rocca Salad,"Beetroot slices, Rocca leaves, red onion, walnut, feta cheese and cranberry, and balsamic dressing.",SALAD,38,Mediterranean
+M033,Classic Rocca salad,"A mix of Rocca leaves, red onion, cherry tomatoes, and sumac with vinaigrette dressing.",SALAD,34,Mediterranean
+M034,The Ultimate Steak,"Grilled beef fillet with fresh mushrooms, onion and melted cheddar cheese, served in ciabatta bread.",SANDWICHES & BURGER,52,Other
+M035,Classic B,"Grilled beef patty topped with red onion slices, crisp lettuce, fresh tomato slices, tangy pickles, and Thousand Island sauce.",SANDWICHES & BURGER,46,American
+M036,Mushroom N Cheese B,"Grilled beef patty topped with melted cheddar cheese, sauted mushrooms, and caramelized onions.",SANDWICHES & BURGER,52,American
+M037,Cheesy B,"Grilled beef patty topped with melted cheddar cheese, fresh tomato, crisp lettuce, red onion, tangy pickles, and thousand Island sauce.",SANDWICHES & BURGER,48,American
+M038,Crispy Chicken,"Fried breaded chicken breast topped with red onion slices, crisp lettuce, fresh tomato slices, tangy pickles, and classic Mayo sauce.",SANDWICHES & BURGER,40,American
+M039,Penne Pesto,"Penne pasta mixed with homemade pesto sauce, topped with parmesan cheese.",PASTA,45,Italian
+M040,Chicken Penne Alfredo,"Penne pasta mixed with fresh mushrooms, white sauce, and chicken breast, topped with parmesan cheese.",PASTA,55,Italian
+M041,Shrimp Penne Alfredo,"Penne pasta mixed with fresh mushrooms, white sauce, and shrimps, topped with parmesan cheese.",PASTA,60,Italian
+M042,Lasagna Bolognese,"Layers of baked pasta, Bolognese sauce, bechamel sauce, topped with melted cheese.",PASTA,55,Italian
+M043,Mushroom Chicken,"Juicy grilled chicken breast topped with fresh mushroom and white sauce, served with sauted vegetables and mashed potatoes.",CHICKEN,65,Other
+M044,Garlic Lemon Chicken,"Juicy grilled chicken breast topped with garlic and lemon sauce, served with sauted vegetables and mashed potatoes.",CHICKEN,65,Other
+M045,Chicken Stroganoff,"Chicken breasts sauted with butter, onions and creamy fresh mushroom, served with steamed rice.",CHICKEN,68,Other
+M046,Stir Fry Chicken,"Chinese-style marinated strips of chicken breast and vegetables stir-fried in our special sauce, served with steamed rice.",CHICKEN,68,Other
+M047,Shish Tawook,"Juicy grilled chicken breast marinated, served with golden wedges, grilled vegetable, hummus, mutabale, and Garlic sauce.",CHICKEN,68,Turkish
+M048,Cordon Bleu,"Fried breaded chicken breast, rolled in smoked turkey slices, and melted cheese, served with sauted vegetables and mashed potatoes.",CHICKEN,68,French
+M049,Fillet,"A tender steak regarded by many as the best cut, served with sauted vegetables and mashed potatoes.",MEAT,115,French
+M050,Rib Eye Steak,"Well-marbled, juicy and savory steak, served with sauted vegetables and mashed potatoes.",MEAT,136,French
+M051,Steak N Fries,"Our tender grilled steak fillet soaked in herb sauce, served with french fries and bread slices.",MEAT,110,French
+M052,Beef Stroganoff,"Beef fillet sauted with butter, onions and creamy fresh mushroom, served with steamed rice.",MEAT,78,French
+M053,Lamb Chops,"Grilled lamb chops, served with golden wedges, grilled vegetables, hummus, mutabale and Tahini parsley sauce.",MEAT,115,French
+M054,Mixed Grilled,"Grilled lamb chops, kebab and chicken thighs, served with golden wedges, grilled vegetables, hummus, mutabale and Tahini parsley sauce.",MEAT,105,Mediterranean
+M055,Kabab,"Grilled kabab mixed with our blend of spices, served with golden wedges, grilled vegetables, hummus, mutabale, and Tahini parsley sauce.",MEAT,75,Turkish
+M056,Grilled Salmon Fillet,"Freshly grilled salmon fillet, served with sauted vegetables, mashed potatoes, and lemon-garlic sauce.",SEAFOOD ,90,Seafood
+M057,Salmon N Shrimp,"Freshly grilled salmon fillet topped with sauted shrimp and lemon-garlic sauce, served with sauted vegetables and mashed potatoes.",SEAFOOD ,95,Seafood
+M058,Chicken Fukhara,"Chicken breast cubes cooked in white sauce, and fresh mushrooms, served with steamed rice.",FUKHARA,80,Mediterranean
+M059,Shrimp Fukhara,"Shrimp cooked in special marinated tomato sauce, served with steamed rice.",FUKHARA,95,Mediterranean
+M060,Lamb Meat Fukhara,"Lamb meat cubes cooked with seasoned vegetables, served with steamed rice.",FUKHARA,105,Mediterranean
+M061,Chocolate Cake,,DESSERT,22,American
+M062,Baked Cheese Cake,,DESSERT,26,American
+M063,Umm Ali,,DESSERT,38,Mediterranean
+M064,Souffl,,DESSERT,25,American
+M065,German Chocolate Cake,,DESSERT,30,American
+M066,Red Velvet,,DESSERT,30,American
+M067,Espresso,,COFFEE & MILK,11,American
+M068,Double Espresso,,COFFEE & MILK,13,American
+M069,Turkish coffee,,COFFEE & MILK,10,Turkish
+M070,Cappuccino,,COFFEE & MILK,16,American
+M071,Caff Latte,,COFFEE & MILK,16,American
+M072,Caff Americano,,COFFEE & MILK,14,American
+M073,Caff Mocha,,COFFEE & MILK,19,American
+M074,Nescaf,,COFFEE & MILK,16,American
+M075,Hot Chocolate,,COFFEE & MILK,19,American
+M076,Chai Latte,,COFFEE & MILK,18,American
+M077,Premium Tea,,TEA,16,Other
+M078,Green Tea,,TEA,16,Other
+M079,Herbs,,TEA,16,Other
+M080,Home-Style Lemonade,,JUICES & SMOOTHIES,18,Beverages
+M081,Lemon N Mint,,JUICES & SMOOTHIES,18,Beverages
+M082,Apple,,JUICES & SMOOTHIES,18,Beverages
+M083,Orange,,JUICES & SMOOTHIES,18,Beverages
+M084,Carrot,,JUICES & SMOOTHIES,18,Beverages
+M085,Pomegranate (Seasonal),,JUICES & SMOOTHIES,18,Beverages
+M086,Mango,,JUICES & SMOOTHIES,18,Beverages
+M087,Strawberry,,JUICES & SMOOTHIES,18,Beverages
+M088,Pepsi | 7Up | Mirinda | Pepsi Max,,SOFT DRINK,8,Beverages
+M089,Energy Drink,,SOFT DRINK,16,Beverages
+M090,Perrier,,SOFT DRINK,16,Beverages
+M091,S. Pellegrino water,,SOFT DRINK,22,Beverages

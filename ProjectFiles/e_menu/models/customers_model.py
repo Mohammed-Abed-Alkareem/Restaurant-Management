@@ -2,13 +2,16 @@ from . import *
 
 
 class Customer:
-    def __init__(self, name, phone_number, id=None):
+    def __init__(self, name, phone_number, id=None, gender=None, birth_year=None, favourite_cuisine=None):
         if id is None:
-            generate_key('C')
+            id = generate_key('C')
 
         self.id = id
         self.name = name
         self.phone_number = phone_number
+        self.gender = gender
+        self.birth_year = birth_year
+        self.favourite_cuisine = favourite_cuisine
 
 
     @staticmethod
@@ -42,8 +45,12 @@ class Customer:
 
         try:
             conn.execute(INSERT_CUSTOMERS_TABLE,
-                         {'id': self.id, 'name': self.name,
-                          'phone_number': self.phone_number})
+                         {'id': self.id,
+                          'name': self.name,
+                          'phone_number': self.phone_number,
+                          'gender': self.gender,
+                          'birth_year': self.birth_year,
+                          'favourite_cuisine': self.favourite_cuisine})
             conn.commit()
             return 1
         except Exception as e:
@@ -75,7 +82,8 @@ class Customer:
 
         try:
             customer = conn.execute(SELECT_CUSTOMER_BY_ID, {'id': id}).fetchone()
-            return cls(id=customer[0], name=customer[1], phone_number=customer[2])
+            return cls(id=customer[0], name=customer[1], phone_number=customer[2],
+                       gender=customer[3], birth_year=customer[4], favourite_cuisine=customer[5])
         except Exception as e:
             print(f"Error: {e}")
             return None
@@ -90,7 +98,8 @@ class Customer:
             customers_objects = []
             customers = conn.execute(GET_CUSTOMERS_TABLE).fetchall()
             for customer in customers:
-                customers_objects.append(cls(id=customer[0], name=customer[1], phone_number=customer[2]))
+                customers_objects.append(cls(id=customer[0], name=customer[1], phone_number=customer[2],
+                                             gender=customer[3], birth_year=customer[4], favourite_cuisine=customer[5]))
             return customers_objects
         except Exception as e:
             print(f"Error: {e}")
@@ -104,7 +113,8 @@ class Customer:
 
         try:
             customer = conn.execute(SELECT_CUSTOMER_BY_PHONE, {'phone_number': phone_number}).fetchone()
-            return cls(id=customer[0], name=customer[1], phone_number=customer[2])
+            return cls(id=customer[0], name=customer[1], phone_number=customer[2],
+                       gender=customer[3], birth_year=customer[4], favourite_cuisine=customer[5])
         except Exception as e:
             print(f"Error: {e}")
             return None
@@ -115,7 +125,10 @@ class Customer:
         return {
             'id': self.id,
             'name': self.name,
-            'phone_number': self.phone_number
+            'phone_number': self.phone_number,
+            'gender': self.gender,
+            'birth_year': self.birth_year,
+            'favourite_cuisine': self.favourite_cuisine
         }
 
     @classmethod
@@ -123,5 +136,8 @@ class Customer:
         return cls(
             id=data_dict['id'],
             name=data_dict['name'],
-            phone_number=data_dict['phone_number']
+            phone_number=data_dict['phone_number'],
+            gender=data_dict['gender'],
+            birth_year=data_dict['birth_year'],
+            favourite_cuisine=data_dict['favourite_cuisine']
         )

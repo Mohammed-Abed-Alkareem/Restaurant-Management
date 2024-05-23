@@ -3,7 +3,7 @@ from . import *
 
 class MenuItems:
 
-    def __init__(self, name, description, category, price, id=None, is_available=True):
+    def __init__(self, name, description, category, price, id=None, is_available=True, cuisine_type='Other'):
         if id is None:
             id = generate_key('M')
 
@@ -13,6 +13,7 @@ class MenuItems:
         self.category = category
         self.price = price
         self.is_available = is_available
+        self.cuisine_type = cuisine_type
 
     # def __init__(self, *args):
     #
@@ -61,7 +62,8 @@ class MenuItems:
             conn.execute(INSERT_INTO_MENU_ITEMS,
                          {'id': self.id, 'name': self.name,
                           'description': self.description, 'category': self.category,
-                          'price': self.price, 'is_available': self.is_available})
+                          'price': self.price, 'is_available': self.is_available,
+                          'cuisine_type': self.cuisine_type})
             conn.commit()
             return True
         except Exception as e:
@@ -70,18 +72,19 @@ class MenuItems:
         finally:
             conn.close()
 
-    def update(self, name=None, price=None, description=None, category=None, is_available=None):
+    def update(self, name=None, price=None, description=None, category=None, is_available=None, cuisine_type=None):
         name = self.name if name is None else name
         price = self.price if price is None else price
         description = self.description if description is None else description
         category = self.category if category is None else category
         is_available = self.is_available if is_available is None else is_available
-
+        cuisine_type = self.cuisine_type if cuisine_type is None else cuisine_type
         conn = engine.connect()
         try:
             conn.execute(UPDATE_MENU_ITEM,
                          {'name': name, 'price': price, 'description': description,
-                          'category': category, 'is_available': is_available, 'id': self.id})
+                          'category': category, 'is_available': is_available,
+                          'cuisine_type': cuisine_type, 'id': self.id})
             conn.commit()
             return True
         except Exception as e:
@@ -108,7 +111,9 @@ class MenuItems:
         conn = engine.connect()
         try:
             item = conn.execute(SELECT_MENU_ITEM_BY_ID, {'id': id}).fetchone()
-            return cls(id=item[0], name=item[1], description=item[2], category=item[3], price=item[4], is_available=item[5])
+            return cls(id=item[0], name=item[1], description=item[2],
+                       category=item[3], price=item[4], is_available=item[5],
+                       cuisine_type=item[6])
         except Exception as e:
             print(f"Error: {e}")
             return None
@@ -122,7 +127,9 @@ class MenuItems:
             items_objects = []
             items = conn.execute(SELECT_MENU_ITEMS).fetchall()
             for item in items:
-                items_objects.append(cls(id=item[0], name=item[1], description=item[2], category=item[3], price=item[4], is_available=item[5]))
+                items_objects.append(cls(id=item[0], name=item[1], description=item[2],
+                                         category=item[3], price=item[4], is_available=item[5],
+                                         cuisine_type=item[6]))
             return items_objects
         except Exception as e:
             print(f"Error: {e}")
@@ -138,7 +145,9 @@ class MenuItems:
             items = conn.execute(SELECT_MENU_ITEMS_BY_CATEGORY, {'category': category}).fetchall()
             for item in items:
                 if item[5] == True: # is_available is True
-                    items_objects.append(cls(id=item[0], name=item[1], description=item[2], category=item[3], price=item[4], is_available=item[5]))
+                    items_objects.append(cls(id=item[0], name=item[1], description=item[2],
+                                             category=item[3], price=item[4], is_available=item[5],
+                                             cuisine_type=item[6]))
             return items_objects
         except Exception as e:
             print(f"Error: {e}")
