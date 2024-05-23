@@ -10,16 +10,16 @@
         │   ├── __init__.py
         │   ├── customers.py
         │── models/
-        ├── managers/
+        ├── employees/
         │   ├── __init__.py
-        │   └── managers.py
+        │   └── employees.py
         ├── static/
         │   ├── css/
         │   ├── img/
         │   └── js/
         ├── templates/
         │   ├── customers/
-        │   ├── managers/
+        │   ├── employees/
         │   ├── 404.html
         │   ├── home_page.html
         │   └── base.html
@@ -38,7 +38,7 @@
 
 - `e_menu_app.py`: Main application file, responsible for starting the application.
 - `customers/`: Contains modules and models related to customer functionalities.
-- `managers/`: Contains modules related to manager functionalities.
+- `employees/`: Contains modules related to employee functionalities.
 - `static/`: Holds static files such as CSS, images, and JavaScript.
 - `templates/`: Stores HTML templates for different views of the application.
 - `utils/`: Contains utility files including database operations and data reading functionalities.
