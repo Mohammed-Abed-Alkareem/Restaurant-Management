@@ -82,3 +82,22 @@ ul li a {
 ul li a:hover {
     color: #0c1b21;
 }
+/* Ensure the link covers the entire area of the nav elements */
+.logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none; /* Remove underline from the link */
+    color: inherit; /* Ensure the link inherits the color from the parent element */
+}
+
+.logo-link img.logo {
+    max-width: 80px; /* Adjust the maximum width of the image */
+    height: auto; /* Allow height to adjust automatically to maintain aspect ratio */
+    margin-right: 10px;
+}
+
+.logo-link h1 {
+    font-size: 2rem; /* Adjust font size as needed */
+    margin: 0; /* Remove default margin */
+    line-height: 90px; /* Align text vertically with the logo */
+}

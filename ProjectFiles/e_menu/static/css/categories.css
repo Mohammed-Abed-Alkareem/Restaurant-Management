@@ -21,8 +21,10 @@
 
 .menu-container {
     display: flex;
-    flex-direction: column; /* Change to column */
-    align-items: center; /* Align items to the center */
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+    column-gap: 20px;
 }
 
 .menu-item {
