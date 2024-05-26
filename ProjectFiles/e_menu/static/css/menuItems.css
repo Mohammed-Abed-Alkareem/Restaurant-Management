@@ -39,6 +39,10 @@ p {
 h1, h2, h3, h4 {
     color: var(--heading-color);
     font-weight: 500;
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
 }
 
 /* Reusable classes */
@@ -48,9 +52,11 @@ h1, h2, h3, h4 {
 
 /* Layout */
 .container {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 0 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+    gap: 20px;
 }
 
 /* Header */
@@ -67,6 +73,7 @@ section {
 }
 
 .menu__section-top {
+    width: 100%;
     margin-bottom: 50px;
     text-align: center;
 }
@@ -75,24 +82,28 @@ section {
     font-size: 2rem;
 }
 
-/* Menu items */
+/* Menu wrapper */
+.menu__wrapper {
+    width: 300px;
+    box-sizing: border-box;
+}
+
 /* Menu items */
 .menu__item {
-    background-color: #cbcb9d; /* Specify your desired background color */
+    background-color: #cbcb9d;
     padding: 20px;
-    margin-bottom: 20px;
     border-radius: 10px;
-    transition: transform 0.6s ease; /* Smooth transition for scaling */
+    transition: transform 0.6s ease;
 }
 
 .menu__item .menu__img img {
-    width: 100%; /* Set image width to 100% of its parent container */
-    height: auto; /* Maintain aspect ratio */
+    width: 100%;
+    height: auto;
     margin-bottom: 10px;
 }
 
 /* Style for menuItem name */
-.menu__item .menu__details .menuItem__name {
+.menu__item h3 {
     font-size: 1.2rem;
     font-weight: bold;
     color: #333;
@@ -100,21 +111,25 @@ section {
 }
 
 /* Style for menuItem price */
-.menu__item .menu__details .menuItem__price {
+.menu__item .menuItem__price {
     font-size: 1rem;
     color: #777;
 }
 
 /* Hover effect */
 .menu__item:hover {
-    /* Add your desired styles here */
-    background-color: #bbbb84; /* Change background color on hover */
-    transform: scale(1.05); /* Scale the menu item to 110% on hover */
+    background-color: #bbbb84;
+    transform: scale(1.05);
 }
 
 /* Responsive Design */
 @media screen and (max-width: 768px) {
     .container {
         padding: 0 20px;
+    }
+
+    .menu__wrapper {
+        width: 100%;
+        margin-bottom: 20px;
     }
 }

@@ -23,13 +23,10 @@
   <body>
     <header>
       <nav>
-        <img
-          src="{{ url_for('static', filename='img/logo.png') }}"
-          alt="Restaurant Logo"
-          height="90"
-          width="100%"
-        />
-        <h1>Restaurant <span class="highlight">Name</span></h1>
+         <a href="{{ url_for('customers.categories') }}" class="logo-link">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Restaurant Logo" class="logo">
+            <h1>Restaurant <span class="highlight">Name</span></h1>
+        </a>
 
         <!-- Code for Cart Window -->
         <div id="cart-button" onclick="toggleCartVisibility()">

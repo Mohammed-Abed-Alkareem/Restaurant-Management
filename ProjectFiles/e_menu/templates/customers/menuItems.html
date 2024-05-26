@@ -1,10 +1,10 @@
-{% extends "./base.html" %} {% block title %} Home Page {% endblock %} {% block
-custom_css %}
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='css/menuItems.css') }}"
-/>
-{% endblock %} {% block content %}
+{% extends "./base.html" %}
+{% block title %} Home Page {% endblock %}
+{% block custom_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/menuItems.css') }}" />
+{% endblock %}
+{% block content %}
+
 <section class="section" id="menu">
   <div class="container">
     <div class="menu__section-top">
@@ -12,17 +12,11 @@ custom_css %}
     </div>
     {% for menuItem in menuItems %}
     <div class="menu__wrapper">
-      <a
-        href="{{ url_for('customers.item_details', category=category , menu_item=menuItem.id) }}"
-      >
+      <a href="{{ url_for('customers.item_details', category=category, menu_item=menuItem.id) }}">
         <div class="menu__item">
           <div class="menu__img">
-            <img
-              src="{{ url_for('static', filename='img/menuItems/' + menuItem.id + '.png') }}"
-              alt="Logo"
-            />
+            <img src="{{ url_for('static', filename='img/menuItems/' + menuItem.id + '.png') }}" alt="{{ menuItem.name }}" />
           </div>
-
           <h3>{{ menuItem.name }}</h3>
           <span class="menuItem__price">{{ menuItem.price }} ₪</span>
         </div>
@@ -31,4 +25,5 @@ custom_css %}
     {% endfor %}
   </div>
 </section>
+
 {% endblock %}
