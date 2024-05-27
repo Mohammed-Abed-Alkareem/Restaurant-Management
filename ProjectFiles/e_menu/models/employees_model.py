@@ -181,7 +181,7 @@ class Employee:
 
         conn = engine.connect()
         try:
-            conn.execute(UPDATE_EMPLOYEE, {'id': id,
+            conn.execute(UPDATE_EMPLOYEE, { 'id': self.id,
                                            'name': name,
                                            'phone_number': phone_number,
                                            'salary': salary,

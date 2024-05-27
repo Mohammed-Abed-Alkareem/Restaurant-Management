@@ -1,0 +1,64 @@
+{% extends "./base_manager.html" %}
+
+{% block title %}
+    Insert Employee
+{% endblock %}
+
+{% block custom_css %}
+    {# Include custom CSS files for the child template #}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/homePage.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/buttons.css') }}">
+{% endblock %}
+
+{% block content %}
+
+
+    <script src="{{ url_for('static', filename='js/alert.js') }}"></script>
+
+    {% for type, message in get_flashed_messages(with_categories=true) %}
+
+        <div id="myAlert" class="alert alert-{{ type }}" role="alert">
+             {% if type == 'danger' %}
+                &#x274C;
+            {% elif type == 'success' %}
+                &#x2714;
+            {% endif %}
+            {{ message }}
+        </div>
+    {% endfor %}
+
+
+    <div class="full-screen">
+
+            <!-- Form for submitting a table code -->
+            <div class="form-overlay">
+             <h1>Insert Employee</h1>
+    <form action="{{ url_for('employees.update_employee', employee_id=employee.id) }}" method="post">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" value="{{ employee.name }}"><br>
+
+        <label for="phone_number">Phone Number:</label><br>
+        <input type="text" id="phone_number" name="phone_number" value="{{ employee.phone_number }}"><br>
+
+        <label for="position">Position:</label><br>
+        <input type="text" id="position" name="position" value="{{ employee.position }}"><br>
+
+        <label for="salary">Salary:</label><br>
+        <input type="number" id="salary" name="salary" value="{{ employee.salary }}"><br>
+
+
+        <input type="submit" value="Submit">
+    </form>
+
+                <div class="button-container">
+                            <a href="{{ url_for('employees.change_password', employee_id=employee.id) }}">
+
+                                <button>Change Password</button>
+                            </a>
+                        </div>
+
+            </div>
+        </div>
+
+
+{% endblock %}

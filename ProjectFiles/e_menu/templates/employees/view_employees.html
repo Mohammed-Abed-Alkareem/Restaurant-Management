@@ -47,7 +47,7 @@ custom_css %}
         <td>{{ employee.salary }}</td>
         <td>{{ employee.position }}</td>
         <td>
-                            <a href="{{ url_for('employees.view_employees', table_code=employee.code) }}">
+                            <a href="{{ url_for('employees.update_employee', employee_id=employee.id) }}">
 
                                 <button>Update</button>
                             </a>
