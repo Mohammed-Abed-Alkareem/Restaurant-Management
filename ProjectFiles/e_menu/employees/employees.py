@@ -22,15 +22,19 @@ def view_orders():
         return redirect(url_for('employees.sign_in'))
 
     #based on filters
-    date = request.args.get('date')
+    from_date = request.args.get('from_date')
+    to_date = request.args.get('to_date')
+
     customer_id = request.args.get('customer_id')
+
     payment_method = request.args.get('payment_method')
     table_code = request.args.get('table_code')
 
-    print(type(date), customer_id, payment_method, table_code)
+    if from_date == ""  or from_date == "None"or from_date is None:
+        from_date = None
 
-    if date == ""  or date == "None"or date is None:
-        date = None
+    if to_date == ""  or to_date == "None"or to_date is None:
+        to_date = None
 
     if customer_id == "" or customer_id == "None"or customer_id is None:
         customer_id = None
@@ -41,7 +45,7 @@ def view_orders():
     if table_code == "" or table_code == "None" or table_code is None:
         table_code = None
 
-    orders = Order.get_all(order_date=date, customer_id=customer_id, payment_method_id=payment_method, table_code=table_code)
+    orders = Order.get_all(from_date=from_date, to_date=to_date, customer_id=customer_id, payment_method_id=payment_method, table_code=table_code)
 
     orders_detailed = {}
 
@@ -50,7 +54,7 @@ def view_orders():
         if order.id not in orders_detailed.keys():
             orders_detailed[order.id] = OrderDetails.get_by_order_id(order.id)
 
-    #GET ITEM NAME
+
     for order_id in orders_detailed.keys():
         for order_detail in orders_detailed[order_id]:
             item = MenuItems.get(order_detail.item_id)

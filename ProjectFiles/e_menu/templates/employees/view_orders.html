@@ -10,8 +10,11 @@ custom_css %}
 
     <h1>Orders</h1>
     <form method="get" action="{{ url_for('employees.view_orders') }}">
-        <label for="date">Date:</label>
-        <input type="date" id="date" name="date" value="{{ request.args.get('date') }}">
+        <label for="from_date">From Date:</label>
+        <input type="date" id="from_date" name="from_date" value="{{ request.args.get('from_date') }}">
+
+        <label for="to_date">To Date:</label>
+        <input type="date" id="to_date" name="to_date" value="{{ request.args.get('to_date') }}">
 
         <label for="customer_id">Customer ID:</label>
         <input type="text" id="customer_id" name="customer_id" value="{{ request.args.get('customer_id') }}">

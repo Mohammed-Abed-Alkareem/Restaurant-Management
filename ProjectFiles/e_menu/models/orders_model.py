@@ -89,7 +89,7 @@ class Order:
             conn.close()
 
     @classmethod
-    def get_all(cls, table_code=None, customer_id=None, payment_method_id=None, order_date=None):
+    def get_all(cls, table_code=None, customer_id=None, payment_method_id=None, from_date=None, to_date=None):
         conn = engine.connect()
         try:
             orders_objects = []
@@ -110,9 +110,17 @@ class Order:
             if payment_method_id is not None:
                 query += " AND payment_method_id = :payment_method_id"
                 params['payment_method_id'] = payment_method_id
-            if order_date is not None:
-                query += " AND order_date = :order_date"
-                params['order_date'] = order_date
+            if from_date is not None:
+                if to_date is None:
+                    to_date = datetime.now().strftime("%Y-%m-%d")
+
+                if from_date > to_date:
+                    from_date, to_date = to_date, from_date
+
+                query += " AND order_date BETWEEN :from_date AND :to_date"
+                params['from_date'] = from_date
+                params['to_date'] = to_date
+
 
             # Execute the query with parameters
             orders = conn.execute(text(query), params)
