@@ -133,20 +133,48 @@ def update_employee(employee_id):
             return redirect(url_for('employees.sign_in'))
 
         employee = Employee.get(employee_id)
-        if request.method == 'GET':
 
+        if request.method == 'GET':
             return render_template("employees/update_employee.html", employee=employee)
+
         else:
             name = request.form.get('name')
             phone_number = request.form.get('phone_number')
             salary = request.form.get('salary')
             position = request.form.get('position')
             if employee.update(name=name, phone_number=phone_number, salary=salary, position=position):
-                return "Employee updated successfully"
+                flash("Employee updated successfully", "success")
+                return redirect(url_for('employees.view_employees'))
             else:
-                return "Error updating employee"
+                flash("Error updating employee", "danger")
+                return redirect(url_for('employees.update_employee', employee_id=employee_id))
 
 
+@employees.route("change_password/<employee_id>", methods=['GET', 'POST'])
+def change_password(employee_id):
+    if 'employee_id' not in session:
+        return redirect(url_for('employees.sign_in'))
+
+    employee = Employee.get(employee_id)
+
+    if request.method == 'GET':
+        return render_template("employees/change_password.html", employee=employee)
+    else:
+
+        password = request.form.get('password')
+        confirm_password = request.form.get('confirm_password')
+
+        if password != confirm_password:
+            flash("Passwords do not match", "danger")
+            return redirect(url_for('employees.change_password', employee_id=employee_id))
+
+
+        if employee.update(password=password):
+            flash("Password changed successfully", "success")
+            return redirect(url_for('employees.view_employees'))
+        else:
+            flash("Error changing password", "danger")
+            return redirect(url_for('employees.change_password', employee_id=employee_id))
 
 
 #______________________________________________
@@ -158,9 +186,7 @@ def update_employee(employee_id):
 def sign_in():
     session.clear()
 
-    if request.method == 'GET':
-        return render_template("employees/sign_in.html")
-    else:
+    if request.method == 'POST':
         phone_number = request.form.get('phone_number')
         password = request.form.get('password')
         employee = Employee.get_by_phone_number(phone_number)
@@ -174,7 +200,6 @@ def sign_in():
 
                     )
 
-
             if Employee.verify_password(hashed_password, password):
                 print("Password is correct")
                 session['employee_id'] = employee.id
@@ -183,9 +208,12 @@ def sign_in():
                 return redirect(url_for('employees.dashboard'))
             else:
                 print("Password is incorrect")
+                flash("Invalid phone number or password", "danger")
+                return render_template("employees/sign_in.html")
 
-        flash("Invalid phone number or password", "danger")
-        return redirect(url_for('employees.sign_in'))
+    else:
+        return render_template("employees/sign_in.html")
+
 
 @employees.route("dashboard")
 def dashboard():
