@@ -73,10 +73,15 @@ class OrderDetails:
     def get_by_order_id(cls, order_id):
         conn = engine.connect()
         try:
-            order_detail = conn.execute(GET_ORDER_DETAIL_BY_ORDER_ID, {'order_id': order_id}).fetchone()
-            return cls(id=order_detail[0], order_id=order_detail[1],
-                       item_id=order_detail[2], price=order_detail[3],
-                       quantity=order_detail[4])
+            order_details_objects = []
+            order_detail = conn.execute(GET_ORDER_DETAIL_BY_ORDER_ID, {'order_id': order_id}).fetchall()
+
+            for order_detail in order_detail:
+                order_details_objects.append(cls(id=order_detail[0], order_id=order_detail[1],
+                                                 item_id=order_detail[2], price=order_detail[3],
+                                                 quantity=order_detail[4]))
+            return order_details_objects
+
         except Exception as e:
             print(f"Error: {e}")
             return None
@@ -106,6 +111,7 @@ class OrderDetails:
         try:
             order_details_objects = []
             order_details = conn.execute(GET_ORDER_DETAILS_BY_ITEM_ID, {'item_id': item_id}).fetchall()
+
             for order_detail in order_details:
                 order_details_objects.append(cls(id=order_detail[0], order_id=order_detail[1],
                                                  item_id=order_detail[2], price=order_detail[3],
