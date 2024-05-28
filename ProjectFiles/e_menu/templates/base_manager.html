@@ -3,6 +3,7 @@
 <head>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/flashed_messages.css') }}"/>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/confirm_message.css') }}"/>
 
     {% block custom_css %}
     {% endblock %}
@@ -51,5 +52,8 @@
     </div>
 </footer>
 
+
+<script src="{{ url_for('static', filename='js/alert.js') }}"></script>
+<script src="{{ url_for('static', filename='js/confirm_message.js') }}"></script>
 </body>
 </html>
