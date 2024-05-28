@@ -57,8 +57,6 @@ def sign_up():
         customer_name = request.form['name']
         customer_phone = request.form['phone']
 
-        print(customer_name, customer_phone)
-
         check = Customer.insert(Customer(name=customer_name, phone_number=customer_phone))
 
         # check insert_customer(customer_name, customer_phone)
@@ -85,11 +83,9 @@ def log_in():
 
         user_phone = request.form['phone']
 
-        print(user_phone)
         customer = Customer.get_by_phone(phone_number=user_phone)
 
         if customer is not None:
-            print('not non')
             session["customer"] = customer.to_dict()
 
             session.modified = True
@@ -113,7 +109,7 @@ def categories():
         return redirect(url_for('customers.sign_page'))
 
     items_categories = MenuItems.get_categories()
-    print(session)
+
     customer = Customer.from_dict(session['customer'])
 
     return render_template("customers/categories.html", items_categories=items_categories, user_name=customer.name)
@@ -178,10 +174,6 @@ def item_add(menu_item):
         session['cart'][menu_item] = quantity
 
     session.modified = True
-
-    print(session)
-
-    print(quantity)
 
     flash("Item added to cart", "success")
     return redirect(url_for("customers.categories"))
@@ -251,8 +243,6 @@ def confirm_payment():
     # order = Order.insert(Order(table.code, customer.id, payment_method))
     order = Order(customer_id=customer.id, table_code=table_code, payment_method_id=payment_method)
 
-    print(order.id, order.customer_id, order.table_code, order.payment_method_id, order.order_date)
-
     if order.insert():
         for item_id, quantity in session['cart'].items():
             price = MenuItems.get(item_id).price * quantity
@@ -286,8 +276,6 @@ def rate_order():
         rating = request.form['rating']
         food_rating = request.form['food_rating']
         service_rating = request.form['service_rating']
-
-        print(rating, food_rating, service_rating)
 
         rating = Rating(order_id, rating, food_rating, service_rating)
 
@@ -333,10 +321,7 @@ def delete_item():
 @customers.route('/get_cart_items')
 def get_cart_items():
     items = []
-    print("view")
-    print(
-        session.get('cart', {})
-    )
+
     for item_id, quantity in session.get('cart', {}).items():
         item = MenuItems.get(item_id)
 
