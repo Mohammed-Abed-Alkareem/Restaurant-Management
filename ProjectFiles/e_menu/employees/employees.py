@@ -21,6 +21,10 @@ ALLOWED_EXTENSIONS = {'png'}
 #╚════════════════════════════════╝
 
 
+###########################################
+# Route: / and /sign_in                   #
+# Description: Handle employee sign-in.   #
+###########################################
 @employees.route("/")
 @employees.route("sign_in", methods=['GET', 'POST'])
 def sign_in():
@@ -55,6 +59,10 @@ def sign_in():
         return render_template("employees/sign_in.html")
 
 
+###########################################
+# Route: /dashboard                        #
+# Description: Display employee dashboard. #
+###########################################
 @employees.route("dashboard")
 def dashboard():
     if 'employee_id' not in session:
@@ -70,7 +78,10 @@ def dashboard():
 #║                                ║
 #╚════════════════════════════════╝
 
-
+###########################################
+# Route: /view_orders                     #
+# Description: View orders with filters.  #
+###########################################
 @employees.route("view_orders")
 def view_orders():
     if 'employee_id' not in session:
@@ -123,6 +134,10 @@ def view_orders():
 #║                                ║
 #╚════════════════════════════════╝
 
+###########################################
+# Route: /view_tables                     #
+# Description: View all tables.           #
+###########################################
 @employees.route("view_tables")
 def view_tables():
 
@@ -133,6 +148,10 @@ def view_tables():
     return render_template("employees/view_tables.html", tables=tables)
 
 
+###########################################
+# Route: /add_table                       #
+# Description: Add a new table.           #
+###########################################
 @employees.route("add_table", methods=['GET', 'POST'])
 def add_table():
 
@@ -155,6 +174,10 @@ def add_table():
         return redirect(url_for('employees.add_table'))
 
 
+###########################################
+# Route: /update_table/<table_code>       #
+# Description: Update table information.  #
+###########################################
 @employees.route("update_table/<table_code>", methods=['GET', 'POST'])
 def update_table(table_code):
 
@@ -175,6 +198,11 @@ def update_table(table_code):
             flash("Error updating table", "danger")
             return redirect(url_for('employees.view_tables'))
 
+
+###########################################
+# Route: /delete_table/<table_code>       #
+# Description: Delete a table.            #
+###########################################
 @employees.route("delete_table/<table_code>",methods=['POST'])
 def delete_table(table_code):
 
@@ -194,6 +222,12 @@ def delete_table(table_code):
 #║           Menu Items           ║
 #║                                ║
 #╚════════════════════════════════╝
+
+
+###########################################
+# Route: /view_menu_items                 #
+# Description: View all menu items.       #
+###########################################
 @employees.route("view_menu_items")
 def view_menu_items():
 
@@ -204,6 +238,10 @@ def view_menu_items():
     return render_template("employees/view_menu_items.html", menuItems=items)
 
 
+###########################################
+# Route: /add_menu_item                   #
+# Description: Add a new menu item.       #
+###########################################
 @employees.route("add_menu_item", methods=['GET', 'POST'])
 def add_menu_item():
 
@@ -237,25 +275,20 @@ def add_menu_item():
         return redirect(url_for('employees.dashboard'))
 
 
+###########################################
+# Route: /update_menu_item/<item_id>      #
+# Description: Update menu item details.  #
+###########################################
 @employees.route("update_menu_item/<item_id>", methods=['GET', 'POST'])
 def update_menu_item(item_id):
 
     if 'employee_id' not in session:
         return redirect(url_for('employees.sign_in'))
 
-
-
+    item = MenuItems.get(item_id)
     if request.method == 'GET':
-        item = MenuItems.get(item_id)
         return render_template("employees/update_menu_item.html", menuItem=item)
     else:
-
-        item = MenuItems.get(item_id)
-
-        print(item.id
-              , item.name
-              , item.description
-              )
 
         item_name = request.form.get('name')
         item_price = request.form.get('price')
@@ -270,12 +303,15 @@ def update_menu_item(item_id):
             flash("Item updated successfully", "success")
             return redirect(url_for('employees.view_menu_items'))
 
-
         else:
             flash("Error updating item", "danger")
             return redirect(url_for('employees.update_menu_item', item_id=item_id))
 
 
+###########################################
+# Route: /change_availability/<item_id>   #
+# Description: Change item availability.  #
+###########################################
 @employees.route("change_availability/<item_id>")
 def change_availability(item_id):
 
@@ -287,6 +323,10 @@ def change_availability(item_id):
     return redirect(url_for('employees.view_menu_items'))
 
 
+###########################################
+# Route: /delete_menu_item/<item_id>      #
+# Description: Delete a menu item.        #
+###########################################
 @employees.route("delete_menu_item/<item_id>",methods=['POST']) # this will be in the view menu items page
 def delete_menu_item(item_id):
 
@@ -312,6 +352,10 @@ def delete_menu_item(item_id):
 #╚════════════════════════════════╝
 
 
+###########################################
+# Route: /view_employees                  #
+# Description: View all employees.        #
+###########################################
 @employees.route("view_employees")
 def view_employees():
 
@@ -322,6 +366,10 @@ def view_employees():
     return render_template("employees/view_employees.html", employees=employees)
 
 
+###########################################
+# Route: /insert_employee                 #
+# Description: Insert a new employee.     #
+###########################################
 @employees.route("insert_employee", methods=['GET', 'POST'])
 def insert_employee():
 
@@ -349,6 +397,10 @@ def insert_employee():
         return redirect(url_for('employees.dashboard'))
 
 
+###########################################
+# Route: /update_employee/<employee_id>   #
+# Description: Update employee details.   #
+###########################################
 @employees.route("update_employee/<employee_id>", methods=['GET', 'POST'])
 def update_employee(employee_id):
 
@@ -373,6 +425,10 @@ def update_employee(employee_id):
                 return redirect(url_for('employees.update_employee', employee_id=employee_id))
 
 
+###########################################
+# Route: /change_password/<employee_id>   #
+# Description: Change employee password.  #
+###########################################
 @employees.route("change_password/<employee_id>", methods=['GET', 'POST'])
 def change_password(employee_id):
     if 'employee_id' not in session:
@@ -399,6 +455,10 @@ def change_password(employee_id):
             return redirect(url_for('employees.change_password', employee_id=employee_id))
 
 
+###########################################
+# Route: /delete_employee/<employee_id>   #
+# Description: Delete an employee.        #
+###########################################
 @employees.route("delete_employee/<employee_id>",methods=['POST'])
 def delete_employee(employee_id):
 
