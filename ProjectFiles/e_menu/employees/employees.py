@@ -74,10 +74,28 @@ def sign_out():
 
 
 
-@employees.route("delete_employee/<employee_id>")
+@employees.route("delete_employee/<employee_id>",methods=['POST'])
 def delete_employee(employee_id):
-    Employee.delete(employee_id)
-    return "Employee deleted successfully"
+
+    if 'employee_id' not in session:
+        return redirect(url_for('employees.sign_in'))
+
+    if request.method == 'POST':
+
+        if employee_id == session['employee_id']:
+            flash("You can't delete yourself", "danger")
+            return redirect(url_for('employees.view_employees'))
+
+        if Employee.delete(employee_id):
+            flash("Employee deleted successfully", "success")
+            return redirect(url_for('employees.view_employees'))
+        else:
+            flash("Error deleting employee", "danger")
+            return redirect(url_for('employees.view_employees'))
+
+    else:
+        return redirect(url_for('employees.view_employees'))
+
 
 
 
@@ -278,7 +296,7 @@ def view_menu_items():
     return render_template("employees/view_menu_items.html", menuItems=items)
 
 
-@employees.route("delete_menu_item/<item_id>") # this will be in the view menu items page
+@employees.route("delete_menu_item/<item_id>",methods=['POST']) # this will be in the view menu items page
 def delete_menu_item(item_id):
 
     if 'employee_id' not in session:
@@ -327,7 +345,7 @@ def update_table(table_code):
             flash("Error updating table", "danger")
             return redirect(url_for('employees.view_tables'))
 
-@employees.route("delete_table/<table_code>")
+@employees.route("delete_table/<table_code>",methods=['POST'])
 def delete_table(table_code):
 
     if 'employee_id' not in session:

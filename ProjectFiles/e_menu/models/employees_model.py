@@ -102,7 +102,8 @@ class Employee:
         conn = engine.connect()
 
         try:
-            conn.execute(DELETE_FROM_EMPLOYEES, id=employee_id)
+            conn.execute(DELETE_FROM_EMPLOYEES, {'id': employee_id})
+            conn.commit()
             return 1
         except Exception as e:
             print(f"Error: {e}")
