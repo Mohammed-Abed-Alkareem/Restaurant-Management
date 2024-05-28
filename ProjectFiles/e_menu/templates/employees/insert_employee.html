@@ -32,28 +32,41 @@
 
             <!-- Form for submitting a table code -->
             <div class="form-overlay">
-             <h1>Insert Employee</h1>
-    <form action="{{ url_for('employees.insert_employee') }}" method="post">
-        <label for="name">Name:</label><br>
-        <input type="text" id="name" name="name"><br>
+                 <h1>Insert Employee</h1>
+                    <form id="Form" action="{{ url_for('employees.insert_employee') }}" method="post">
+                        <label for="name">Name:</label><br>
+                        <input type="text" id="name" name="name"><br>
 
-        <label for="phone_number">Phone Number:</label><br>
-        <input type="text" id="phone_number" name="phone_number"><br>
+                        <label for="phone_number">Phone Number:</label><br>
+                        <input type="text" id="phone_number" name="phone_number"><br>
 
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password"><br>
+                        <label for="password">Password:</label><br>
+                        <input type="password" id="password" name="password"><br>
 
-        <label for="position">Position:</label><br>
-        <input type="text" id="position" name="position"><br>
+                        <label for="position">Position:</label><br>
+                        <input type="text" id="position" name="position"><br>
 
-        <label for="salary">Salary:</label><br>
-        <input type="number" id="salary" name="salary"><br>
+                        <label for="salary">Salary:</label><br>
+                        <input type="number" id="salary" name="salary"><br>
 
 
-        <input type="submit" value="Submit">
-    </form>
-            </div>
-        </div>
+                       <button type="button" onclick="setConfirmationCallback(() => document.getElementById('Form').submit()); showModal();">Submit</button>
+
+
+                    </form>
+</div>
+        <!-- The Modal -->
+                        <div id="confirmationModal" class="modal">
+                            <div class="modal-content">
+                                <span class="close-button" onclick="closeModal()">&times;</span> <!-- Close button "x" -->
+                                <p>Are you sure you want to insert this employee</p>
+                                <button class="modal-button yes" onclick="confirmAction()">Yes</button>
+                                <button class="modal-button no" onclick="noAction()">No</button>
+                            </div>
+                        </div>
+
+
+    </div>
 
 
 {% endblock %}

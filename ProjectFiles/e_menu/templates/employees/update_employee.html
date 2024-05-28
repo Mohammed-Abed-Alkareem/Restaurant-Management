@@ -1,7 +1,7 @@
 {% extends "./base_manager.html" %}
 
 {% block title %}
-    Insert Employee
+    Update Employee
 {% endblock %}
 
 {% block custom_css %}
@@ -32,7 +32,7 @@
 
             <!-- Form for submitting a table code -->
             <div class="form-overlay">
-             <h1>Insert Employee</h1>
+             <h1>Update Employee</h1>
     <form action="{{ url_for('employees.update_employee', employee_id=employee.id) }}" method="post">
         <label for="name">Name:</label><br>
         <input type="text" id="name" name="name" value="{{ employee.name }}"><br>
