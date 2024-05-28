@@ -3,7 +3,7 @@
 {% extends "./base_manager.html" %}
 
 {% block title %}
-    Insert Employee
+    Update Table
 {% endblock %}
 
 {% block custom_css %}
@@ -37,12 +37,28 @@
             </form>
 
             <div class="button-container">
-                <a href="{{ url_for('employees.delete_table', table_code=table.code) }}">
-                    <button>Delete</button>
-                </a>
+                <form id="deleteForm" action="{{ url_for('employees.delete_table', table_code=table.code) }}"
+                      method="post">
+                    <button type="button" onclick="setConfirmationCallback(() => document.getElementById('deleteForm').submit()); showModal();">Delete</button>
+                </form>
+
+
             </div>
 
         </div>
+
+
+        <!-- The Modal delete -->
+        <div id="confirmationModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button" onclick="closeModal()">&times;</span> <!-- Close button "x" -->
+                <p>Are you sure you want to delete this table?</p>
+                <button class="modal-button yes" onclick="confirmAction()">Yes</button>
+                <button class="modal-button no" onclick="noAction()">No</button>
+            </div>
+        </div>
+
+
     </div>
 
 {% endblock %}

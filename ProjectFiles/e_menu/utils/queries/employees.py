@@ -2,7 +2,7 @@ from sqlalchemy import text
 
 CREATE_EMPLOYEES_TABLE = text("""
                             CREATE TABLE IF NOT EXISTS employees(
-                            id CHAR(9) PRIMARY KEY,
+                            id CHAR(4) PRIMARY KEY,
                             name VARCHAR(40) NOT NULL,
                             phone_number CHAR(10) Unique NOT NULL,
                             salary integer,
