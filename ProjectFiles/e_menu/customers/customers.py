@@ -1,13 +1,13 @@
 from flask import render_template, request, url_for, redirect, session, flash, jsonify
 
-from . import customers  # Import the blueprint from the package
 from ProjectFiles.e_menu.models.customers_model import *
 from ProjectFiles.e_menu.models.menuItems_model import *
-from ProjectFiles.e_menu.models.tables_model import *
-from ProjectFiles.e_menu.models.payment_methods_model import *
-from ProjectFiles.e_menu.models.orders_model import *
 from ProjectFiles.e_menu.models.orders_details_model import *
+from ProjectFiles.e_menu.models.orders_model import *
+from ProjectFiles.e_menu.models.payment_methods_model import *
 from ProjectFiles.e_menu.models.ratings_model import *
+from ProjectFiles.e_menu.models.tables_model import *
+from . import customers  # Import the blueprint from the package
 
 
 @customers.route('/', methods=['POST', 'GET'])
@@ -228,11 +228,11 @@ def confirm_payment():
     if 'table' not in session or session['table'] is None:
         flash("Please Enter table code first", "danger")
         return redirect(url_for('customers.home_page'))
-#
+    #
     if 'customer' not in session or session['customer'] is None:
         flash("Please Login first", "danger")
         return redirect(url_for('customers.sign_page'))
-#
+    #
     if 'cart' not in session or len(session['cart']) == 0:
         flash("Your cart is empty", "danger")
         return redirect(url_for('customers.categories'))
@@ -240,7 +240,6 @@ def confirm_payment():
     payment_method = request.form['payment-method']
 
     if payment_method != 'Cash':
-
         full_name = request.form['full-name']
         card_number = request.form['card-number']
         expiry_date = request.form['expiry-date']
@@ -260,14 +259,14 @@ def confirm_payment():
             order_detail = OrderDetails(order.id, item_id, price, quantity)
             order_detail.insert()
 
-    #clear the session
+        # clear the session
         session.pop('cart', None)
         session.pop('table', None)
         session.pop('customer', None)
 
         session.modified = True
 
-        #add order id to the session
+        # add order id to the session
         session['order_id'] = order.id
         session.modified = True
 
@@ -277,14 +276,13 @@ def confirm_payment():
 
 @customers.route('/rate_order', methods=['GET', 'POST'])
 def rate_order():
-
     if request.method == 'POST':
         if 'order_id' not in session:
             flash("Please place an order first", "danger")
             return redirect(url_for('customers.categories'))
 
         order_id = session['order_id']
-        #get rating from javascript
+        # get rating from javascript
         rating = request.form['rating']
         food_rating = request.form['food_rating']
         service_rating = request.form['service_rating']
@@ -300,7 +298,7 @@ def rate_order():
             flash("Rating could not be submitted", "danger")
             return redirect(url_for('customers.rate_order'))
 
-    #send for rating page the colums
+    # send for rating page the colums
     rating = ["rating", "food_rating", "service_rating"]
 
     return render_template("customers/rating.html", rating=rating)
@@ -351,4 +349,3 @@ def get_cart_items():
         'items': items,
     }
     return jsonify(session_data)
-

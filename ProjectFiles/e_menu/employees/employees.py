@@ -1,24 +1,23 @@
 import os
+
 from flask import render_template, request, session, redirect, url_for, flash, current_app
+
+from ProjectFiles.e_menu.models.employees_model import Employee
+from ProjectFiles.e_menu.models.menuItems_model import *
+from ProjectFiles.e_menu.models.orders_details_model import *
+from ProjectFiles.e_menu.models.orders_model import *
+from ProjectFiles.e_menu.models.tables_model import *
 from . import employees  # Import the blueprint from the package
 
-from ProjectFiles.e_menu.models.customers_model import *
-from ProjectFiles.e_menu.models.menuItems_model import *
-from ProjectFiles.e_menu.models.tables_model import *
-from ProjectFiles.e_menu.models.payment_methods_model import *
-from ProjectFiles.e_menu.models.orders_model import *
-from ProjectFiles.e_menu.models.orders_details_model import *
-from ProjectFiles.e_menu.models.ratings_model import *
-from ProjectFiles.e_menu.models.employees_model import Employee
-
-#allow only png images
+# allow only png images
 ALLOWED_EXTENSIONS = {'png'}
 
-#╔════════════════════════════════╗
-#║                                ║
-#║              Home              ║
-#║                                ║
-#╚════════════════════════════════╝
+
+# ╔════════════════════════════════╗
+# ║                                ║
+# ║              Home              ║
+# ║                                ║
+# ╚════════════════════════════════╝
 
 
 ###########################################
@@ -37,21 +36,13 @@ def sign_in():
         if employee:
 
             hashed_password = employee.password
-            print(type(hashed_password)
-                    , hashed_password
-                    , type(password)
-                    , password
-
-                    )
 
             if Employee.verify_password(hashed_password, password):
-                print("Password is correct")
                 session['employee_id'] = employee.id
                 session['employee_name'] = employee.name
                 session['employee_position'] = employee.position
                 return redirect(url_for('employees.dashboard'))
             else:
-                print("Password is incorrect")
                 flash("Invalid phone number or password", "danger")
                 return render_template("employees/sign_in.html")
 
@@ -68,15 +59,14 @@ def dashboard():
     if 'employee_id' not in session:
         return redirect(url_for('employees.sign_in'))
 
-    print(session)
     return render_template("employees/dashboard.html")
 
 
-#╔════════════════════════════════╗
-#║                                ║
-#║             Orders             ║
-#║                                ║
-#╚════════════════════════════════╝
+# ╔════════════════════════════════╗
+# ║                                ║
+# ║             Orders             ║
+# ║                                ║
+# ╚════════════════════════════════╝
 
 ###########################################
 # Route: /view_orders                     #
@@ -87,7 +77,7 @@ def view_orders():
     if 'employee_id' not in session:
         return redirect(url_for('employees.sign_in'))
 
-    #based on filters
+    # based on filters
     from_date = request.args.get('from_date')
     to_date = request.args.get('to_date')
 
@@ -96,26 +86,27 @@ def view_orders():
     payment_method = request.args.get('payment_method')
     table_code = request.args.get('table_code')
 
-    if from_date == ""  or from_date == "None"or from_date is None:
+    if from_date == "" or from_date == "None" or from_date is None:
         from_date = None
 
-    if to_date == ""  or to_date == "None"or to_date is None:
+    if to_date == "" or to_date == "None" or to_date is None:
         to_date = None
 
-    if customer_id == "" or customer_id == "None"or customer_id is None:
+    if customer_id == "" or customer_id == "None" or customer_id is None:
         customer_id = None
 
-    if payment_method == "" or payment_method == "None"or payment_method is None:
+    if payment_method == "" or payment_method == "None" or payment_method is None:
         payment_method = None
 
     if table_code == "" or table_code == "None" or table_code is None:
         table_code = None
 
-    orders = Order.get_all(from_date=from_date, to_date=to_date, customer_id=customer_id, payment_method_id=payment_method, table_code=table_code)
+    orders = Order.get_all(from_date=from_date, to_date=to_date, customer_id=customer_id,
+                           payment_method_id=payment_method, table_code=table_code)
 
     orders_detailed = {}
 
-    #get order details
+    # get order details
     for order in orders:
         if order.id not in orders_detailed.keys():
             orders_detailed[order.id] = OrderDetails.get_by_order_id(order.id)
@@ -128,11 +119,11 @@ def view_orders():
     return render_template("employees/view_orders.html", orders=orders, orders_detailed=orders_detailed)
 
 
-#╔════════════════════════════════╗
-#║                                ║
-#║             Tables             ║
-#║                                ║
-#╚════════════════════════════════╝
+# ╔════════════════════════════════╗
+# ║                                ║
+# ║             Tables             ║
+# ║                                ║
+# ╚════════════════════════════════╝
 
 ###########################################
 # Route: /view_tables                     #
@@ -140,7 +131,6 @@ def view_orders():
 ###########################################
 @employees.route("view_tables")
 def view_tables():
-
     if 'employee_id' not in session:
         return redirect(url_for('employees.sign_in'))
 
@@ -154,7 +144,6 @@ def view_tables():
 ###########################################
 @employees.route("add_table", methods=['GET', 'POST'])
 def add_table():
-
     if 'employee_id' not in session:
         return redirect(url_for('employees.sign_in'))
 
@@ -180,7 +169,6 @@ def add_table():
 ###########################################
 @employees.route("update_table/<table_code>", methods=['GET', 'POST'])
 def update_table(table_code):
-
     if 'employee_id' not in session:
         return redirect(url_for('employees.sign_in'))
     table = Table.get(table_code)
@@ -203,9 +191,8 @@ def update_table(table_code):
 # Route: /delete_table/<table_code>       #
 # Description: Delete a table.            #
 ###########################################
-@employees.route("delete_table/<table_code>",methods=['POST'])
+@employees.route("delete_table/<table_code>", methods=['POST'])
 def delete_table(table_code):
-
     if 'employee_id' not in session:
         return redirect(url_for('employees.sign_in'))
 
@@ -217,11 +204,11 @@ def delete_table(table_code):
         return redirect(url_for('employees.view_tables'))
 
 
-#╔════════════════════════════════╗
-#║                                ║
-#║           Menu Items           ║
-#║                                ║
-#╚════════════════════════════════╝
+# ╔════════════════════════════════╗
+# ║                                ║
+# ║           Menu Items           ║
+# ║                                ║
+# ╚════════════════════════════════╝
 
 
 ###########################################
@@ -230,7 +217,6 @@ def delete_table(table_code):
 ###########################################
 @employees.route("view_menu_items")
 def view_menu_items():
-
     if 'employee_id' not in session:
         return redirect(url_for('employees.sign_in'))
 
@@ -244,7 +230,6 @@ def view_menu_items():
 ###########################################
 @employees.route("add_menu_item", methods=['GET', 'POST'])
 def add_menu_item():
-
     if 'employee_id' not in session:
         return redirect(url_for('employees.sign_in'))
 
@@ -281,7 +266,6 @@ def add_menu_item():
 ###########################################
 @employees.route("update_menu_item/<item_id>", methods=['GET', 'POST'])
 def update_menu_item(item_id):
-
     if 'employee_id' not in session:
         return redirect(url_for('employees.sign_in'))
 
@@ -314,7 +298,6 @@ def update_menu_item(item_id):
 ###########################################
 @employees.route("change_availability/<item_id>")
 def change_availability(item_id):
-
     if 'employee_id' not in session:
         return redirect(url_for('employees.sign_in'))
 
@@ -327,14 +310,13 @@ def change_availability(item_id):
 # Route: /delete_menu_item/<item_id>      #
 # Description: Delete a menu item.        #
 ###########################################
-@employees.route("delete_menu_item/<item_id>",methods=['POST']) # this will be in the view menu items page
+@employees.route("delete_menu_item/<item_id>", methods=['POST'])  # this will be in the view menu items page
 def delete_menu_item(item_id):
-
     if 'employee_id' not in session:
         return redirect(url_for('employees.sign_in'))
 
     if MenuItems.delete(item_id):
-        #delete the image of the item
+        # delete the image of the item
         file_path = os.path.join(current_app.root_path, "static", "img", "menuItems", f"{item_id}.png")
         if os.path.exists(file_path):
             os.remove(file_path)
@@ -345,11 +327,12 @@ def delete_menu_item(item_id):
         flash("Error deleting item", "danger")
         return redirect(url_for('employees.view_menu_items'))
 
-#╔════════════════════════════════╗
-#║                                ║
-#║           Employees            ║
-#║                                ║
-#╚════════════════════════════════╝
+
+# ╔════════════════════════════════╗
+# ║                                ║
+# ║           Employees            ║
+# ║                                ║
+# ╚════════════════════════════════╝
 
 
 ###########################################
@@ -358,7 +341,6 @@ def delete_menu_item(item_id):
 ###########################################
 @employees.route("view_employees")
 def view_employees():
-
     if 'employee_id' not in session:
         return redirect(url_for('employees.sign_in'))
 
@@ -372,7 +354,6 @@ def view_employees():
 ###########################################
 @employees.route("insert_employee", methods=['GET', 'POST'])
 def insert_employee():
-
     if 'employee_id' not in session:
         return redirect(url_for('employees.sign_in'))
 
@@ -384,11 +365,9 @@ def insert_employee():
         password = request.form.get('password')
         position = request.form.get('position')
         salary = request.form.get('salary')
-        print(name, phone_number, salary, password, position)
 
         employee = Employee(name=name, phone_number=phone_number, salary=salary, position=position, password=password)
-        print(employee.id, employee.name, employee.phone_number, employee.salary, employee.password,
-              employee.position)
+
         if employee.insert():
             flash("Employee added successfully", "success")
         else:
@@ -403,26 +382,25 @@ def insert_employee():
 ###########################################
 @employees.route("update_employee/<employee_id>", methods=['GET', 'POST'])
 def update_employee(employee_id):
+    if 'employee_id' not in session:
+        return redirect(url_for('employees.sign_in'))
 
-        if 'employee_id' not in session:
-            return redirect(url_for('employees.sign_in'))
+    employee = Employee.get(employee_id)
 
-        employee = Employee.get(employee_id)
+    if request.method == 'GET':
+        return render_template("employees/update_employee.html", employee=employee)
 
-        if request.method == 'GET':
-            return render_template("employees/update_employee.html", employee=employee)
-
+    else:
+        name = request.form.get('name')
+        phone_number = request.form.get('phone_number')
+        salary = request.form.get('salary')
+        position = request.form.get('position')
+        if employee.update(name=name, phone_number=phone_number, salary=salary, position=position):
+            flash("Employee updated successfully", "success")
+            return redirect(url_for('employees.view_employees'))
         else:
-            name = request.form.get('name')
-            phone_number = request.form.get('phone_number')
-            salary = request.form.get('salary')
-            position = request.form.get('position')
-            if employee.update(name=name, phone_number=phone_number, salary=salary, position=position):
-                flash("Employee updated successfully", "success")
-                return redirect(url_for('employees.view_employees'))
-            else:
-                flash("Error updating employee", "danger")
-                return redirect(url_for('employees.update_employee', employee_id=employee_id))
+            flash("Error updating employee", "danger")
+            return redirect(url_for('employees.update_employee', employee_id=employee_id))
 
 
 ###########################################
@@ -459,9 +437,8 @@ def change_password(employee_id):
 # Route: /delete_employee/<employee_id>   #
 # Description: Delete an employee.        #
 ###########################################
-@employees.route("delete_employee/<employee_id>",methods=['POST'])
+@employees.route("delete_employee/<employee_id>", methods=['POST'])
 def delete_employee(employee_id):
-
     if 'employee_id' not in session:
         return redirect(url_for('employees.sign_in'))
 
@@ -480,5 +457,3 @@ def delete_employee(employee_id):
 
     else:
         return redirect(url_for('employees.view_employees'))
-
-
