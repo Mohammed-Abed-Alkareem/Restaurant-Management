@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Data Analysis Dashboard</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        h1 {
+            text-align: center;
+            color: rebeccapurple;
+        }
+        form {
+            text-align: center;
+            margin: 20px 0;
+        }
+        select {
+            padding: 10px;
+            font-size: 16px;
+        }
+        .plot-container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            background: #fff;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Restaurant Data Analysis Dashboard</h1>
+        <form id="analysisForm">
+            <label for="selected_value">Choose an analysis type:</label>
+            <select id="selected_value" name="selected_value">
+                {% for key in queries.keys() %}
+                    <option value="{{ key }}"
+                            {% if key == selected_analysis %}selected{% endif %}>{{ key }}</option>
+                {% endfor %}
+            </select>
+        </form>
+        <div class="plot-container" id="plot-container">
+            {% if plot_html %}
+                {{ plot_html|safe }}
+            {% endif %}
+        </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $('#selected_value').change(function(){
+                var selectedAnalysis = $(this).val();
+                $.ajax({
+                    url: "{{ url_for('employees.view_statistics') }}",
+                    method: 'GET',
+                    data: { selected_value: selectedAnalysis },
+                    success: function(response){
+                        $('#plot-container').html(response.plot_html);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
