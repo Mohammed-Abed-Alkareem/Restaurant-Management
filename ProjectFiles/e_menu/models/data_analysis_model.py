@@ -1,15 +1,10 @@
 import pandas as pd
 import plotly.express as px
-import dash
-import dash_core_components as dcc
-import dash_html_components as html
-from dash.dependencies import Input, Output
-from sqlalchemy import create_engine
 from ProjectFiles.e_menu.utils.queries import dataAnalysis as da
-import urllib
 import plotly.io as pio
-# Initialize database connection
 from . import *
+import plotly.graph_objects as go
+
 
 # SQL Queries mapping
 queries = {
@@ -27,8 +22,12 @@ queries = {
     "Rating Trends": da.rating_trends,
     "Food vs Service Ratings": da.food_vs_service_ratings,
     "Popular Payment Methods": da.popular_payment_methods,
-    "Payment Trends": da.payment_trends
+    "Payment Trends": da.payment_trends,
+    "Time Categorized Orders": da.time_categorized_orders,
+    "Cohort Analysis": da.cohort_analysis,
+    "Customer Life Time Value": da.customer_lifetime_value
 }
+
 
 def update_graph(selected_analysis):
     if selected_analysis is None:
@@ -42,43 +41,169 @@ def update_graph(selected_analysis):
 
     # Generate the plot based on the selected analysis
     if selected_analysis == 'Gender Distribution':
-        fig = px.pie(result, names='gender', values='count', title='Gender Distribution')
+        fig = px.pie(result, names='gender', values='count', title='Gender Distribution',
+                     color_discrete_sequence=px.colors.sequential.RdBu)
+        fig.update_traces(textinfo='percent+label')
+        fig.update_layout(template='plotly_white')
     elif selected_analysis == 'Age Distribution':
-        fig = px.histogram(result, x='age', y='count', nbins=10, title='Age Distribution')
-    elif selected_analysis == 'Favorite Cuisine Preferences':
-        fig = px.pie(result, names='favourite_cuisine', values='count', title='Favorite Cuisine Preferences')
-    elif selected_analysis == 'Visit Frequency':
-        fig = px.bar(result, x='name', y='visit_count', title='Visit Frequency')
-    elif selected_analysis == 'Spending Patterns':
-        fig = px.bar(result, x='name', y='total_spent', title='Spending Patterns')
-    elif selected_analysis == 'Best Selling Items':
-        fig = px.bar(result, x='name', y='count', title='Best Selling Items')
-    elif selected_analysis == 'Category Performance':
-        fig = px.bar(result, x='category', y='total', title='Category Performance')
-    elif selected_analysis == 'Yearly Sales':
-        fig = px.line(result, x='year', y='total', title='Yearly Sales')
-    elif selected_analysis == 'Monthly Sales':
-        fig = px.line(result, x='month', y='total', color='year', title='Monthly Sales')
-    elif selected_analysis == 'Peak Hours':
-        fig = px.bar(result, x='hour', y='avg_orders', title='Peak Hours')
-    elif selected_analysis == 'Popular Menu Items':
-        fig = px.bar(result, x='menu_item', y='order_count', title='Popular Menu Items')
-    elif selected_analysis == 'Rating Trends':
-        fig = px.line(result, x='rating_date', y='avg_rating', title='Rating Trends')
-    elif selected_analysis == 'Food vs Service Ratings':
-        fig = px.bar(result.melt(), x='variable', y='value', title='Food vs Service Ratings')
-    elif selected_analysis == 'Popular Payment Methods':
-        fig = px.pie(result, names='payment_method_id', values='method_count', title='Popular Payment Methods')
-    elif selected_analysis == 'Payment Trends':
-        fig = px.line(result, x='payment_date', y='method_count', color='payment_method_id', title='Payment Trends')
+        fig = px.histogram(result, x='age', y='count', nbins=10, title='Age Distribution',
+                           color_discrete_sequence=['indianred'])
+        fig.update_layout(template='plotly_white')
 
+    elif selected_analysis == 'Favorite Cuisine Preferences':
+        top_5 = result.nlargest(5, 'count')
+
+        # Calculate the count for 'Other' category
+        other_count = result.nsmallest(len(result) - 5, 'count')['count'].sum()
+
+        # Create a DataFrame for 'Other' category
+        other = pd.DataFrame({'favourite_cuisine': ['Other'], 'count': [other_count]})
+
+        # Concatenate the top 5 DataFrame with the 'Other' category DataFrame
+        top_5 = pd.concat([top_5, other], ignore_index=True)
+
+        # Create the pie chart
+        fig = px.pie(top_5, names='favourite_cuisine', values='count', title='Favorite Cuisine Preferences',
+                     color_discrete_sequence=px.colors.sequential.RdBu)
+        fig.update_traces(textinfo='percent+label')
+        fig.update_layout(template='plotly_white')
+
+    elif selected_analysis == 'Visit Frequency':
+        fig = px.bar(result, x='name', y='visit_count', title='Visit Frequency',
+                     color='visit_count', color_continuous_scale='Blues')
+        fig.update_layout(template='plotly_white', xaxis_tickangle=-45)
+
+    elif selected_analysis == 'Spending Patterns':
+        fig = px.bar(result, x='name', y='total_spent', title='Spending Patterns',
+                     color='total_spent', color_continuous_scale='Greens')
+        fig.update_layout(template='plotly_white', xaxis_tickangle=-45)
+
+    elif selected_analysis == 'Best Selling Items':
+        fig = px.bar(result, x='name', y='count', title='Best Selling Items',
+                     color='count', color_continuous_scale='Oranges')
+        fig.update_layout(template='plotly_white', xaxis_tickangle=-45)
+
+    elif selected_analysis == 'Category Performance':
+        fig = px.bar(result, x='category', y='total', title='Category Performance',
+                     color='total', color_continuous_scale='Purples')
+        fig.update_layout(template='plotly_white', xaxis_tickangle=-45)
+
+    elif selected_analysis == 'Yearly Sales':
+        result = result.drop_duplicates(keep='first')
+        fig = px.line(result, x='year', y='total', title='Yearly Sales',
+                             markers=True, line_shape='spline')
+        fig.update_traces(mode='lines+markers', marker=dict(size=10, symbol='circle'))
+
+        # Customize layout
+        fig.update_layout(
+            title='Yearly Sales',
+            xaxis_title='Year',
+            yaxis_title='Total Sales',
+            hovermode='x unified',
+            template='plotly_white'
+        )
+    elif selected_analysis == 'Monthly Sales':
+        fig = px.line(result, x='month', y='total', title='Monthly Sales',
+                      markers=True)
+        fig.update_traces(mode='lines+markers', marker=dict(size=8, symbol='circle'))
+
+        # Customize layout
+        fig.update_layout(
+            title='Monthly Sales',
+            xaxis_title='Month',
+            yaxis_title='Total Sales',
+            hovermode='x unified',
+            template='plotly_white'
+        )
+
+    elif selected_analysis == 'Peak Hours':
+        fig = px.bar(result, x='hour', y='avg_orders', title='Peak Hours',
+                     color='avg_orders', color_continuous_scale='Viridis')
+        fig.update_layout(template='plotly_white')
+
+    elif selected_analysis == 'Popular Menu Items':
+        fig = px.bar(result, x='name', y='order_count', title='Popular Menu Items',
+                     color='order_count', color_continuous_scale='Cividis')
+        fig.update_layout(template='plotly_white', xaxis_tickangle=-45)
+
+    elif selected_analysis == 'Rating Trends':
+        fig = px.line(result, x='rating_date', y='avg_rating', title='Rating Trends',
+                      markers=True, line_shape='linear', color_discrete_sequence=['firebrick'])
+        fig.update_traces(mode='lines+markers', marker=dict(size=8, symbol='circle'))
+
+        # Customize layout
+        fig.update_layout(
+            title='Rating Trends',
+            xaxis_title='Date',
+            yaxis_title='Average Rating',
+            hovermode='x unified',
+            template='plotly_white'
+        )
+
+    elif selected_analysis == 'Food vs Service Ratings':
+        melted_result = result.melt(value_vars=['food_rating', 'service_rating'],
+                                                 var_name='Rating Type', value_name='Rating')
+
+        # Create the bar plot
+        fig = px.bar(melted_result, x='Rating Type', y='Rating', color='Rating Type', title='Food vs Service Ratings')
+        fig.update_layout(template='plotly_white')
+
+    elif selected_analysis == 'Popular Payment Methods':
+        fig = px.pie(result, names='payment_method_id', values='method_count', title='Popular Payment Methods',
+                     color_discrete_sequence=px.colors.sequential.PuBu)
+        fig.update_traces(textinfo='percent+label')
+        fig.update_layout(template='plotly_white')
+
+    elif selected_analysis == 'Payment Trends':
+        fig = px.line(result, x='payment_date', y='method_count', color='payment_method_id', title='Payment Trends',
+                      markers=True)
+        fig.update_traces(mode='lines+markers', marker=dict(size=8, symbol='circle'))
+
+        # Customize layout
+        fig.update_layout(
+            title='Payment Trends',
+            xaxis_title='Payment Date',
+            yaxis_title='Method Count',
+            hovermode='x unified',
+            template='plotly_white'
+        )
+
+    elif selected_analysis == 'Time Categorized Orders':
+        fig = px.bar(result, x='time_of_day', y='order_count', color='item_name',
+                     title='Most Ordered Items by Time of Day')
+        fig.update_layout(template='plotly_white')
+
+    elif selected_analysis == 'Cohort Analysis':
+        fig = go.Figure()
+
+        # Add trace for customer count
+        fig.add_trace(go.Scatter(x=result['cohort_month'], y=result['customer_count'], mode='lines+markers',
+                                 name='Customer Count'))
+
+        # Add trace for average order value
+        fig.add_trace(go.Scatter(x=result['cohort_month'], y=result['average_order_value'], mode='lines+markers',
+                                 name='Average Order Value'))
+
+        # Add trace for average rating
+        fig.add_trace(go.Scatter(x=result['cohort_month'], y=result['average_rating'], mode='lines+markers',
+                                 name='Average Rating'))
+
+        # Update layout
+        fig.update_layout(title='Cohort Analysis',
+                          xaxis_title='Cohort Month',
+                          yaxis_title='Value',
+                          legend_title='Metrics')
+    elif selected_analysis == 'Customer Life Time Value':
+        fig = px.bar(result, x='name', y='total_revenue', title='Customer Lifetime Value',
+                     color='total_revenue', color_continuous_scale='Viridis')
+        fig.update_layout(template='plotly_white', xaxis_tickangle=-45)
     fig.update_layout(
         hovermode='x unified',
         plot_bgcolor='rgba(0,0,0,0)',
         paper_bgcolor='rgba(0,0,0,0)',
         font=dict(
             family="Arial, sans-serif",
-            size=12,
+            size=16,
             color="RebeccaPurple"
         ),
         xaxis=dict(
@@ -90,7 +215,7 @@ def update_graph(selected_analysis):
             ticks='outside',
             tickfont=dict(
                 family='Arial',
-                size=12,
+                size=14,
                 color='black',
             ),
         ),
@@ -103,7 +228,7 @@ def update_graph(selected_analysis):
             ticks='outside',
             tickfont=dict(
                 family='Arial',
-                size=12,
+                size=14,
                 color='black',
             ),
         ),

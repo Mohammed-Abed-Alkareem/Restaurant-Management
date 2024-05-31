@@ -26,6 +26,6 @@ def not_found(e):
 
 
 if __name__ == '__main__':
-    # reset_db()
+    #reset_db()
 
     app.run(host='0.0.0.0', port=1111, debug=True)

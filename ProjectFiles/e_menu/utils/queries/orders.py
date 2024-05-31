@@ -6,7 +6,7 @@ CREATE_ORDERS_TABLE = text("""
                             customer_id CHAR(5),
                             table_code INTEGER,
                             payment_method_id CHAR(32),
-                            order_date DATE,
+                            order_date DATETIME,
                             FOREIGN KEY (customer_id) REFERENCES customers(id),
                             FOREIGN KEY (table_code) REFERENCES tables(code),
                             FOREIGN KEY (payment_method_id) REFERENCES paymentMethods(id)

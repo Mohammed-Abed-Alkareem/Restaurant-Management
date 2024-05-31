@@ -70,7 +70,6 @@ def insert_tables():
 
 def insert_customers():
     customers_data = get_customers_data()
-    print(customers_data)
     for customer in customers_data:
         customer_object = Customer(
             id=customer['id'],
@@ -80,7 +79,6 @@ def insert_customers():
             birth_year=customer['birth_year'],
             favourite_cuisine=customer['favourite_cuisine']
         )
-        print(customer)
         customer_object.insert()
 
 

@@ -1,9 +1,22 @@
+from datetime import datetime, timedelta
+
 import pandas as pd
 from faker import Faker
 import random
 import time
 
 fake = Faker()
+
+
+def gen_datetime(min_year, max_year):
+    # Generate a datetime in the format yyyy-mm-dd hh:mm:ss
+    year = random.randint(min_year, max_year)
+    month = random.randint(1, 12)
+    day = random.randint(1, 30)
+    hour = random.randint(6, 21)
+    minutes = random.randint(0, 59)
+    seconds = random.randint(0, 59)
+    return datetime(year, month, day, hour, minutes, seconds)
 
 
 def read_data_from_csv():
@@ -87,7 +100,7 @@ def generate_orders(customers, tables, payment_methods, min_orders=1, max_orders
                 'customer_id': customer_id,
                 'table_code': fake.random_element(tables['code'].tolist()),
                 'payment_method_id': fake.random_element(payment_methods['id'].tolist()),
-                'order_date': fake.date_time_this_year()
+                'order_date': gen_datetime(min_year=2020, max_year=2025)
             })
 
     orders_df = pd.DataFrame(orders_data)
