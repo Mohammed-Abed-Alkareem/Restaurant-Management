@@ -2,14 +2,14 @@ from sqlalchemy import text
 
 CREATE_EMPLOYEES_TABLE = text("""
                             CREATE TABLE IF NOT EXISTS employees(
-                            id CHAR(9) PRIMARY KEY,
+                            id CHAR(4) PRIMARY KEY,
                             name VARCHAR(40) NOT NULL,
-                            phone_number CHAR(10) NOT NULL,
+                            phone_number CHAR(10) Unique NOT NULL,
                             salary integer,
                             position VARCHAR(20) NOT NULL,
                             password CHAR(60) NOT NULL
                             );
-                        """)
+                        """) #phone must be unique
 
 DROP_EMPLOYEES_TABLE = text("""
                             DROP TABLE IF EXISTS employees;

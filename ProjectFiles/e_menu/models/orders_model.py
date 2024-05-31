@@ -89,15 +89,52 @@ class Order:
             conn.close()
 
     @classmethod
-    def get_all(cls):
+    def get_all(cls, table_code=None, customer_id=None, payment_method_id=None, from_date=None, to_date=None):
         conn = engine.connect()
         try:
             orders_objects = []
-            orders = conn.execute(GET_ORDERS_TABLE).fetchall()
+
+            # Base query
+            query = "SELECT * FROM orders WHERE 1=1"
+
+            # Parameters dictionary
+            params = {}
+
+            # Append conditions to the query
+            if customer_id is not None:
+                query += " AND customer_id = :customer_id"
+                params['customer_id'] = customer_id
+            if table_code is not None:
+                query += " AND table_code = :table_code"
+                params['table_code'] = table_code
+            if payment_method_id is not None:
+                query += " AND payment_method_id = :payment_method_id"
+                params['payment_method_id'] = payment_method_id
+            if from_date is not None:
+                if to_date is None:
+                    to_date = datetime.now().strftime("%Y-%m-%d")
+
+                if from_date > to_date:
+                    from_date, to_date = to_date, from_date
+
+                query += " AND order_date BETWEEN :from_date AND :to_date"
+                params['from_date'] = from_date
+                params['to_date'] = to_date
+
+
+            # Execute the query with parameters
+            orders = conn.execute(text(query), params)
+
+            # Map the results to Order objects
             for order in orders:
-                orders_objects.append(cls(id=order[0], customer_id=order[1],
-                                          table_code=order[2], payment_method_id=order[3],
-                                          order_date=order[4]))
+                orders_objects.append(cls(
+                    id=order[0],
+                    customer_id=order[1],
+                    table_code=order[2],
+                    payment_method_id=order[3],
+                    order_date=order[4]
+                ))
+
             return orders_objects
         except Exception as e:
             print(f"Error: {e}")

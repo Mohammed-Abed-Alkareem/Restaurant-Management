@@ -1,9 +1,9 @@
 
 
-{% extends "./base.html" %}
+{% extends "./base_manager.html" %}
 
 {% block title %}
-    Insert Employee
+    Update Table
 {% endblock %}
 
 {% block custom_css %}
@@ -19,7 +19,7 @@
 
         <!-- Form for submitting a table code -->
         <div class="form-overlay">
-            <form action="{{ url_for('employees.update_table', table_code=table.code) }}" method="POST"
+            <form id="update_table" action="{{ url_for('employees.update_table', table_code=table.code) }}" method="POST"
                   class="form-container">
                 <label for="table_location">Location:</label>
                 <input type="text" id="table_location" name="table_location" value="{{ table.location }}" required>
@@ -30,19 +30,36 @@
                 <label for="table_seats">Seats:</label>
                 <input type="number" id="table_seats" name="table_seats" value="{{ table.seats }}" required>
 
-                <div class="button-container">
-                    <button>Submit</button>
-                </div>
+               <div class="button-container">
+                <button type="button" onclick="setConfirmationCallback(() => document.getElementById('update_table').submit()); showModal();">Submit</button>
+            </div>
 
             </form>
 
             <div class="button-container">
-                <a href="{{ url_for('employees.delete_table', table_code=table.code) }}">
-                    <button>Delete</button>
-                </a>
+                <form id="deleteForm" action="{{ url_for('employees.delete_table', table_code=table.code) }}"
+                      method="post">
+                    <button type="button" onclick="setConfirmationCallback(() => document.getElementById('deleteForm').submit()); showModal();">Delete</button>
+                </form>
+
+
             </div>
 
         </div>
+
+
+
+        <!-- The Modal  -->
+        <div id="confirmationModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button" onclick="closeModal()">&times;</span> <!-- Close button "x" -->
+                <p>Are you sure you want to Proceed?</p>
+                <button class="modal-button yes" onclick="confirmAction()">Yes</button>
+                <button class="modal-button no" onclick="noAction()">No</button>
+            </div>
+        </div>
+
+
     </div>
 
 {% endblock %}

@@ -1,4 +1,4 @@
-{% extends "./base.html" %}
+{% extends "./base_manager.html" %}
 
 {% block title %}
     Sign In
@@ -34,7 +34,7 @@
             <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo">
 
             <div class="form-overlay">
-                <form action="{{ url_for('employees.sign_in') }}" method="post">
+                <form action="{{ url_for('employees.sign_in') }}" method="POST">
                     <label for="phone_number">Phone Number:</label><br>
                     <input type="text" id="phone_number" name="phone_number" required>
 

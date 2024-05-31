@@ -1,4 +1,4 @@
-{% extends "./base.html" %}
+{% extends "./base_manager.html" %}
 
 {% block title %}
     Insert Table
@@ -33,7 +33,7 @@
             <!-- Form for submitting a table code -->
             <div class="form-overlay">
              <h1>Insert Table</h1>
-    <form action="{{ url_for('employees.add_table') }}" method="post">
+    <form id="add_table" action="{{ url_for('employees.add_table') }}" method="post">
 
         <label for="table_location">Table Location:</label><br>
         <input type="text" id="table_location" name="table_location"><br>
@@ -48,9 +48,20 @@
 
 
 
-        <input type="submit" value="Submit">
+         <button type="button" onclick="setConfirmationCallback(() => document.getElementById('add_table').submit()); showModal();">Submit</button>
     </form>
             </div>
+
+
+    <div id="confirmationModal" class="modal">
+                            <div class="modal-content">
+                                <span class="close-button" onclick="closeModal()">&times;</span> <!-- Close button "x" -->
+                                <p>Are you sure you want to insert this table</p>
+                                <button class="modal-button yes" onclick="confirmAction()">Yes</button>
+                                <button class="modal-button no" onclick="noAction()">No</button>
+                            </div>
+                        </div>
+
         </div>
 
 

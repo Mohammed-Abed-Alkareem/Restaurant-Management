@@ -160,7 +160,10 @@ class MenuItems:
         conn = engine.connect()
         try:
             rows = conn.execute(GET_CATEGORIES_IN_MENU_ITEMS)
-            category_list = [category[0] for category in rows.fetchall()]
+            #remove spacing at begining and end of each category
+
+            category_list = [row[0].strip() for row in rows]
+
             return category_list
         except Exception as e:
             print(f"Error: {e}")

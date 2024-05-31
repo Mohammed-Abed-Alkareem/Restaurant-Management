@@ -18,8 +18,12 @@
 }
 
 .meal-image {
-  width: 100%;
-  border-radius: 8px;
+
+  width: 250px;
+
+  height: auto;
+  margin-bottom: 20px;
+
 }
 
 .right-side {

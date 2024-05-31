@@ -1,4 +1,4 @@
-{% extends "./base.html" %}
+{% extends "./base_manager.html" %}
 
 {% block title %}
     Home Page
@@ -57,9 +57,13 @@
             <span>View Tables</span>
         </a>
 
+           <a href="{{ url_for('employees.view_orders') }}" class="square" style="background-image: url('{{ url_for('static', filename='img/dashboard/view_orders.png') }}');">
+            <span>View Orders</span>
+        </a>
 
 
-        <!-- Add more buttons as needed -->
+
+
     </div>
 
 {% endblock %}

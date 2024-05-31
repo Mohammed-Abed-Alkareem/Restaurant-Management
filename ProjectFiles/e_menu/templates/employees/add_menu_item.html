@@ -1,4 +1,4 @@
-{% extends "./base.html" %}
+{% extends "./base_manager.html" %}
 
 {% block title %}
     Insert Menu Item
@@ -8,6 +8,7 @@
     {# Include custom CSS files for the child template #}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/add_menu_item.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/buttons.css') }}">
+
 {% endblock %}
 
 {% block content %}
@@ -33,7 +34,7 @@
         <!-- Form for submitting a table code -->
         <div class="form-overlay">
             <h1>Add Menu Item</h1>
-            <form action="{{ url_for('employees.add_menu_item') }}" method="post" enctype="multipart/form-data">
+            <form id="add_menu" action="{{ url_for('employees.add_menu_item') }}" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="item_name">Item Name:</label>
                     <input type="text" id="item_name" name="item_name" required>
@@ -54,14 +55,26 @@
                         {% endfor %}
                     </select>
                 </div>
+
                 <div class="form-group">
                     <label for="item_image">Item Image:</label>
                     <input type="file" id="item_image" name="item_image" accept="image/*" required>
                 </div>
 
-                <button type="submit">Add Item</button>
+
+            <button type="button" onclick="setConfirmationCallback(() => document.getElementById('add_menu').submit()); showModal();">Submit</button>
             </form>
         </div>
+
+                        <div id="confirmationModal" class="modal">
+                            <div class="modal-content">
+                                <span class="close-button" onclick="closeModal()">&times;</span> <!-- Close button "x" -->
+                                <p>Are you sure you want to insert this menuItem</p>
+                                <button class="modal-button yes" onclick="confirmAction()">Yes</button>
+                                <button class="modal-button no" onclick="noAction()">No</button>
+                            </div>
+                        </div>
+
     </div>
 
 

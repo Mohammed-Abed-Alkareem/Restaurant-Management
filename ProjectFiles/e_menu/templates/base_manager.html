@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/flashed_messages.css') }}"/>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/confirm_message.css') }}"/>
+
+    {% block custom_css %}
+    {% endblock %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Flask App{% endblock %}</title>
+</head>
+<body>
+
+<header>
+    <nav>
+        <a href="{{ url_for('employees.dashboard') }}" class="logo-link">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Restaurant Logo" class="logo">
+            <h1>Restaurant <span class="highlight">Name</span></h1>
+        </a>
+    </nav>
+</header>
+
+
+{% block content %}
+    <!-- This block will be overridden by child templates -->
+{% endblock %}
+
+<footer>
+    <div class="footer__top">
+        <h1>Restaurant <span class="highlight">Name</span></h1>
+    </div>
+    <div class="footer__bottom">
+        <div class="footer__wrapper">
+            <div>
+                <h3>Information</h3>
+                <ul>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#">Events</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>Social</h3>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Linkedin</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<script src="{{ url_for('static', filename='js/alert.js') }}"></script>
+<script src="{{ url_for('static', filename='js/confirm_message.js') }}"></script>
+
+</body>
+</html>
