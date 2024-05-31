@@ -13,7 +13,7 @@ from ProjectFiles.e_menu.utils.queries.employees import *
 from ProjectFiles.e_menu.utils.queries.employees import *
 
 # Encode the password
-encoded_password = urllib.parse.quote_plus('Mohammed@123')
+encoded_password = urllib.parse.quote_plus('mosatukba1')
 print(encoded_password)
 # Construct the connection string
 DATABASE = f'mysql+pymysql://root:{encoded_password}@127.0.0.1/e_menu'

@@ -15,7 +15,8 @@ def get_menu_items_data():
             'name': row['name'],
             'description': row['description'],
             'category': row['category'],
-            'price': row['price']
+            'price': row['price'],
+            'cuisine_type': row['cuisine_type']
         }
 
         menuItems_data.append(data)
@@ -70,11 +71,13 @@ def get_customers_data():
         data = {
             'id': row['id'],
             'name': row['name'],
-            'phone_number': row['phone_number']
+            'phone_number': row['phone_number'],
+            'gender': row['gender'],
+            'birth_year': row['birth_year'],
+            'favourite_cuisine': row['favourite_cuisine']
         }
 
         customers_data.append(data)
-
     return customers_data
 
 

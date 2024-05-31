@@ -1,13 +1,26 @@
 import os
 
+from flask import render_template, request, session, redirect, url_for, flash, current_app, Flask, Blueprint, jsonify
+import matplotlib.pyplot as plt
+import io
+import base64
+
 from flask import render_template, request, session, redirect, url_for, flash, current_app
 
 from ProjectFiles.e_menu.models.employees_model import Employee
 from ProjectFiles.e_menu.models.menuItems_model import *
 from ProjectFiles.e_menu.models.orders_details_model import *
+
+
+from ProjectFiles.e_menu.models.ratings_model import *
+from ProjectFiles.e_menu.models.employees_model import Employee
+from ProjectFiles.e_menu.models.data_analysis_model import update_graph, queries
+
+
 from ProjectFiles.e_menu.models.orders_model import *
 from ProjectFiles.e_menu.models.tables_model import *
 from . import employees  # Import the blueprint from the package
+
 
 # allow only png images
 ALLOWED_EXTENSIONS = {'png'}
@@ -28,6 +41,19 @@ ALLOWED_EXTENSIONS = {'png'}
 @employees.route("sign_in", methods=['GET', 'POST'])
 def sign_in():
     session.clear()
+
+    return redirect(url_for('employees.sign_in'))
+
+@employees.route('/view_statistics', methods=['GET'])
+def view_statistics():
+    selected_analysis = request.args.get('selected_value')
+    plot_html = update_graph(selected_analysis)
+
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return jsonify(plot_html=plot_html)
+
+    return render_template("employees/analysis.html", plot_html=plot_html, queries=queries, selected_analysis=selected_analysis)
+
 
     if request.method == 'POST':
         phone_number = request.form.get('phone_number')

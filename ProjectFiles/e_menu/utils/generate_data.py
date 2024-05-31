@@ -1,9 +1,22 @@
+from datetime import datetime, timedelta
+
 import pandas as pd
 from faker import Faker
 import random
 import time
 
 fake = Faker()
+
+
+def gen_datetime(min_year, max_year):
+    # Generate a datetime in the format yyyy-mm-dd hh:mm:ss
+    year = random.randint(min_year, max_year)
+    month = random.randint(1, 12)
+    day = random.randint(1, 30)
+    hour = random.randint(6, 21)
+    minutes = random.randint(0, 59)
+    seconds = random.randint(0, 59)
+    return datetime(year, month, day, hour, minutes, seconds)
 
 
 def read_data_from_csv():
@@ -43,20 +56,33 @@ def generate_customers():
     random.seed(time.time())  # Seed the random number generator with current date and time
 
     # Generate a list of elements with format ({name},{phone number})
+    genders = ['Male', 'Female']
+    cuisines = ['Turkish', 'Mediterranean', 'American', 'Italian', 'French', 'Greek', 'Seafood', 'Beverages']
+
     customers_data = []
+
     for _ in range(50):
-        fake_name = fake.name()
 
         prefixes = ['052', '056', '059']
         prefix = random.choice(prefixes)
         suffix = fake.numerify('#######')  # Generates a 7-digit random number
 
         fake_phone_number = f"{prefix}{suffix}"
+        fake_gender = random.choice(genders)
+        fake_birth_year = random.randint(1950, 2010)  # Random birth year between 1950 and 2010
+        fake_favourite_cuisine = random.choice(cuisines)
 
+        if fake_gender == 'Male':
+            fake_name = fake.first_name_male() + ' ' + fake.last_name()
+        else:
+            fake_name = fake.first_name_female() + ' ' + fake.last_name()
         customers_data.append({
             'id': generate_key('C', customers_data),
             'name': fake_name,
-            'phone_number': fake_phone_number
+            'phone_number': fake_phone_number,
+            'gender': fake_gender,
+            'birth_year': fake_birth_year,
+            'favourite_cuisine': fake_favourite_cuisine
         })
 
     customers_df = pd.DataFrame(customers_data)
@@ -74,7 +100,7 @@ def generate_orders(customers, tables, payment_methods, min_orders=1, max_orders
                 'customer_id': customer_id,
                 'table_code': fake.random_element(tables['code'].tolist()),
                 'payment_method_id': fake.random_element(payment_methods['id'].tolist()),
-                'order_date': fake.date_time_this_year()
+                'order_date': gen_datetime(min_year=2020, max_year=2025)
             })
 
     orders_df = pd.DataFrame(orders_data)

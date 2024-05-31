@@ -4,7 +4,10 @@ CREATE_CUSTOMERS_TABLE = text("""
                             CREATE TABLE IF NOT EXISTS customers(
                             id char(5) PRIMARY KEY,
                             name varchar(40) NOT NULL,
-                            phone_number char(10) NOT NULL
+                            phone_number char(10) NOT NULL,
+                            gender varchar(10),
+                            birth_year int,
+                            favourite_cuisine varchar(20)
                             );
                         """)
 
@@ -13,8 +16,8 @@ DROP_CUSTOMERS_TABLE = text("""
                             """)
 
 INSERT_CUSTOMERS_TABLE = text("""
-                                INSERT INTO customers (id, name, phone_number) 
-                                VALUES (:id, :name, :phone_number);
+                                INSERT INTO customers (id, name, phone_number, gender, birth_year, favourite_cuisine) 
+                                VALUES (:id, :name, :phone_number, :gender, :birth_year, :favourite_cuisine);
                             """)
 
 GET_CUSTOMERS_TABLE = text("""
