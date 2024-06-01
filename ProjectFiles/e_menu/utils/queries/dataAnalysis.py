@@ -18,6 +18,7 @@ FROM customers
 GROUP BY favourite_cuisine
 """)
 
+#Mohammed
 visit_frequency = text("""
 SELECT c.name, COUNT(o.id) AS visit_count
 FROM customers AS c
@@ -26,6 +27,7 @@ GROUP BY c.name
 ORDER BY visit_count DESC
 """)
 
+#Mohammed
 spending_patterns = text("""
 SELECT c.name, SUM(od.price * od.quantity) AS total_spent
 FROM customers AS c
@@ -50,6 +52,7 @@ JOIN orderDetails AS od ON m.id = od.item_id
 GROUP BY m.category
 """)
 
+Mohammed
 yearly_sales = text("""
 SELECT YEAR(o.order_date) AS year, SUM(od.price * od.quantity) AS total
 FROM orders AS o
@@ -120,6 +123,7 @@ table_location_ratings = text("""
 """)
 
 
+#Mohammed
 most_profitable_items = text("""
     SELECT mi.name AS item_name, SUM(od.quantity * mi.price) AS total_revenue, AVG(r.rating) AS average_rating
     FROM Menu_Items mi
