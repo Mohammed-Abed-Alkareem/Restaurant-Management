@@ -52,7 +52,7 @@ JOIN orderDetails AS od ON m.id = od.item_id
 GROUP BY m.category
 """)
 
-Mohammed
+#Mohammed
 yearly_sales = text("""
 SELECT YEAR(o.order_date) AS year, SUM(od.price * od.quantity) AS total
 FROM orders AS o
