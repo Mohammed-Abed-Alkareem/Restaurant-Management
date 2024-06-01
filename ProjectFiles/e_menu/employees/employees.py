@@ -41,20 +41,6 @@ ALLOWED_EXTENSIONS = {'png'}
 @employees.route("sign_in", methods=['GET', 'POST'])
 def sign_in():
     session.clear()
-
-    return redirect(url_for('employees.sign_in'))
-
-@employees.route('/view_statistics', methods=['GET'])
-def view_statistics():
-    selected_analysis = request.args.get('selected_value')
-    plot_html = update_graph(selected_analysis)
-
-    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-        return jsonify(plot_html=plot_html)
-
-    return render_template("employees/analysis.html", plot_html=plot_html, queries=queries, selected_analysis=selected_analysis)
-
-
     if request.method == 'POST':
         phone_number = request.form.get('phone_number')
         password = request.form.get('password')
@@ -74,6 +60,22 @@ def view_statistics():
 
     else:
         return render_template("employees/sign_in.html")
+
+
+    return redirect(url_for('employees.sign_in'))
+
+@employees.route('/view_statistics', methods=['GET'])
+def view_statistics():
+    selected_analysis = request.args.get('selected_value')
+    plot_html = update_graph(selected_analysis)
+
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return jsonify(plot_html=plot_html)
+
+    return render_template("employees/analysis.html", plot_html=plot_html, queries=queries, selected_analysis=selected_analysis)
+
+
+
 
 
 ###########################################
