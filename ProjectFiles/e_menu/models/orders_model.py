@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from . import *
 
@@ -117,7 +117,13 @@ class Order:
                 if from_date > to_date:
                     from_date, to_date = to_date, from_date
 
+                to_date = datetime.strptime(to_date, "%Y-%m-%d")
+                to_date += timedelta(days=1)
+
+
+
                 query += " AND order_date BETWEEN :from_date AND :to_date"
+
                 params['from_date'] = from_date
                 params['to_date'] = to_date
 
