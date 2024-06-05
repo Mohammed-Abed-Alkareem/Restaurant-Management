@@ -43,13 +43,8 @@ def sign_in():
     session.clear()
     if request.method == 'POST':
         phone_number = request.form.get('phone_number')
-        print(phone_number)
         password = request.form.get('password')
-        print(password)
         employee = Employee.get_by_phone_number(phone_number)
-        for emp in Employee.get_all():
-            print(emp.phone_number)
-            print(emp.password)
         if employee:
 
             hashed_password = employee.password
