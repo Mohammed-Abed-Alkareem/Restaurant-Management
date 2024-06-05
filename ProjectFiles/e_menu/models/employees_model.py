@@ -9,11 +9,11 @@ class Employee:
     def __init__(self, name, phone_number, salary, position, password, id=None, hash_password=True):
 
         if id is None:
-            id=generate_key('E')
+            id = generate_key('E')
 
         self.id = id
         self.name = name.strip()
-        self.phone_number = phone_number.strip()
+        self.phone_number = phone_number
         self.salary = salary
         self.position = position.strip()
         if hash_password:

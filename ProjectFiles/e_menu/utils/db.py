@@ -21,7 +21,7 @@ def init_db():
     Order.create_table()
     OrderDetails.create_table()
     Rating.create_table()
-    # Employee.create_table()
+    Employee.create_table()
     # _________________________
 
     # inset any initial data
@@ -33,7 +33,7 @@ def init_db():
     insert_orders()
     insert_orders_details()
     insert_ratings()
-    # insert_employee()
+    insert_employees()
     # _________________________
 
 
@@ -48,7 +48,7 @@ def reset_db():
     Table.drop_table()
     Customer.drop_table()
     PaymentMethod.drop_table()
-    #Employee.drop_table()
+    Employee.drop_table()
     # _________________________
 
     init_db()
@@ -159,7 +159,6 @@ def insert_employees():
 
     for employee in employees_data:
         employee_object = Employee(
-            id=employee['id'],
             name=employee['name'],
             phone_number=employee['phone_number'],
             salary=employee['salary'],
