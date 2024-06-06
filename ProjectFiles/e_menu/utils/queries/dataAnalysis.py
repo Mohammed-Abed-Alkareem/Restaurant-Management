@@ -1,7 +1,5 @@
 from sqlalchemy import text
 
-
-
 # ╔════════════════════════════════╗
 # ║                                ║
 # ║            Mohammed            ║
