@@ -56,14 +56,21 @@ def sign_up():
     if request.method == 'POST':
         customer_name = request.form['name']
         customer_phone = request.form['phone']
+        customer_gender = request.form['gender']
+        customer_birth_year = request.form['birth_year']
+        customer_favourite_cuisine = request.form['favourite_cuisine']
 
-        check = Customer.insert(Customer(name=customer_name, phone_number=customer_phone))
+        check = Customer.insert(Customer(
+            name=customer_name,
+            phone_number=customer_phone,
+            gender=customer_gender,
+            birth_year=customer_birth_year,
+            favourite_cuisine=customer_favourite_cuisine
+        ))
 
-        # check insert_customer(customer_name, customer_phone)
         if check:
             flash("Added Successfully", "success")
             return redirect(url_for('customers.log_in'))
-
         else:
             flash("Cannot be Added! already registered!", "danger")
 

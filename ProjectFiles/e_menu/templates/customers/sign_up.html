@@ -9,6 +9,20 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/homePage.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/buttons.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/flashed_messages.css') }}">
+    <style>
+        .form-input, .form-select {
+            width: 93%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .form-select {
+            height: 45px;
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
@@ -28,36 +42,56 @@
         </div>
     {% endfor %}
 
-
     <div class="full-screen">
         <div class="logo">
             <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo">
             <!-- Form for submitting a table code -->
             <div class="form-overlay">
                 <h2><span class="highlight">Welcome</span></h2>
-                <p>Please enter your name and phone number</p>
+                <p>Please enter your details</p>
                 <form action="{{ url_for('customers.sign_up') }}" method="POST">
                     <label for="name"></label><input
                         type="text"
                         id="name"
                         name="name"
+                        class="form-input"
                         placeholder="Your first and last name"
                         required
-                />
+                    />
                     <label for="phone"></label><input
                         type="tel"
                         id="phone"
                         name="phone"
+                        class="form-input"
                         placeholder="Your Phone Number"
                         pattern="[0-9]{10}"
                         required
-                />
+                    />
+                    <label for="gender"></label>
+                    <select id="gender" name="gender" class="form-select" required>
+                        <option value="" disabled selected>Select your gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                    <label for="birth_year"></label>
+                    <select id="birth_year" name="birth_year" class="form-select" required>
+                        <option value="" disabled selected>Select your birth year</option>
+                        {% for year in range(1940, 2023) %}
+                            <option value="{{ year }}">{{ year }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="favourite_cuisine"></label>
+                    <select id="favourite_cuisine" name="favourite_cuisine" class="form-select" required>
+                        <option value="" disabled selected>Select your favourite cuisine</option>
+                        {% for cuisine in ['Turkish', 'Mediterranean', 'American', 'Italian', 'French', 'Greek', 'Seafood', 'Beverages'] %}
+                            <option value="{{ cuisine }}">{{ cuisine }}</option>
+                        {% endfor %}
+                    </select>
                     <div class="button-container">
                         <button type="submit">Submit</button>
                     </div>
                 </form>
             </div>
         </div>
-
     </div>
 {% endblock %}

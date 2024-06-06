@@ -4,7 +4,7 @@ CREATE_CUSTOMERS_TABLE = text("""
                             CREATE TABLE IF NOT EXISTS customers(
                             id char(5) PRIMARY KEY,
                             name varchar(40) NOT NULL,
-                            phone_number char(10) NOT NULL,
+                            phone_number char(10) NOT NULL UNIQUE,
                             gender varchar(10),
                             birth_year int,
                             favourite_cuisine varchar(20)

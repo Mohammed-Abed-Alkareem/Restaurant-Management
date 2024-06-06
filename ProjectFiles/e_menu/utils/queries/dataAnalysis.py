@@ -115,34 +115,35 @@ ORDER BY payment_date, o.payment_method_id
 """)
 
 table_location_ratings = text("""
-    SELECT t.location, AVG(r.rating) AS average_rating, AVG(r.food_rating) AS average_food_rating, AVG(r.service_rating) AS average_service_rating
+    SELECT t.location, AVG(r.rating) AS average_rating,
+     AVG(r.food_rating) AS average_food_rating, AVG(r.service_rating) AS average_service_rating
     FROM Tables t
-    JOIN Orders o ON t.table_code = o.table_code
-    JOIN Rate r ON o.order_id = r.order_id
+    JOIN Orders o ON t.code = o.table_code
+    JOIN Ratings r ON o.id = r.order_id
     GROUP BY t.location
 """)
 
 
 #Mohammed
 most_profitable_items = text("""
-    SELECT mi.name AS item_name, SUM(od.quantity * mi.price) AS total_revenue, AVG(r.rating) AS average_rating
-    FROM Menu_Items mi
-    JOIN Order_Details od ON mi.item_id = od.item_id
-    JOIN Orders o ON od.order_id = o.order_id
-    JOIN Rate r ON o.order_id = r.order_id
+    SELECT mi.name AS item_name, SUM(od.quantity * od.price) AS total_revenue, AVG(r.rating) AS average_rating
+    FROM MenuItems mi
+    JOIN OrderDetails od ON mi.id = od.item_id
+    JOIN Orders o ON od.order_id = o.id
+    JOIN Ratings r ON o.id = r.order_id
     GROUP BY mi.name
     ORDER BY total_revenue DESC
 """)
 
 
 payment_methods_impact = text("""
-    SELECT pm.id AS payment_method, AVG(od.quantity * mi.price) AS average_order_value, COUNT(o.order_id) AS order_count, AVG(r.rating) AS average_rating
-    FROM Payment_Method pm
-    JOIN Orders o ON pm.payment_id = o.payment_id
-    JOIN Order_Details od ON o.order_id = od.order_id
-    JOIN Menu_Items mi ON od.item_id = mi.item_id
-    JOIN Rate r ON o.order_id = r.order_id
-    GROUP BY pm.description
+    SELECT pm.id AS payment_method, AVG(od.quantity * od.price) AS average_order_value,
+     COUNT(o.id) AS order_count, AVG(r.rating) AS average_rating
+    FROM PaymentMethods pm
+    JOIN Orders o ON pm.id = o.payment_method_id
+    JOIN OrderDetails od ON o.id = od.order_id
+    JOIN Ratings r ON o.id = r.order_id
+    GROUP BY pm.id
 """)
 
 

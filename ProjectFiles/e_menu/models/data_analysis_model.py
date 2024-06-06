@@ -25,7 +25,10 @@ queries = {
     "Payment Trends": da.payment_trends,
     "Time Categorized Orders": da.time_categorized_orders,
     "Cohort Analysis": da.cohort_analysis,
-    "Customer Life Time Value": da.customer_lifetime_value
+    "Customer Life Time Value": da.customer_lifetime_value,
+    "Table Location Ratings": da.table_location_ratings,
+    "Most Profitable Items": da.most_profitable_items,
+    "Payment Methods Impact": da.payment_methods_impact
 }
 
 
@@ -196,6 +199,20 @@ def update_graph(selected_analysis):
     elif selected_analysis == 'Customer Life Time Value':
         fig = px.bar(result, x='name', y='total_revenue', title='Customer Lifetime Value',
                      color='total_revenue', color_continuous_scale='Viridis')
+        fig.update_layout(template='plotly_white', xaxis_tickangle=-45)
+    elif selected_analysis == 'Table Location Ratings':
+        fig = px.bar(result, x='location', y='average_rating', title='Table Location Ratings',
+                     color='average_rating', color_continuous_scale='Bluered')
+        fig.update_layout(template='plotly_white', xaxis_tickangle=-45)
+
+    elif selected_analysis == 'Most Profitable Items':
+        fig = px.bar(result, x='item_name', y='total_revenue', title='Most Profitable Items',
+                     color='total_revenue', color_continuous_scale='Viridis')
+        fig.update_layout(template='plotly_white', xaxis_tickangle=-45)
+
+    elif selected_analysis == 'Payment Methods Impact':
+        fig = px.bar(result, x='payment_method', y='average_order_value', title='Payment Methods Impact',
+                     color='average_order_value', color_continuous_scale='Teal')
         fig.update_layout(template='plotly_white', xaxis_tickangle=-45)
     fig.update_layout(
         hovermode='x unified',

@@ -140,6 +140,7 @@ def get_ratings_data():
 
     return ratings_data
 
+
 def get_employees_data():
     df = pd.read_csv(PATH + 'employees.csv')
     df.fillna('', inplace=True)
@@ -148,9 +149,8 @@ def get_employees_data():
 
     for index, row in df.iterrows():
         data = {
-            'id': row['id'],
             'name': row['name'],
-            'phone_number': row['phone_number'],
+            'phone_number': '0' + str(row['phone_number']),
             'salary': row['salary'],
             'position': row['position'],
             'password': row['password']

@@ -4,7 +4,7 @@ CREATE_EMPLOYEES_TABLE = text("""
                             CREATE TABLE IF NOT EXISTS employees(
                             id CHAR(4) PRIMARY KEY,
                             name VARCHAR(40) NOT NULL,
-                            phone_number CHAR(10) Unique NOT NULL,
+                            phone_number CHAR(10) NOT NULL UNIQUE,
                             salary integer,
                             position VARCHAR(20) NOT NULL,
                             password CHAR(60) NOT NULL
