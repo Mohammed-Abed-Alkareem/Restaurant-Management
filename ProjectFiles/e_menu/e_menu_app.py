@@ -1,9 +1,9 @@
 from flask import Flask, render_template
 
-from customers import customers
-from employees import employees
+from ProjectFiles.e_menu.customers import customers
+from ProjectFiles.e_menu.employees import employees
 
-from utils.db import reset_db
+from ProjectFiles.e_menu.utils.db import reset_db
 
 app = Flask(__name__)
 
