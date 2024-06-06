@@ -1,5 +1,75 @@
 from sqlalchemy import text
 
+
+
+# ╔════════════════════════════════╗
+# ║                                ║
+# ║            Mohammed            ║
+# ║                                ║
+# ╚════════════════════════════════╝
+
+visit_frequency = text("""
+SELECT c.name, COUNT(o.id) AS visit_count
+FROM customers AS c
+JOIN orders AS o ON c.id = o.customer_id
+GROUP BY c.name
+ORDER BY visit_count DESC
+""")
+
+
+spending_patterns = text("""
+SELECT c.name, SUM(od.price * od.quantity) AS total_spent
+FROM customers AS c
+JOIN orders AS o ON c.id = o.customer_id
+JOIN orderDetails AS od ON o.id = od.order_id
+GROUP BY c.id, c.name
+ORDER BY total_spent DESC
+""")
+
+
+best_selling_items = text("""
+SELECT m.name, COUNT(od.quantity) AS count
+FROM menuItems AS m
+JOIN orderDetails AS od ON m.id = od.item_id
+GROUP BY m.name
+ORDER BY count DESC
+""")
+
+
+yearly_sales = text("""
+SELECT YEAR(o.order_date) AS year, SUM(od.price * od.quantity) AS total
+FROM orders AS o
+JOIN orderDetails AS od ON o.id = od.order_id
+GROUP BY year
+ORDER BY year
+""")
+
+#Mohammed
+table_location_ratings = text("""
+    SELECT t.location, AVG(r.rating) AS average_rating,
+     AVG(r.food_rating) AS average_food_rating, AVG(r.service_rating) AS average_service_rating
+    FROM Tables t
+    JOIN Orders o ON t.code = o.table_code
+    JOIN Ratings r ON o.id = r.order_id
+    GROUP BY t.location
+""")
+
+
+#Mohammed
+most_profitable_items = text("""
+    SELECT mi.name AS item_name, SUM(od.quantity * od.price) AS total_revenue, AVG(r.rating) AS average_rating
+    FROM MenuItems mi
+    JOIN OrderDetails od ON mi.id = od.item_id
+    JOIN Orders o ON od.order_id = o.id
+    JOIN Ratings r ON o.id = r.order_id
+    GROUP BY mi.name
+    ORDER BY total_revenue DESC
+""")
+
+#*****************************************************************************************
+#*****************************************************************************************
+
+
 gender_distribution = text("""
 SELECT gender, COUNT(*) AS count
 FROM customers
@@ -18,32 +88,7 @@ FROM customers
 GROUP BY favourite_cuisine
 """)
 
-#Mohammed
-visit_frequency = text("""
-SELECT c.name, COUNT(o.id) AS visit_count
-FROM customers AS c
-JOIN orders AS o ON c.id = o.customer_id
-GROUP BY c.name
-ORDER BY visit_count DESC
-""")
 
-#Mohammed
-spending_patterns = text("""
-SELECT c.name, SUM(od.price * od.quantity) AS total_spent
-FROM customers AS c
-JOIN orders AS o ON c.id = o.customer_id
-JOIN orderDetails AS od ON o.id = od.order_id
-GROUP BY c.id, c.name
-ORDER BY total_spent DESC
-""")
-
-best_selling_items = text("""
-SELECT m.name, COUNT(od.quantity) AS count
-FROM menuItems AS m
-JOIN orderDetails AS od ON m.id = od.item_id
-GROUP BY m.name
-ORDER BY count DESC
-""")
 
 category_performance = text("""
 SELECT m.category, SUM(od.price * od.quantity) AS total
@@ -52,14 +97,7 @@ JOIN orderDetails AS od ON m.id = od.item_id
 GROUP BY m.category
 """)
 
-#Mohammed
-yearly_sales = text("""
-SELECT YEAR(o.order_date) AS year, SUM(od.price * od.quantity) AS total
-FROM orders AS o
-JOIN orderDetails AS od ON o.id = od.order_id
-GROUP BY year
-ORDER BY year
-""")
+
 
 monthly_sales = text("""
 SELECT MONTH(o.order_date) AS month, SUM(od.price * od.quantity) AS total
@@ -86,6 +124,7 @@ GROUP BY m.name
 ORDER BY order_count DESC
 LIMIT 10
 """)
+
 
 rating_trends = text("""
 SELECT DATE(o.order_date) AS rating_date, AVG(r.rating) AS avg_rating
@@ -114,26 +153,7 @@ GROUP BY payment_date, o.payment_method_id
 ORDER BY payment_date, o.payment_method_id
 """)
 
-table_location_ratings = text("""
-    SELECT t.location, AVG(r.rating) AS average_rating,
-     AVG(r.food_rating) AS average_food_rating, AVG(r.service_rating) AS average_service_rating
-    FROM Tables t
-    JOIN Orders o ON t.code = o.table_code
-    JOIN Ratings r ON o.id = r.order_id
-    GROUP BY t.location
-""")
 
-
-#Mohammed
-most_profitable_items = text("""
-    SELECT mi.name AS item_name, SUM(od.quantity * od.price) AS total_revenue, AVG(r.rating) AS average_rating
-    FROM MenuItems mi
-    JOIN OrderDetails od ON mi.id = od.item_id
-    JOIN Orders o ON od.order_id = o.id
-    JOIN Ratings r ON o.id = r.order_id
-    GROUP BY mi.name
-    ORDER BY total_revenue DESC
-""")
 
 
 payment_methods_impact = text("""
