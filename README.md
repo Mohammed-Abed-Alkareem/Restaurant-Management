@@ -42,3 +42,8 @@
 - `static/`: Holds static files such as CSS, images, and JavaScript.
 - `templates/`: Stores HTML templates for different views of the application.
 - `utils/`: Contains utility files including database operations and data reading functionalities.
+
+  ## License
+
+This project is licensed under a custom proprietary license. Permission is required from the repository owner to use this software. For more details, see the [LICENSE](./LICENSE) file.
+
