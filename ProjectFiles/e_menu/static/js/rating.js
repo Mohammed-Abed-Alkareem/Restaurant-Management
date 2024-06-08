@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
     highlightStars(starsContainer, rating);
 
     // Update hidden input field with the rating based on the rating type
+    // This is where we send the cusotmer rating to the backend
     const hiddenField = starsContainer.querySelector(
       `input[name=${CSS.escape(ratingId)}]`
     );
@@ -38,8 +39,15 @@ document.addEventListener("DOMContentLoaded", function () {
   function highlightStars(starsContainer, rating) {
     const stars = starsContainer.querySelectorAll(".star");
 
+    // We iterate over the each star to check which one to
+    // highlight
     stars.forEach(function (star) {
+      // We get the rating of each of the five stars at
+      // every iteration
       const starRating = parseInt(star.getAttribute("data-rating"));
+
+      // if the value of the current star is less than the rating
+      // of the user, then highlight it, else, don't
       if (starRating <= rating) {
         star.style.color = "#ffcc00";
       } else {

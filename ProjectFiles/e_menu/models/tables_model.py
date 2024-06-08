@@ -9,17 +9,6 @@ class Table:
         self.location = location
         self.type = type
         self.seats = seats
-    # def __init__(self, *args):
-    #     if len(args) == 4:
-    #         self.code = args[0]
-    #         self.location = args[1].strip()
-    #         self.type = args[2].strip()
-    #         self.seats = args[3]
-    #     else:
-    #         self.code = generate_key('T')
-    #         self.location = args[0].strip()
-    #         self.type = args[1].strip()
-    #         self.seats = args[2]
 
     @staticmethod
     def create_table():

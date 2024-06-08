@@ -68,16 +68,15 @@ most_profitable_items = text("""
 #*****************************************************************************************
 
 
+# ╔════════════════════════════════╗
+# ║                                ║
+# ║            Mosa            ║
+# ║                                ║
+# ╚════════════════════════════════╝
 gender_distribution = text("""
 SELECT gender, COUNT(*) AS count
 FROM customers
 GROUP BY gender
-""")
-
-age_distribution = text("""
-SELECT (YEAR(CURDATE()) - birth_year) AS age, COUNT(*) AS count
-FROM customers
-GROUP BY age
 """)
 
 favorite_cuisine_preferences = text("""
@@ -132,6 +131,45 @@ GROUP BY rating_date
 ORDER BY rating_date
 """)
 
+customer_lifetime_value = text("""
+    WITH CustomerOrders AS (
+        SELECT c.id AS customer_id, 
+               o.id AS order_id,
+               SUM(od.quantity * mi.price) AS order_value
+        FROM Customers c
+        JOIN Orders o ON c.id = o.customer_id
+        JOIN OrderDetails od ON o.id = od.order_id
+        JOIN MenuItems mi ON od.item_id = mi.id
+        GROUP BY c.id, o.id
+    ),
+    CustomerRevenue AS (
+        SELECT customer_id, SUM(order_value) AS total_revenue
+        FROM CustomerOrders
+        GROUP BY customer_id
+    )
+    SELECT cr.customer_id, c.name, cr.total_revenue
+    FROM CustomerRevenue cr
+    JOIN Customers c ON cr.customer_id = c.id
+    ORDER BY cr.total_revenue DESC
+""")
+
+
+#**************************************************
+
+# ╔════════════════════════════════╗
+# ║                                ║
+# ║            Osama            ║
+# ║                                ║
+# ╚════════════════════════════════╝
+
+
+
+age_distribution = text("""
+SELECT (YEAR(CURDATE()) - birth_year) AS age, COUNT(*) AS count
+FROM customers
+GROUP BY age
+""")
+
 food_vs_service_ratings = text("""
 SELECT AVG(r.food_rating) AS food_rating, AVG(r.service_rating) AS service_rating
 FROM ratings AS r
@@ -150,8 +188,6 @@ FROM orders AS o
 GROUP BY payment_date, o.payment_method_id
 ORDER BY payment_date, o.payment_method_id
 """)
-
-
 
 
 payment_methods_impact = text("""
@@ -219,24 +255,3 @@ cohort_analysis = text("""
 """)
 
 
-customer_lifetime_value = text("""
-    WITH CustomerOrders AS (
-        SELECT c.id AS customer_id, 
-               o.id AS order_id,
-               SUM(od.quantity * mi.price) AS order_value
-        FROM Customers c
-        JOIN Orders o ON c.id = o.customer_id
-        JOIN OrderDetails od ON o.id = od.order_id
-        JOIN MenuItems mi ON od.item_id = mi.id
-        GROUP BY c.id, o.id
-    ),
-    CustomerRevenue AS (
-        SELECT customer_id, SUM(order_value) AS total_revenue
-        FROM CustomerOrders
-        GROUP BY customer_id
-    )
-    SELECT cr.customer_id, c.name, cr.total_revenue
-    FROM CustomerRevenue cr
-    JOIN Customers c ON cr.customer_id = c.id
-    ORDER BY cr.total_revenue DESC
-""")

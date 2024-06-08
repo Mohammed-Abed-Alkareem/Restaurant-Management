@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const quantityInput = document.querySelector(".quantity-input");
   const priceDisplay = document.querySelector(".price-display");
 
-  // we can call the function in javascript before it's decleration
+  // Extract the base price of one meal quantity
   let basePrice = extractPrice(priceDisplay.textContent);
 
   // Reset the price on referesh
@@ -30,8 +30,8 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   incrementButton.addEventListener("click", function () {
+    // Prevent going over the maximum limit
     if (parseInt(quantityInput.value, 10) >= 15) {
-      // Prevent going over the maximum limit
       quantityInput.value = 15;
     } else {
       quantityInput.value = parseInt(quantityInput.value, 10) + 1;
