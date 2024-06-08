@@ -32,6 +32,9 @@
 
 ```
 
+
+## objectives 
+
 ## ER Diagram
 ![ER Diagram](ER_diagram.png)
 ## Description
