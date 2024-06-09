@@ -66,14 +66,115 @@ most_profitable_items = text("""
 
 #*****************************************************************************************
 #*****************************************************************************************
+# ╔════════════════════════════════╗
+# ║                                ║
+# ║            Mosa                ║
+# ║                                ║
+# ╚════════════════════════════════╝
+# Mosa
+food_vs_service_ratings = text("""
+SELECT AVG(r.food_rating) AS food_rating, AVG(r.service_rating) AS service_rating
+FROM ratings AS r
+""")
+# Mosa
+popular_payment_methods = text("""
+SELECT payment_method_id, COUNT(*) AS method_count
+FROM orders
+GROUP BY payment_method_id
+ORDER BY method_count DESC
+""")
+
+# Mosa
+payment_trends = text("""
+SELECT DATE(o.order_date) AS payment_date, o.payment_method_id, COUNT(*) AS method_count
+FROM orders AS o
+GROUP BY payment_date, o.payment_method_id
+ORDER BY payment_date, o.payment_method_id
+""")
 
 
+
+# Mosa
+payment_methods_impact = text("""
+    SELECT pm.id AS payment_method, AVG(od.quantity * od.price) AS average_order_value,
+     COUNT(o.id) AS order_count, AVG(r.rating) AS average_rating
+    FROM PaymentMethods pm
+    JOIN Orders o ON pm.id = o.payment_method_id
+    JOIN OrderDetails od ON o.id = od.order_id
+    JOIN Ratings r ON o.id = r.order_id
+    GROUP BY pm.id
+""")
+
+# Mosa
+time_categorized_orders = text("""
+    WITH TimeCategorizedOrders AS (
+        SELECT o.id, 
+               CASE 
+                   WHEN EXTRACT(HOUR FROM o.order_date) BETWEEN 6 AND 10 THEN 'Breakfast'
+                   WHEN EXTRACT(HOUR FROM o.order_date) BETWEEN 11 AND 14 THEN 'Lunch'
+                   WHEN EXTRACT(HOUR FROM o.order_date) BETWEEN 18 AND 21 THEN 'Dinner'
+                   ELSE 'Other'
+               END AS time_of_day
+        FROM Orders o
+    ),
+    ItemOrderCounts AS (
+        SELECT tco.time_of_day, mi.name AS item_name, COUNT(od.item_id) AS order_count
+        FROM TimeCategorizedOrders tco
+        JOIN OrderDetails od ON tco.id = od.order_id
+        JOIN menuItems mi ON od.item_id = mi.id
+        WHERE tco.time_of_day IN ('Breakfast', 'Lunch', 'Dinner')
+        GROUP BY tco.time_of_day, mi.name
+    )
+    SELECT io.time_of_day, io.item_name, io.order_count
+    FROM ItemOrderCounts io
+    WHERE io.order_count = (
+        SELECT MAX(order_count)
+        FROM ItemOrderCounts sub_io
+        WHERE sub_io.time_of_day = io.time_of_day
+    )
+    ORDER BY io.order_count, io.time_of_day 
+""")
+# Mosa
+cohort_analysis = text("""
+    WITH FirstOrder AS (
+        SELECT customer_id, MIN(order_date) AS first_order_date
+        FROM Orders
+        GROUP BY customer_id
+    ),
+    CohortData AS (
+        SELECT c.id, fo.first_order_date, o.order_date,
+               TIMESTAMPDIFF(MONTH, fo.first_order_date, o.order_date) AS cohort_month
+        FROM Customers c
+        JOIN FirstOrder fo ON c.id = fo.customer_id
+        JOIN Orders o ON c.id = o.customer_id
+    )
+    SELECT cohort_month, COUNT(DISTINCT cd.id) AS customer_count,
+     AVG(od.quantity * mi.price) AS average_order_value, AVG(r.rating) AS average_rating
+    FROM CohortData cd
+    JOIN Orders o ON cd.id = o.customer_id
+    JOIN OrderDetails od ON o.id = od.order_id
+    JOIN MenuItems mi ON od.item_id = mi.id
+    JOIN Ratings r ON o.id = r.order_id
+    GROUP BY cohort_month
+    ORDER BY cohort_month
+""")
+
+# Mosa
+peak_hours = text("""
+SELECT EXTRACT(HOUR FROM o.order_date) AS hour, COUNT(*) / COUNT(DISTINCT DATE(o.order_date)) AS avg_orders
+FROM orders o
+GROUP BY hour
+ORDER BY avg_orders DESC, hour DESC
+LIMIT 3
+""")
+# Mosa
 gender_distribution = text("""
 SELECT gender, COUNT(*) AS count
 FROM customers
 GROUP BY gender
 """)
-
+# ******************************************************************************
+# ******************************************************************************
 age_distribution = text("""
 SELECT (YEAR(CURDATE()) - birth_year) AS age, COUNT(*) AS count
 FROM customers
@@ -105,13 +206,6 @@ GROUP BY month
 ORDER BY month
 """)
 
-peak_hours = text("""
-SELECT EXTRACT(HOUR FROM o.order_date) AS hour, COUNT(*) / COUNT(DISTINCT DATE(o.order_date)) AS avg_orders
-FROM orders o
-GROUP BY hour
-ORDER BY avg_orders DESC, hour DESC
-LIMIT 3
-""")
 
 popular_menu_items = text("""
 SELECT m.name, COUNT(*) AS order_count
@@ -130,92 +224,6 @@ FROM ratings AS r
 JOIN orders AS o ON o.id = r.order_id
 GROUP BY rating_date
 ORDER BY rating_date
-""")
-
-food_vs_service_ratings = text("""
-SELECT AVG(r.food_rating) AS food_rating, AVG(r.service_rating) AS service_rating
-FROM ratings AS r
-""")
-
-popular_payment_methods = text("""
-SELECT payment_method_id, COUNT(*) AS method_count
-FROM orders
-GROUP BY payment_method_id
-ORDER BY method_count DESC
-""")
-
-payment_trends = text("""
-SELECT DATE(o.order_date) AS payment_date, o.payment_method_id, COUNT(*) AS method_count
-FROM orders AS o
-GROUP BY payment_date, o.payment_method_id
-ORDER BY payment_date, o.payment_method_id
-""")
-
-
-
-
-payment_methods_impact = text("""
-    SELECT pm.id AS payment_method, AVG(od.quantity * od.price) AS average_order_value,
-     COUNT(o.id) AS order_count, AVG(r.rating) AS average_rating
-    FROM PaymentMethods pm
-    JOIN Orders o ON pm.id = o.payment_method_id
-    JOIN OrderDetails od ON o.id = od.order_id
-    JOIN Ratings r ON o.id = r.order_id
-    GROUP BY pm.id
-""")
-
-
-time_categorized_orders = text("""
-    WITH TimeCategorizedOrders AS (
-        SELECT o.id, 
-               CASE 
-                   WHEN EXTRACT(HOUR FROM o.order_date) BETWEEN 6 AND 10 THEN 'Breakfast'
-                   WHEN EXTRACT(HOUR FROM o.order_date) BETWEEN 11 AND 14 THEN 'Lunch'
-                   WHEN EXTRACT(HOUR FROM o.order_date) BETWEEN 18 AND 21 THEN 'Dinner'
-                   ELSE 'Other'
-               END AS time_of_day
-        FROM Orders o
-    ),
-    ItemOrderCounts AS (
-        SELECT tco.time_of_day, mi.name AS item_name, COUNT(od.item_id) AS order_count
-        FROM TimeCategorizedOrders tco
-        JOIN OrderDetails od ON tco.id = od.order_id
-        JOIN menuItems mi ON od.item_id = mi.id
-        WHERE tco.time_of_day IN ('Breakfast', 'Lunch', 'Dinner')
-        GROUP BY tco.time_of_day, mi.name
-    )
-    SELECT io.time_of_day, io.item_name, io.order_count
-    FROM ItemOrderCounts io
-    WHERE io.order_count = (
-        SELECT MAX(order_count)
-        FROM ItemOrderCounts sub_io
-        WHERE sub_io.time_of_day = io.time_of_day
-    )
-    ORDER BY io.order_count, io.time_of_day 
-""")
-
-cohort_analysis = text("""
-    WITH FirstOrder AS (
-        SELECT customer_id, MIN(order_date) AS first_order_date
-        FROM Orders
-        GROUP BY customer_id
-    ),
-    CohortData AS (
-        SELECT c.id, fo.first_order_date, o.order_date,
-               TIMESTAMPDIFF(MONTH, fo.first_order_date, o.order_date) AS cohort_month
-        FROM Customers c
-        JOIN FirstOrder fo ON c.id = fo.customer_id
-        JOIN Orders o ON c.id = o.customer_id
-    )
-    SELECT cohort_month, COUNT(DISTINCT cd.id) AS customer_count,
-     AVG(od.quantity * mi.price) AS average_order_value, AVG(r.rating) AS average_rating
-    FROM CohortData cd
-    JOIN Orders o ON cd.id = o.customer_id
-    JOIN OrderDetails od ON o.id = od.order_id
-    JOIN MenuItems mi ON od.item_id = mi.id
-    JOIN Ratings r ON o.id = r.order_id
-    GROUP BY cohort_month
-    ORDER BY cohort_month
 """)
 
 
