@@ -55,11 +55,10 @@ table_location_ratings = text("""
 
 #Mohammed
 most_profitable_items = text("""
-    SELECT mi.name AS item_name, SUM(od.quantity * od.price) AS total_revenue, AVG(r.rating) AS average_rating
+    SELECT mi.name AS item_name, SUM(od.quantity * od.price) AS total_revenue
     FROM MenuItems mi
     JOIN OrderDetails od ON mi.id = od.item_id
     JOIN Orders o ON od.order_id = o.id
-    JOIN Ratings r ON o.id = r.order_id
     GROUP BY mi.name
     ORDER BY total_revenue DESC
 """)
