@@ -1,4 +1,7 @@
 Faker==24.2.0
 Flask==3.0.3
+matplotlib==3.8.4
 pandas==2.2.2
+plotly==5.22.0
+python_bcrypt==0.3.2
 SQLAlchemy==2.0.27
