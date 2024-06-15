@@ -11,21 +11,6 @@ class Rating:
         self.rating = rating
         self.food_rating = food_rating
         self.service_rating = service_rating
-    # def __init__(self, *args):
-    #     if len(args) == 5:
-    #         self.id = args[0]
-    #         self.order_id = args[1]
-    #         self.rating = args[2]
-    #         self.food_rating = args[3]
-    #         self.service_rating = args[4]
-    #     else:
-    #         self.id = generate_key('R')
-    #         self.order_id = args[0]
-    #         self.rating = args[1]
-    #         self.food_rating = args[2]
-    #         self.service_rating = args[3]
-
-
 
     def insert(self):
         conn = engine.connect()

@@ -1,25 +1,15 @@
 from . import *
 
+
 class Table:
     def __init__(self, location, type, seats, code=None):
         if code is None:
             code = generate_key('T')
 
         self.code = code
-        self.location = location
-        self.type = type
+        self.location = location.strip()
+        self.type = type.strip()
         self.seats = seats
-    # def __init__(self, *args):
-    #     if len(args) == 4:
-    #         self.code = args[0]
-    #         self.location = args[1].strip()
-    #         self.type = args[2].strip()
-    #         self.seats = args[3]
-    #     else:
-    #         self.code = generate_key('T')
-    #         self.location = args[0].strip()
-    #         self.type = args[1].strip()
-    #         self.seats = args[2]
 
     @staticmethod
     def create_table():
@@ -32,7 +22,6 @@ class Table:
             return False
         finally:
             conn.close()
-
 
     @staticmethod
     def drop_table():

@@ -3,8 +3,8 @@ from . import *
 
 class PaymentMethod:
     def __init__(self, id, description):
-        self.id = id
-        self.description = description
+        self.id = id.strip()
+        self.description = description.strip()
 
     @staticmethod
     def create_table():

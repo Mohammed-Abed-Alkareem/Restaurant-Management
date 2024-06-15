@@ -19,6 +19,14 @@
             <div class="price-display">₪ <input type="number" name="price" value="{{ menuItem.price }}"
                                                 placeholder="Price" class="price-input"></div>
 
+
+            <label for="item_cuisine_type"> Cuisine Type</label>
+                        <select id="item_cuisine_type" name="item_cuisine_type" class="form-select" required>
+                            <option value="" disabled selected>Select cuisine</option>
+                            {% for cuisine in ['Turkish', 'Mediterranean', 'American', 'Italian', 'French', 'Greek', 'Seafood', 'Beverages'] %}
+                                <option value="{{ cuisine }}">{{ cuisine }}</option>
+                            {% endfor %}
+                        </select>
             <input type="file" name="image" accept=".png" class="image-input">
 
 

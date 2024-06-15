@@ -11,9 +11,9 @@ class Employee:
         if id is None:
             id = generate_key('E')
 
-        self.id = id
+        self.id = id.strip()
         self.name = name.strip()
-        self.phone_number = phone_number
+        self.phone_number = phone_number.strip()
         self.salary = salary
         self.position = position.strip()
         if hash_password:

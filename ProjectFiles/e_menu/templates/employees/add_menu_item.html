@@ -55,7 +55,15 @@
                         {% endfor %}
                     </select>
                 </div>
-
+                <div class="form-group">
+                <label for="item_cuisine_type"> Cuisine Type</label>
+                        <select id="item_cuisine_type" name="item_cuisine_type" class="form-select" required>
+                            <option value="" disabled selected>Select cuisine</option>
+                            {% for cuisine in ['Turkish', 'Mediterranean', 'American', 'Italian', 'French', 'Greek', 'Seafood', 'Beverages'] %}
+                                <option value="{{ cuisine }}">{{ cuisine }}</option>
+                            {% endfor %}
+                        </select>
+                </div>
                 <div class="form-group">
                     <label for="item_image">Item Image:</label>
                     <input type="file" id="item_image" name="item_image" accept="image/*" required>

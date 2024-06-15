@@ -7,11 +7,11 @@ class Customer:
             id = generate_key('C')
 
         self.id = id
-        self.name = name
+        self.name = name.strip()
         self.phone_number = phone_number
-        self.gender = gender
+        self.gender = gender.strip()
         self.birth_year = birth_year
-        self.favourite_cuisine = favourite_cuisine
+        self.favourite_cuisine = favourite_cuisine.strip()
 
 
     @staticmethod

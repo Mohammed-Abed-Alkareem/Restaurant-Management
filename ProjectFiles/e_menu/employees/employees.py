@@ -271,8 +271,13 @@ def add_menu_item():
         item_price = request.form.get('item_price')
         item_description = request.form.get('item_description')
         item_category = request.form.get('item_category')
+        item_cuisine_type = request.form.get('item_cuisine_type')
 
-        item = MenuItems(name=item_name, description=item_description, category=item_category, price=item_price)
+        item = MenuItems(name=item_name,
+                         description=item_description,
+                         category=item_category,
+                         price=item_price,
+                         cuisine_type=item_cuisine_type)
 
         uploaded_file = request.files['item_image']
         if uploaded_file:
@@ -305,13 +310,14 @@ def update_menu_item(item_id):
         item_name = request.form.get('name')
         item_price = request.form.get('price')
         item_description = request.form.get('description')
+        item_cuisine_type = request.form.get('item_cuisine_type')
 
         uploaded_file = request.files['image']
         if uploaded_file:
             file_path = os.path.join(current_app.root_path, "static", "img", "menuItems", f"{item_id}.png")
             uploaded_file.save(file_path)
 
-        if item.update(name=item_name, description=item_description, price=item_price):
+        if item.update(name=item_name, description=item_description, price=item_price, cuisine_type=item_cuisine_type):
             flash("Item updated successfully", "success")
             return redirect(url_for('employees.view_menu_items'))
 

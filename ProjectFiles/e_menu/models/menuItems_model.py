@@ -7,30 +7,13 @@ class MenuItems:
         if id is None:
             id = generate_key('M')
 
-        self.id = id
-        self.name = name
-        self.description = description
-        self.category = category
+        self.id = id.strip()
+        self.name = name.strip()
+        self.description = description.strip()
+        self.category = category.strip()
         self.price = price
         self.is_available = is_available
-        self.cuisine_type = cuisine_type
-
-    # def __init__(self, *args):
-    #
-    #     if len(args) == 6:
-    #         self.id = args[0].strip()
-    #         self.name = args[1].strip()
-    #         self.description = args[2].strip()
-    #         self.category = args[3].strip()
-    #         self.price = args[4]
-    #         self.is_available = args[5]
-    #     else:
-    #         self.id = generate_key('M')
-    #         self.name = args[0].strip()
-    #         self.description = args[1].strip()
-    #         self.category = args[2].strip()
-    #         self.price = args[3]
-    #         self.is_available = args[4]
+        self.cuisine_type = cuisine_type.strip()
 
     @staticmethod
     def create_table():
