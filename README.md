@@ -111,32 +111,24 @@ E-Menu is a web-based application designed to enhance the dining experience at r
 ```plaintext
 .
 └── ProjectFiles/
-    └── e_menu/
-        ├── __init__.py
-        ├── e_menu_app.py
-        ├── customers/
-        │   ├── __init__.py
-        │   ├── customers.py
-        │── models/
-        ├── employees/
-        │   ├── __init__.py
-        │   └── employees.py
-        ├── static/
-        │   ├── css/
-        │   ├── img/
-        │   └── js/
-        ├── templates/
-        │   ├── customers/
-        │   ├── employees/
-        │   ├── 404.html
-        │   ├── home_page.html
-        │   └── base.html
-        └── utils/
-            ├── csvFiles/
-            ├── queries/
-            ├── __init__.py
-            ├── db.py
-            └── read_initial_data.py
+  ├───e_menu
+     ├───customers  
+     ├───employees
+     ├───models
+     ├───static
+     │   ├───css
+     │   ├───img
+     │   │   ├───categories
+     │   │   ├───dashboard
+     │   │   └───menuItems
+     │   └───js
+     ├───templates
+     │   ├───customers
+     │   └───employees
+     └───utils
+         ├───csvFiles
+         ├───queries
+
 
 ```
 
